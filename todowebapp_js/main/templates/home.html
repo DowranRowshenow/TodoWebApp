@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Home - Todo Web App</title>
+        <meta charset="UTF-8">
+        <meta name="title" content="Welcome Todo Web App"/>
+        <meta name="description" content="Welcome Todo Web App"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'styles/home.css' %}"/>
+        <link rel="stylesheet" href="{% static 'styles/all.css' %}" crossorigin="anonymous">
+    </head>
+    <body>
+        <section>
+            <div class="nav" id="nav">
+                <div class="profile_bar">
+                    <a class="menu" id="menu" onclick="on_menu_click()">☰</a>
+                    <a>User: {{ request.user.username }} </a>
+                </div>
+                {% if current_page == "home" %}
+                <a id="a1" href="{% url 'home' %}" class="active">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    All Tasks
+                </a>
+                {% else %}
+                <a id="a1" href="{% url 'home' %}">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    All Tasks
+                </a>
+                {% endif %}
+                {% if current_page == "favorites" %}
+                <a id="a2" href="{% url 'favorites' %}" class="active">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    Favorites
+                </a>
+                {% else %}
+                <a id="a2" href="{% url 'favorites' %}">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    Favorites
+                </a>
+                {% endif %}
+                {% if current_page == "deleted" %}
+                <a id="a3" href="{% url 'deleted' %}" class="active">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Deleted
+                </a>
+                {% else %}
+                <a id="a3" href="{% url 'deleted' %}">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Deleted
+                </a>
+                {% endif %}
+                <a id="a4" href="{% url 'logout' %}">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Log Out
+                </a>
+            </div>
+            <div class="main" id="main_obj">
+                <div class="header">
+                    <div class="text">
+                        {% if current_page == "home" %}
+                        <h1 id="counter">All Tasks - {{ all_items_length }}/</h1>
+                        {% elif current_page == "favorites" %}
+                        <h1 id="counter">Favorite Tasks - {{ all_items_length }}/</h1>
+                        {% elif current_page == "deleted" %}
+                        <h1 id="counter">Deleted Tasks - {{ all_items_length }}/</h1>
+                        {% endif %}
+                        <h5 id="today">Day Month Weekday</h5>
+                    </div>
+                    <a id='print'></a>
+                    <button style="visibility:hidden; position:absolute;" class="clear" onclick="localStorage.clear();">Clear()</button>
+                    <i id="sort_i" onclick="on_item_click(sort_options);" class="fa-solid fa-arrow-down-wide-short"></i>
+                    <i id="filter_i" onclick="on_item_click(filter_options);" class="fa-solid fa-filter"></i>
+                    <input id="picker" default="today" type="date">
+                    <div class="search_bar">
+                    	<form method='post' id='post_form' class="post_form">
+                            {% csrf_token %}
+                            <input id="search_value" name='search_value' onchange='on_search();' placeholder="Search">
+                            <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
+                            <input id="load_value" name="load_value" style="visibility:hidden; position:absolute;" value="0">
+                            <input id="sort_by" name="sort_value" style="visibility:hidden; position:absolute;" value="id">
+                            <input id="filter_by" name="filter_value" style="visibility:hidden; position:absolute;" value="none">
+                        </form>
+                    </div>
+                </div>  
+                <div class="sort_options" id="sort_options">
+                    <a id="by_id" onclick="on_sort('id');">Id ⬇</a>
+                    <a id="alphabetical" onclick="on_sort('content');">Alphabetical ⬇</a>
+                    <a id="created_date" onclick="on_sort('target_date');">Target Date ⬇</a>
+                </div>
+                <div class="filter_options" id="filter_options">
+                	<a id="nones" onclick="on_filter('none');">None</a>
+                    <a id="favorites" onclick="on_filter('favorites');">Favorites</a>
+                    <a id="completed" onclick="on_filter('completed');">Completed</a>
+                </div>
+                <div class="add">
+                    <form id='add_form' method='post' onsubmit="target_date.value = picker.value;">
+                    {% csrf_token %}
+                        <input id="add" name='content' placeholder="+ Add tasks for today">
+                        <input id="target_date" name='target_date' style="visibility:hidden; position:absolute;">
+                        <button id='add_btn' type='submit'>+</button>
+                    </form>
+                </div>
+                <!-- TEMPLATE ITEM CREATION
+                {% for item in item_list %}
+                <div class='item' id="item_{{item.id}}" onclick="on_item_click(options_{{item.id}})">
+                    {% if item.is_complete %}
+                    <input type="checkbox" class="checkbox" onclick='return false' checked>
+                    {% else %}
+                    <input type="checkbox" class="checkbox" onclick='return false'>
+                    {% endif %}
+                    {% if item.is_favorite %}
+                    <span class="fa fa-star checked"></span>
+                    {% else %}
+                    <span class='fa fa-star'></span>
+                    {% endif %}
+                    <a>{{ item.content }}</a>
+                    <a class="created">{{ item.target_date|date:"d M" }}</a>
+                    <div class="options" id="options_{{item.id}}">
+                        {% if item.is_favorite %}
+                        <a class="favorite" href='favorite_item/{{item.id}}'>Mark as Unfavorite</a>
+                        {% else %}
+                        <a class="favorite" href='favorite_item/{{item.id}}'>Mark as Favorite</a>
+                        {% endif %}
+                        {% if item.is_complete %}
+                        <a class="complete" href='complete_item/{{item.id}}'>Mark as Incomplete</a>
+                        {% else %}
+                        <a class="complete" href='complete_item/{{item.id}}'>Mark as Complete</a>
+                        {% endif %}
+                        {% if item.is_deleted %}
+                        <a class="delete" href='delete_item/{{item.id}}'>Delete Permanently</a>
+                        {% else %}
+                        <a class="delete" href='delete_item/{{item.id}}'>Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                -->
+                <div id="container" class="container"></div>
+                <div class="load_more" onclick="on_load_more();">
+                    <a>Load More</a>
+                    <i class="fa">&#xf021;</i>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            const current_page = '{{current_page}}';
+            const item_list = [];
+            {% for item in item_list %}
+            var dict = {
+                id: "{{item.id}}",
+                content: "{{item.content}}",
+                owner: "{{item.owner}}",
+                is_favorite: "{{ item.is_favorite }}",
+                is_completed: "{{ item.is_completed }}",
+                is_deleted: "{{ item.is_deleted }}",
+                target_date: "{{ item.target_date|date:"d M" }}",
+            };
+            item_list.push(dict);
+            {% endfor %}
+        </script>
+        <script src="{% static 'scripts/jquery-2.1.0.min.js' %}"></script>
+        <script src="{% static 'scripts/home.js' %}"></script>
+    </body>
+</HTML>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="title" content="Welcome Todo Web App"/>
+        <meta name="description" content="Welcome Todo Web App"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+        <title>Todo Web App</title>
+        <link rel="stylesheet" href="{% static 'styles/base.css' %}"/>
+    </head>
+    <body>
+        <section class="main">
+            <div class="left">
+                <div>
+                    <h1>TO DO</h1>
+                </div>
+                <div>
+                    <h5>Welcome to Todo Web App!</h5>
+                    <h5>Create and access your todo list every where</h5>
+                    <h5>Use from web or download mobile application (Coming Soon!)</h5>
+                    <h5>Login or create new account to continue</h5>
+                </div>
+                <div class="spacer"></div>
+                <div class="zero">
+                    <div class="first"></div>
+                    <div class="second">
+                        <button onclick="location.href='{% url 'login' %}'" id="login_btn">LOGIN</button>
+                        <button onclick="location.href='{% url 'signup' %}'" id="signup_btn">SIGNUP</button>
+                    </div>
+                </div>
+                <div class="spacer"></div> 
+            </div>
+            <div class="right"></div>
+        </section>
+    </body>
+</html>
