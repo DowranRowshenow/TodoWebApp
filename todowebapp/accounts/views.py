@@ -1,18 +1,28 @@
 import uuid
+from django.views.generic import TemplateView, View
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as login_with, logout as logout_with
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from .models import Profile
 
-def base(request):
-    return render(request, 'base.html')
+class baseView(TemplateView):
+    template_name = 'base.html'
 
-def login(request):
-    if (request.method == "POST"):
+class successView(TemplateView):
+    template_name = 'success.html'
+
+class errorView(TemplateView):
+    template_name = 'error.html'
+
+class tokenView(TemplateView):
+    template_name = 'token.html'
+
+class loginView(TemplateView):
+    def post(self, request):
         email = request.POST['email']
         username = str(email).replace("@gmail.com", "")
         password = request.POST['password']
@@ -28,12 +38,12 @@ def login(request):
         if (user is None):
             messages.success(request, "Wrong password.")
             return redirect('/login')
-        login_with(request, user)
+        login(request, user)
         return redirect('/home')
-    return render(request, 'login.html')
+    template_name = 'login.html'
 
-def signup(request):
-    if (request.method == "POST"):
+class signupView(TemplateView):
+    def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         password_2 = request.POST.get('password_2')
@@ -41,9 +51,6 @@ def signup(request):
         try:
             if (User.objects.filter(email = email).first()):
                 messages.success(request, "Email is taken.")
-                return redirect('/signup')
-            if (User.objects.filter(username = username).first()):
-                messages.success(request, "Username is taken.")
                 return redirect('/signup')
             if (len(password) < 8):
                 messages.success(request, "Password is too short.")
@@ -59,54 +66,100 @@ def signup(request):
                 return redirect('/signup')
             user_obj = User.objects.create(username = username, email = email)
             user_obj.set_password(password)
-            user_obj.save()
             auth_token = str(uuid.uuid4())
             profile_obj = Profile(user = user_obj, auth_token = auth_token)
+            send_email_for_verification(email, auth_token)
+            user_obj.save()
             profile_obj.save()
-            send_mail_for(email, auth_token)
             return redirect('/token')
         except Exception as e:
             print(e)
-    return render(request, 'signup.html')
+            return redirect('/signup')
+    template_name = 'signup.html'
 
-def token(request):
-    return render(request, 'token.html')
-
-def send_mail_for(email, token):
+def send_email_for_verification(email, token):
     subject = "Your accounts need to be verified"
-    message = 'Hi click the link to verify your account http://127.0.0.1:8000/verify/' + token
+    message = 'Hi click the link to verify your account ' + '127.0.0.1:8000' + '/verify/' + token
     email_from = settings.EMAIL_HOST_USER
     receiver = [email]
     send_mail(subject, message, email_from, receiver)
 
-def verify(request, token):
-    try:
-        profile_obj = Profile.objects.filter(auth_token = token).first()
-        if (profile_obj):
-            if (profile_obj.is_verified):
-                messages.success(request, "Your account is already verified.")
-                return redirect('/login')
-            else:
-                profile_obj.is_verified = True
-                profile_obj.save()
-                messages.success(request, "Your account has been verified.")
-                return redirect('/login')
-        else:
+class verifyView(View):
+    def get(self, request, token):
+        try:
+            profile_obj = Profile.objects.filter(auth_token = token).first()
+            if (profile_obj):
+                if (profile_obj.is_verified):
+                    messages.success(request, "Your account is already verified.")
+                    return redirect('/login')
+                else:
+                    profile_obj.is_verified = True
+                    profile_obj.save()
+                    messages.success(request, "Your account has been verified.")
+                    return redirect('/login')
+        except Exception as e:
+            print(e)
+        return redirect('/error')
+
+class forgotPasswordView(View):
+    def get(self, request, email):
+        try:
+            user = User.objects.filter(email=email).first()
+            profile = Profile.objects.filter(user = user).first()
+            send_email_for_forgot_password(email, profile.auth_token)
+            messages.success(request, "Password reset email is sent. Please check your email.")
+            return redirect('/login')
+        except Exception as e:
+            print(e)
+        return redirect('/login')
+
+def send_email_for_forgot_password(email, token):
+    subject = "Password Reset Request"
+    message = 'Hello, please click to the link to creeate new password ' + '127.0.0.1:8000' + '/password_reset/' + token
+    email_from = settings.EMAIL_HOST_USER
+    receiver = [email]
+    send_mail(subject, message, email_from, receiver)
+
+class passwordResetView(View):
+    def get(self, request, token):
+        try:
+            profile_obj = Profile.objects.filter(auth_token = token).first()
+            if (profile_obj):
+                return render(request, 'password_reset.html')
+        except Exception as e:
+            print(e)
             return redirect('/error')
-    except Exception as e:
-        print(e)
+    def post(self, request, token):
+        password = request.POST.get('password')
+        password_2 = request.POST.get('password_2')
+        pageUrl = "/password_reset/" + token
+        try:
+            if (len(password) < 8):
+                messages.success(request, "Password is too short.")
+                return redirect(pageUrl)
+            if (len(password) > 50):
+                messages.success(request, "Password is too long.")
+                return redirect(pageUrl)
+            if (" " in password):
+                messages.success(request, "Password cannot contain spaces.")
+                return redirect(pageUrl)
+            if (not password == password_2):
+                messages.success(request, "Password entries are not the same.")
+                return redirect(pageUrl)
+            profile_obj = Profile.objects.filter(auth_token = token).first()
+            user_obj = profile_obj.user
+            user_obj.set_password(password)
+            new_token = str(uuid.uuid4())
+            profile_obj.auth_token = new_token
+            user_obj.save()
+            profile_obj.save()
+            messages.success(request, "New password created successfully.")
+            return redirect('/login')
+        except Exception as e:
+            print(e)
+            return redirect(pageUrl)
 
-def error(request):
-    return render(request, 'error.html')
-
-def success(request):
-    return render(request, 'success.html')
-
-def forgot_password(request, email):
-    user = Profile.objects.filter(email=email).first()
-    send_mail_for(email, user.auth_token)
-    return redirect('/login')
-
-def logout(request):
-    logout_with(request)
-    return redirect('/')
+class logoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('/')

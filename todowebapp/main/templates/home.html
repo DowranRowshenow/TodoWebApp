@@ -104,7 +104,8 @@
                 </div>
                 {% for item in item_list %}
                 <div class='item' id="item_{{item.id}}" onclick="on_item_click(options_{{item.id}})">     
-                    <a><!--{{ forloop.counter }}-->{{ item.pk }}.</a>
+                    <!--<a>{{ item.pk }}.</a> -->
+                    <!--<a>{{ forloop.counter }}.</a> -->
                     {% if item.is_completed %}
                     <input type="checkbox" class="checkbox" onclick='return false' checked>
                     {% else %}
