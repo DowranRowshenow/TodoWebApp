@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Home - Todo Web App</title>
+        <meta charset="UTF-8">
+        <meta name="title" content="Welcome Todo Web App"/>
+        <meta name="description" content="Welcome Todo Web App"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'styles/home.css' %}"/>
+        <link rel="stylesheet" href="{% static 'styles/all.css' %}" crossorigin="anonymous">
+    </head>
+    <body>
+        <section>
+            <div class="nav" id="nav">
+                <div class="profile_bar">
+                    <a class="menu" id="menu" onclick="on_menu_click()">☰</a>
+                    <a>User: {{ request.user.email }} </a>
+                </div>
+                {% if current_page == "home" %}
+                <a id="a1" href="{% url 'home' '1' %}" class="active">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    All Tasks
+                </a>
+                {% else %}
+                <a id="a1" href="{% url 'home' '1' %}">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    All Tasks
+                </a>
+                {% endif %}
+                {% if current_page == "favorites" %}
+                <a id="a2" href="{% url 'favorites' '1' %}" class="active">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    Favorites
+                </a>
+                {% else %}
+                <a id="a2" href="{% url 'favorites' '1' %}">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    Favorites
+                </a>
+                {% endif %}
+                {% if current_page == "deleted" %}
+                <a id="a3" href="{% url 'deleted' '1' %}" class="active">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Deleted
+                </a>
+                {% else %}
+                <a id="a3" href="{% url 'deleted' '1' %}">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    Deleted
+                </a>
+                {% endif %}
+                <a id="a4" href="{% url 'logout' %}">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    Log Out
+                </a>
+            </div>
+            <div class="main" id="main_obj">
+                <div class="header">
+                    <div class="text">
+                        {% if current_page == "home" %}
+                        <h1 id="counter">All Tasks - {{ all_items_length }}/{{ item_list|length }}</h1>
+                        {% elif current_page == "favorites" %}
+                        <h1 id="counter">Favorite Tasks - {{ all_items_length }}/{{ item_list|length }}</h1>
+                        {% elif current_page == "deleted" %}
+                        <h1 id="counter">Deleted Tasks - {{ all_items_length }}/{{ item_list|length }}</h1>
+                        {% endif %}
+                        <h5 id="today">Day Month Weekday</h5>
+                    </div>
+                    <a id='print'></a>
+                    <button style="visibility:hidden; position:absolute;" class="clear" onclick="localStorage.clear();">Clear()</button>
+                    <i id="sort_i" onclick="on_item_click(sort_options);" class="fa-solid fa-arrow-down-wide-short"></i>
+                    <i id="filter_i" onclick="on_item_click(filter_options);" class="fa-solid fa-filter"></i>
+                    <input id="picker" default="today" type="date">
+                    <div class="search_bar">
+                    	<form method='post' id='post_form' class="post_form">
+                            {% csrf_token %}
+                            <input id="search_value" name='search_value' onchange='on_search();' placeholder="Search">
+                            <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
+                            <input id="load_value" name="load_value" style="visibility:hidden; position:absolute;" value="0">
+                            <input id="sort_by" name="sort_value" style="visibility:hidden; position:absolute;" value="id">
+                            <input id="filter_by" name="filter_value" style="visibility:hidden; position:absolute;" value="none">
+                        </form>
+                    </div>
+                </div>  
+                <div class="sort_options" id="sort_options">
+                    <a id="by_id" onclick="on_sort('id');">Id ⬇</a>
+                    <a id="alphabetical" onclick="on_sort('content');">Alphabetical ⬇</a>
+                    <a id="created_date" onclick="on_sort('target_date');">Target Date ⬇</a>
+                </div>
+                <div class="filter_options" id="filter_options">
+                	<a id="nones" onclick="on_filter('none');">None</a>
+                    <a id="favorites" onclick="on_filter('favorites');">Favorites</a>
+                    <a id="completed" onclick="on_filter('completed');">Completed</a>
+                </div>
+                <div class="add">
+                    <form id='add_form' method='post' onsubmit="target_date.value = picker.value;">
+                    {% csrf_token %}
+                        <input id="add" name='content' placeholder="+ Add tasks for today">
+                        <input id="target_date" name='target_date' style="visibility:hidden; position:absolute;">
+                        <button id='add_btn' type='submit'>+</button>
+                    </form>
+                </div>
+                {% for item in item_list %}
+                <div class='item' id="item_{{item.id}}" onclick="on_item_click(options_{{item.id}})">     
+                    <!--<a>{{ item.pk }}.</a> -->
+                    <!--<a>{{ forloop.counter }}.</a> -->
+                    {% if item.is_completed %}
+                    <input type="checkbox" class="checkbox" onclick='return false' checked>
+                    {% else %}
+                    <input type="checkbox" class="checkbox" onclick='return false'>
+                    {% endif %}
+                    {% if item.is_favorite %}
+                    <span class="fa fa-star checked"></span>
+                    {% else %}
+                    <span class='fa fa-star'></span>
+                    {% endif %}
+                    <a>{{ item.content }}</a>
+                    <a class="created">{{ item.target_date|date:"d M" }}</a>
+                    <div class="options" id="options_{{item.id}}">
+                        {% if current_page == "deleted" %}
+                        <a class="favorite" href="{% url 'recover_item' item.id %}">Recover Task</a>
+                        <a class="delete" href="{% url 'delete_item' item.id %}">Delete Permanently</a>
+                        {% else %}
+                            {% if item.is_favorite %}
+                        <a class="favorite" href="{% url 'favorite_item' item.id %}">Mark as Unfavorite</a>
+                            {% else %}
+                        <a class="favorite" href="{% url 'favorite_item' item.id %}">Mark as Favorite</a>
+                            {% endif %}
+                            {% if item.is_completed %}
+                        <a class="complete" href="{% url 'complete_item' item.id %}">Mark as Incomplete</a>
+                            {% else %}
+                        <a class="complete" href="{% url 'complete_item' item.id %}">Mark as Complete</a>
+                            {% endif %}
+                            {% if item.is_deleted %}
+                        <a class="delete" href="{% url 'delete_item' item.id %}">Delete Permanently</a>
+                            {% else %}
+                        <a class="delete" href="{% url 'delete_item' item.id %}">Delete Task</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <div id="container" class="container"></div>
+                <div class="paginator" onclick="">
+                    <div class="iterator" onclick="location.href='{% url current_page "1" %}';">
+                        <i class="fa-solid fa-angle-left"></i>
+                        <h4>First</h4>
+                    </div>
+                    {% if item_list.has_previous %}
+                    <a href="{% url current_page item_list.previous_page_number %}">{{ item_list.previous_page_number }}</a>
+                    {% endif %}
+                    <a class="current">{{ item_list.number }}</a>
+                    {% if item_list.has_next %}
+                    <a href="{% url current_page item_list.next_page_number %}">{{ item_list.next_page_number }}</a>
+                    {% endif %}
+                    <div class="iterator" onclick="location.href='{% url current_page num_pages %}';">
+                        <h4>Last</h4>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="{% static 'scripts/jquery-2.1.0.min.js' %}"></script>
+        <script src="{% static 'scripts/home.js' %}"></script>
+    </body>
+</HTML>

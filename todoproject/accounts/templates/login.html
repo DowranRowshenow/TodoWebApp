@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <title>Todo Web App</title>
+        <meta charset="UTF-8">
+        <meta name="title" content="Login Todo Web App"/>
+        <meta name="description" content="Login Todo Web App"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'styles/login.css' %}"/>
+    </head>
+    <body>
+        <section>
+            <div class="box">
+                <div class="column_1">
+                    <button onclick="location.href='{% url 'base' %}'" id="back_btn">←</button>
+                    <h2>Log In</h2>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- {{ form.as_p }} -->
+                    <h3>Email address:</h3>
+                    <input  type="Email" name="username" id="email_input" placeholder="example@gmail.com">
+                    <h3>Password:</h3>
+                    <input type="Password" name="password" id="password_input" placeholder="********">
+                    <!-- <label><input type="checkbox" id="check_box"> Remember me</label> -->
+                    <!-- <a class="forgot" href='/forgot_password/' onclick="this.href+=email_input.value">Forgot password?</a> -->
+                    <a class="forgot" href='/reset_password'>Forgot password?</a> 
+                    <button type="submit" name="next" id="login_btn" value="{% url 'home' %}">Log in</button>
+                </form>
+                <label class="label_2">Do not have an account yet? 
+                    <a href="{% url 'signup' %}">Sign up</a>
+                </label>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+    </body>
+</html>
