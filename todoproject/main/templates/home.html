@@ -19,34 +19,34 @@
                     <a>User: {{ request.user.email }} </a>
                 </div>
                 {% if current_page == "home" %}
-                <a id="a1" href="{% url 'home' '1' %}" class="active">
+                <a id="a1" href="{% url 'home' %}" class="active">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     All Tasks
                 </a>
                 {% else %}
-                <a id="a1" href="{% url 'home' '1' %}">
+                <a id="a1" href="{% url 'home' %}">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     All Tasks
                 </a>
                 {% endif %}
                 {% if current_page == "favorites" %}
-                <a id="a2" href="{% url 'favorites' '1' %}" class="active">
+                <a id="a2" href="{% url 'favorites' %}" class="active">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     Favorites
                 </a>
                 {% else %}
-                <a id="a2" href="{% url 'favorites' '1' %}">
+                <a id="a2" href="{% url 'favorites' %}">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     Favorites
                 </a>
                 {% endif %}
                 {% if current_page == "deleted" %}
-                <a id="a3" href="{% url 'deleted' '1' %}" class="active">
+                <a id="a3" href="{% url 'deleted' %}" class="active">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     Deleted
                 </a>
                 {% else %}
-                <a id="a3" href="{% url 'deleted' '1' %}">
+                <a id="a3" href="{% url 'deleted' %}">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     Deleted
                 </a>
@@ -74,11 +74,9 @@
                     <i id="filter_i" onclick="on_item_click(filter_options);" class="fa-solid fa-filter"></i>
                     <input id="picker" default="today" type="date">
                     <div class="search_bar">
-                    	<form method='post' id='post_form' class="post_form">
-                            {% csrf_token %}
+                    	<form method='get' id='post_form' class="post_form">
                             <input id="search_value" name='search_value' onchange='on_search();' placeholder="Search">
                             <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
-                            <input id="load_value" name="load_value" style="visibility:hidden; position:absolute;" value="0">
                             <input id="sort_by" name="sort_value" style="visibility:hidden; position:absolute;" value="id">
                             <input id="filter_by" name="filter_value" style="visibility:hidden; position:absolute;" value="none">
                         </form>
@@ -143,25 +141,36 @@
                 </div>
                 {% endfor %}
                 <div id="container" class="container"></div>
-                <div class="paginator" onclick="">
-                    <div class="iterator" onclick="location.href='{% url current_page "1" %}';">
+                {% if is_paginated %}
+                <div class="paginator">
+                    <div class="iterator" onclick="on_first();">
                         <i class="fa-solid fa-angle-left"></i>
                         <h4>First</h4>
                     </div>
-                    {% if item_list.has_previous %}
-                    <a href="{% url current_page item_list.previous_page_number %}">{{ item_list.previous_page_number }}</a>
+                    {% if page_obj.has_previous %}
+                    <a href="/{{ current_page }}/?{{ query_string }}&amp;page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
                     {% endif %}
-                    <a class="current">{{ item_list.number }}</a>
-                    {% if item_list.has_next %}
-                    <a href="{% url current_page item_list.next_page_number %}">{{ item_list.next_page_number }}</a>
+                    <a class="current">{{ page_obj.number }}</a>
+                    {% if page_obj.has_next %}
+                    <a href="/{{ current_page }}/?{{ query_string }}&amp;page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
                     {% endif %}
-                    <div class="iterator" onclick="location.href='{% url current_page num_pages %}';">
+                    <div class="iterator" onclick="on_last();">
                         <h4>Last</h4>
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </section>
+        <script type="text/javascript">
+            {% if page_obj.has_next %}
+            const next_page = "page={{ page_obj.next_page_number }}";
+            {% endif %}
+            {% if page_obj.has_previous %}
+            const previous_page = "page={{ page_obj.previous_page_number }}";
+            {% endif %}
+            const last_page = "page={{ page_obj.paginator.num_pages }}";
+        </script>
         <script src="{% static 'scripts/jquery-2.1.0.min.js' %}"></script>
         <script src="{% static 'scripts/home.js' %}"></script>
     </body>

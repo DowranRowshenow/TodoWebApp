@@ -84,7 +84,7 @@ function ui_values()
             break;
         case "-favorites":
             favorites.style.backgroundColor = "var(--green)";
-            favorites.innerText = "Unfoavorites";
+            favorites.innerText = "Unfavorites";
             break;
         case "completed":
             completed.style.backgroundColor = "var(--green)";
@@ -116,17 +116,6 @@ function on_sort(val)
     filter_by.value = settings.filter_by;
     post_form.submit();
 }
-function on_load_more()
-{
-    settings.saved_items = current_items_list;
-    settings.is_loaded = true;
-    localStorage.setItem("settings", JSON.stringify(settings));
-    search_value.value = settings.search_value;
-    load_value.value = settings.saved_items.length;
-    sort_by.value = settings.sort_by;
-    filter_by.value = settings.sort_by;
-    post_form.submit();
-}
 function on_search()
 {
     settings.search_value = search_value.value;
@@ -135,6 +124,34 @@ function on_search()
     sort_by.value = settings.sort_by;
     filter_by.value = settings.filter_by;
     post_form.submit();
+}
+function on_first()
+{
+    if (window.location.href.includes("&"))
+    { location.href = window.location.href + '&page=1'; }
+    else
+    { location.href = '?page=1'; }
+}
+function on_last()
+{
+    if (window.location.href.includes("&"))
+    { location.href = window.location.href + '&' + last_page; }
+    else
+    { location.href = '?' + last_page; }
+}
+function on_next()
+{
+    if (window.location.href.includes("&"))
+    { location.href = window.location.href + '&' + next_page; }
+    else
+    { location.href = '?' + next_page; }
+}
+function on_previous()
+{
+    if (window.location.href.includes("&"))
+    { location.href = window.location.href + '&' + previous_page; }
+    else
+    { location.href = '?' + previous_page; }
 }
 
 // Static Functions

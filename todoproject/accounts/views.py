@@ -16,7 +16,7 @@ class baseView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('/home/page_1')
+            return redirect('/home')
         else:
             return render(request, 'base.html')
 
@@ -24,7 +24,7 @@ class baseView(View):
 class loginView(LoginView):
     template_name = 'login.html'
     fields = '__all__'
-    success_url = reverse_lazy('main:home')
+    success_url = reverse_lazy('main:home/?page=1')
 
 
 class signupView(CreateView):
