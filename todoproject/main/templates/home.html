@@ -16,8 +16,8 @@
             <div class="nav" id="nav">
                 <div class="profile_bar">
                     <a class="menu" id="menu" onclick="on_menu_click()">☰</a>
-                    <a>User: {{ request.user.email }} </a>
                 </div>
+                <a><i class="fa fa-user"></i>{{ request.user.email }}</a>
                 {% if current_page == "home" %}
                 <a id="a1" href="{% url 'home' %}" class="active">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
@@ -69,7 +69,6 @@
                         <h5 id="today">Day Month Weekday</h5>
                     </div>
                     <a id='print'></a>
-                    <button style="visibility:hidden; position:absolute;" class="clear" onclick="localStorage.clear();">Clear()</button>
                     <i id="sort_i" onclick="on_item_click(sort_options);" class="fa-solid fa-arrow-down-wide-short"></i>
                     <i id="filter_i" onclick="on_item_click(filter_options);" class="fa-solid fa-filter"></i>
                     <input id="picker" default="today" type="date">
@@ -143,18 +142,18 @@
                 <div id="container" class="container"></div>
                 {% if is_paginated %}
                 <div class="paginator">
-                    <div class="iterator" onclick="on_first();">
+                    <div class="iterator" onclick="location.href='{{ query_string }}1';">
                         <i class="fa-solid fa-angle-left"></i>
                         <h4>First</h4>
                     </div>
                     {% if page_obj.has_previous %}
-                    <a href="/{{ current_page }}/?{{ query_string }}&amp;page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                    <a href="{{ query_string }}{{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
                     {% endif %}
                     <a class="current">{{ page_obj.number }}</a>
                     {% if page_obj.has_next %}
-                    <a href="/{{ current_page }}/?{{ query_string }}&amp;page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                    <a href="{{ query_string }}{{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
                     {% endif %}
-                    <div class="iterator" onclick="on_last();">
+                    <div class="iterator" onclick="location.href='{{ query_string }}{{ page_obj.paginator.num_pages }}';">
                         <h4>Last</h4>
                         <i class="fa-solid fa-angle-right"></i>
                     </div>

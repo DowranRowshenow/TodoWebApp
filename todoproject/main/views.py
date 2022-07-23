@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from main.models import Todo
+from todoproject import settings
 
 
 class homeView(ListView):
@@ -35,7 +36,7 @@ class homeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'home'
-        context['query_string'] = self.request.GET.copy().urlencode()
+        context['query_string'] = '?search_value=' + str(self.request.GET.get("search_value", "")) + '&sort_value=' + str(self.request.GET.get("sort_value", "id")) + '&filter_value=' + str(self.request.GET.get("filter_value", "none")) + '&page='
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
 
@@ -71,7 +72,7 @@ class favoritesView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'favorites'
-        context['query_string'] = self.request.GET.copy().urlencode()
+        context['query_string'] = '?search_value=' + str(self.request.GET.get("search_value", "")) + '&sort_value=' + str(self.request.GET.get("sort_value", "id")) + '&filter_value=' + str(self.request.GET.get("filter_value", "none")) + '&page='
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
 
@@ -111,7 +112,7 @@ class deletedView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'deleted'
-        context['query_string'] = self.request.GET.copy().urlencode()
+        context['query_string'] = '?search_value=' + str(self.request.GET.get("search_value", "")) + '&sort_value=' + str(self.request.GET.get("sort_value", "id")) + '&filter_value=' + str(self.request.GET.get("filter_value", "none")) + '&page='
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
 

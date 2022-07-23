@@ -1,5 +1,4 @@
 // DEFAULT VARIABLES
-// const item_list = [];
 var is_active = false;
 var settings = {
     is_loaded: false,
@@ -125,34 +124,6 @@ function on_search()
     filter_by.value = settings.filter_by;
     post_form.submit();
 }
-function on_first()
-{
-    if (window.location.href.includes("&"))
-    { location.href = window.location.href + '&page=1'; }
-    else
-    { location.href = '?page=1'; }
-}
-function on_last()
-{
-    if (window.location.href.includes("&"))
-    { location.href = window.location.href + '&' + last_page; }
-    else
-    { location.href = '?' + last_page; }
-}
-function on_next()
-{
-    if (window.location.href.includes("&"))
-    { location.href = window.location.href + '&' + next_page; }
-    else
-    { location.href = '?' + next_page; }
-}
-function on_previous()
-{
-    if (window.location.href.includes("&"))
-    { location.href = window.location.href + '&' + previous_page; }
-    else
-    { location.href = '?' + previous_page; }
-}
 
 // Static Functions
 function getCurrentDate()
@@ -180,8 +151,8 @@ function on_menu_click()
     const nav_a = nav.getElementsByTagName("a");
     if (nav.style.width == "20vw")
     {
-        nav.style.width = "8.5vw";
-        main_obj.style.marginLeft = "8.5vw";
+        nav.style.width = "5.5vw";
+        main_obj.style.marginLeft = "5.5vw";
         for (i=0; i<nav_a.length; i++)
         { nav_a[i].style.fontSize = 0; }
     }
@@ -192,7 +163,7 @@ function on_menu_click()
         nav.style.width = "20vw";
         main_obj.style.marginLeft = "20vw";
     }
-    menu.style.fontSize = "3vw";
+    menu.style.fontSize = "2vw";
 }
 function on_menu_item_click(item_obj)
 {
