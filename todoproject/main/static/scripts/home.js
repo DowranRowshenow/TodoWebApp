@@ -1,128 +1,12 @@
 // DEFAULT VARIABLES
 var is_active = false;
-var settings = {
-    is_loaded: false,
-    is_searched: false,
-    search_value: "",
-    sort_by: "id",
-    filter_by: "none"
-};
 
 // MAIN 
 Main();
 function Main()
 {
-    settings_reader();
-    ui_values();
-}
-function settings_reader()
-{
-    _settings = JSON.parse(localStorage.getItem("settings")); 
-    if (_settings != null)
-    {
-        settings = _settings;
-    }
-    else
-    { 
-        localStorage.setItem("settings", JSON.stringify(settings));
-    }
-    if (settings.is_loaded)
-    {
-        settings.is_loaded = false;
-        settings.is_searched = true;
-        localStorage.setItem("settings", JSON.stringify(settings));
-    }
-    else if (settings.is_searched)
-    {
-        settings.saved_items = [];
-        settings.is_searched = false;
-        localStorage.setItem("settings", JSON.stringify(settings));
-    }
-    else
-    {
-        localStorage.clear();
-    }
-    _settings = null;
-}
-function ui_values()
-{
     picker.valueAsDate = new Date(getCurrentDate_1());    
     today.innerHTML = getCurrentDate();
-    search_value.value = settings.search_value;
-    switch (settings.sort_by)
-    {
-        case "id":
-            by_id.style.backgroundColor = "var(--green)";
-            break;
-        case "-id":
-            by_id.style.backgroundColor = "var(--green)";
-            by_id.innerText = "Id ⬆";
-            break;
-        case "content":
-            alphabetical.style.backgroundColor = "var(--green)";
-            break;
-        case "-content":
-            alphabetical.style.backgroundColor = "var(--green)";
-            alphabetical.innerText = "Alphabetical ⬆";
-            break;
-        case "target_date":
-            created_date.style.backgroundColor = "var(--green)";
-            break;
-        case "-target_date":
-            created_date.style.backgroundColor = "var(--green)";
-            created_date.innerText = "Target Date ⬆";
-            break;
-    }
-    switch (settings.filter_by)
-    {
-        case "none":
-            nones.style.backgroundColor = "var(--green)";
-            break;
-        case "favorites":
-            favorites.style.backgroundColor = "var(--green)";
-            break;
-        case "-favorites":
-            favorites.style.backgroundColor = "var(--green)";
-            favorites.innerText = "Unfavorites";
-            break;
-        case "completed":
-            completed.style.backgroundColor = "var(--green)";
-            break;
-        case "-completed":
-            completed.style.backgroundColor = "var(--green)";
-            completed.innerText = "Incompleted";
-            break;
-    }
-}
-
-// Functions
-function on_filter(val)
-{
-    if (settings.filter_by == val && val != "none")
-    { val = "-" + val; }
-	settings.filter_by = val;
-	localStorage.setItem("settings", JSON.stringify(settings));
-	filter_by.value = settings.filter_by;
-	post_form.submit();
-}
-function on_sort(val)
-{
-    if (settings.sort_by == val)
-    { val = "-" + val; }
-    settings.sort_by = val;
-    localStorage.setItem("settings", JSON.stringify(settings));
-    sort_by.value = settings.sort_by;
-    filter_by.value = settings.filter_by;
-    post_form.submit();
-}
-function on_search()
-{
-    settings.search_value = search_value.value;
-    settings.is_searched = true;
-    localStorage.setItem("settings", JSON.stringify(settings));
-    sort_by.value = settings.sort_by;
-    filter_by.value = settings.filter_by;
-    post_form.submit();
 }
 
 // Static Functions

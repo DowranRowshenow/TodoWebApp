@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -13,9 +14,9 @@
     <body>
         <section>
             <div class="box">
-                <h1>Oops </h1>
-                <h1>Something went wrong</h1>
-                <button id="login_btn" onclick="location.href='/'">Back</button>
+                <h1>{% trans "Oops" %}</h1>
+                <h1>{% trans "Something went wrong" %}</h1>
+                <button id="login_btn" onclick="location.href='/'">{% trans "Back" %}</button>
             </div>
         </section>
     </body>

@@ -239,7 +239,7 @@ section
 .main #picker
 {
     padding: 0;
-    width: 11vw;
+    width: 12vw;
     height: auto;
     font-size: 1.5vw;
     transition: var(--animations);
@@ -542,6 +542,10 @@ section
 {
     background-color: transparent;
     cursor: auto;
+}
+.green
+{
+    background-color: var(--green);
 }
 /* RESPONSIVE */
 @media screen and (max-width: 768px)

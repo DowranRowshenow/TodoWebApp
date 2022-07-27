@@ -1,4 +1,5 @@
 from django.views.generic import View, TemplateView, ListView
+from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
@@ -18,9 +19,9 @@ class homeView(ListView):
         return super(homeView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        searchBy = self.request.GET.get("search_value", "")
-        sortBy = self.request.GET.get("sort_value", "id")
-        filterBy = self.request.GET.get("filter_value", "none")
+        searchBy = self.request.GET.get("search_by", "")
+        sortBy = self.request.GET.get("sort_by", "id")
+        filterBy = self.request.GET.get("filter_by", "none")
         if filterBy == 'favorites':
             queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = True, is_deleted = False).order_by(sortBy)
         elif filterBy == '-favorites':
@@ -36,7 +37,10 @@ class homeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'home'
-        context['query_string'] = '?search_value=' + str(self.request.GET.get("search_value", "")) + '&sort_value=' + str(self.request.GET.get("sort_value", "id")) + '&filter_value=' + str(self.request.GET.get("filter_value", "none")) + '&page='
+        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&page='
+        context['search_by'] = self.request.GET.get("search_by", "")
+        context['sort_by'] = self.request.GET.get("sort_by", "id")
+        context['filter_by'] = self.request.GET.get("filter_by", "none")
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
 
@@ -58,9 +62,9 @@ class favoritesView(ListView):
         return super(favoritesView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        searchBy = self.request.GET.get("search_value", "")
-        sortBy = self.request.GET.get("sort_value", "id")
-        filterBy = self.request.GET.get("filter_value", "none")
+        searchBy = self.request.GET.get("search_by", "")
+        sortBy = self.request.GET.get("sort_by", "id")
+        filterBy = self.request.GET.get("filter_by", "none")
         if filterBy == 'completed':
             queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = True, is_completed = True, is_deleted = False).order_by(sortBy)
         elif filterBy == '-completed':
@@ -72,7 +76,10 @@ class favoritesView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'favorites'
-        context['query_string'] = '?search_value=' + str(self.request.GET.get("search_value", "")) + '&sort_value=' + str(self.request.GET.get("sort_value", "id")) + '&filter_value=' + str(self.request.GET.get("filter_value", "none")) + '&page='
+        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&page='
+        context['search_by'] = self.request.GET.get("search_by", "")
+        context['sort_by'] = self.request.GET.get("sort_by", "id")
+        context['filter_by'] = self.request.GET.get("filter_by", "none")
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
 
@@ -94,9 +101,9 @@ class deletedView(ListView):
         return super(deletedView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        searchBy = self.request.GET.get("search_value", "")
-        sortBy = self.request.GET.get("sort_value", "id")
-        filterBy = self.request.GET.get("filter_value", "none")
+        searchBy = self.request.GET.get("search_by", "")
+        sortBy = self.request.GET.get("sort_by", "id")
+        filterBy = self.request.GET.get("filter_by", "none")
         if filterBy == 'favorites':
             queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = True, is_deleted = True).order_by(sortBy)
         elif filterBy == '-favorites':
@@ -112,7 +119,10 @@ class deletedView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'deleted'
-        context['query_string'] = '?search_value=' + str(self.request.GET.get("search_value", "")) + '&sort_value=' + str(self.request.GET.get("sort_value", "id")) + '&filter_value=' + str(self.request.GET.get("filter_value", "none")) + '&page='
+        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&page='
+        context['search_by'] = self.request.GET.get("search_by", "")
+        context['sort_by'] = self.request.GET.get("sort_by", "id")
+        context['filter_by'] = self.request.GET.get("filter_by", "none")
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
 
