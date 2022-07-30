@@ -69,7 +69,7 @@
                         {% endif %}
                         <h5 id="today">{% trans "Day Month Weekday" %}</h5>
                     </div>
-                    <a id='print'></a>
+                    <i id="lang_i" onclick="on_item_click(lang_options);" class="fa-solid fa-language"></i>
                     <i id="sort_i" onclick="on_item_click(sort_options);" class="fa-solid fa-arrow-down-wide-short"></i>
                     <i id="filter_i" onclick="on_item_click(filter_options);" class="fa-solid fa-filter"></i>
                     <input id="picker" default="today" type="date">
@@ -79,9 +79,32 @@
                             <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
                             <input id="sort_by" name="sort_by" style="visibility:hidden; position:absolute;" value="{{ sort_by }}">
                             <input id="filter_by" name="filter_by" style="visibility:hidden; position:absolute;" value="{{ filter_by }}">
+                            <input id="lang_by" name="lang_by" style="visibility:hidden; position:absolute;" value="{{ lang_by }}">
                         </form>
                     </div>
-                </div>  
+                </div>
+                <div class="lang_options" id="lang_options">
+                    {% if lang_by == "en" %}
+                    <a id="lang_en" class="green" onclick="lang_by.value = 'en';post_form.submit();">English</a>
+                    {% else %}
+                    <a id="lang_en" onclick="lang_by.value = 'en';post_form.submit();">English</a>
+                    {% endif %}
+                    {% if lang_by == "ru" %}
+                    <a id="lang_ru" class="green" onclick="lang_by.value = 'ru';post_form.submit();">Russian</a>
+                    {% else %}
+                    <a id="lang_ru" onclick="lang_by.value = 'ru';post_form.submit();">Russian</a>
+                    {% endif %}
+                    {% if lang_by == "tr" %}
+                    <a id="lang_tr" class="green" onclick="lang_by.value = 'tr';post_form.submit();">Turkish</a>
+                    {% else %}
+                    <a id="lang_tr" onclick="lang_by.value = 'tr';post_form.submit();">Turkish</a>
+                    {% endif %}
+                    {% if lang_by == "tk" %}
+                    <a id="lang_tm" class="green" onclick="lang_by.value = 'tk';post_form.submit();">Turkmen</a>
+                    {% else %}
+                    <a id="lang_tm" onclick="lang_by.value = 'tk';post_form.submit();">Turkmen</a>
+                    {% endif %}
+                </div>
                 <div class="sort_options" id="sort_options">
                     {% if sort_by == "id" %}
                     <a id="by_id" class="green" onclick="sort_by.value = '-id';post_form.submit();">{% trans "Id" %} ⬇</a>

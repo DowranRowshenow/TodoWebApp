@@ -4,9 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+from django.utils import translation
 from main.models import Todo
 from todoproject import settings
-
 
 class homeView(ListView):
     model = Todo
@@ -37,12 +37,18 @@ class homeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'home'
-        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&page='
+        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&lang_by=' + str(self.request.GET.get("lang_by", "en")) + '&page='
         context['search_by'] = self.request.GET.get("search_by", "")
         context['sort_by'] = self.request.GET.get("sort_by", "id")
         context['filter_by'] = self.request.GET.get("filter_by", "none")
+        context['lang_by'] = self.request.GET.get("lang_by", "en")
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
+
+    def get(self, request, *args, **kwargs):
+        lang = self.request.GET.get("lang_by", "en")
+        translation.activate(lang)
+        return super().get(request, *args, **kwargs)
 
     def post(self, request):
         content = request.POST['content']
@@ -76,12 +82,18 @@ class favoritesView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'favorites'
-        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&page='
+        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&lang_by=' + str(self.request.GET.get("lang_by", "en")) + '&page='
         context['search_by'] = self.request.GET.get("search_by", "")
         context['sort_by'] = self.request.GET.get("sort_by", "id")
         context['filter_by'] = self.request.GET.get("filter_by", "none")
+        context['lang_by'] = self.request.GET.get("lang_by", "en")
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
+
+    def get(self, request, *args, **kwargs):
+        lang = self.request.GET.get("lang_by", "en")
+        translation.activate(lang)
+        return super().get(request, *args, **kwargs)
 
     def post(self, request):
         content = request.POST['content']
@@ -119,12 +131,19 @@ class deletedView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['current_page'] = 'deleted'
-        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&page='
+        context['query_string'] = '?search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&lang_by=' + str(self.request.GET.get("lang_by", "en")) + '&page='
         context['search_by'] = self.request.GET.get("search_by", "")
         context['sort_by'] = self.request.GET.get("sort_by", "id")
         context['filter_by'] = self.request.GET.get("filter_by", "none")
+        context['lang_by'] = self.request.GET.get("lang_by", "en")
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
+
+    def get(self, request, *args, **kwargs):
+        lang = self.request.GET.get("lang_by", "en")
+        translation.activate(lang)
+        translation.LANGUAGE_SESSION_KEY = lang
+        return super().get(request, *args, **kwargs)
 
     def post(self, request):
         content = request.POST['content']

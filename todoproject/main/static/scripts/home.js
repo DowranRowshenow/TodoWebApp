@@ -82,6 +82,8 @@ $(document).on("click", function()
     if (is_active)
     {
         is_active = false;
+        lang_options.style.visibility = "hidden";
+        lang_options.style.opacity = 0;
         sort_options.style.visibility = "hidden";
         sort_options.style.opacity = 0;
         filter_options.style.visibility = "hidden";

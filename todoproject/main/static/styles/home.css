@@ -167,7 +167,7 @@ section
     padding: 0vw;
     padding-left: 1vw;
 }
-.main .sort_options, .filter_options
+.main .sort_options, .filter_options, .lang_options
 {
     visibility: hidden;
     opacity: 0;
@@ -189,12 +189,21 @@ section
     background-color: white;
     box-shadow: var(--shadow);
 }
+.main .lang_options
+{
+    left: 40.5vw;
+}
+.main .sort_options
+{
+    margin-top: -23.3vw;
+}
 .main .filter_options
 {
-    margin-top: -13.3vw;
     left: 51vw;
+    margin-top: -33.3vw;
+    margin-bottom: 27.3vw;
 }
-.main .sort_options a, .filter_options a
+.main .sort_options a, .filter_options a, .lang_options a
 {
     border-bottom: 0.1vw solid rgb(210, 210, 210);
     padding: 1vw;
@@ -203,22 +212,22 @@ section
     margin: 0;
     transition: var(--animations);
 }
-.main .sort_options a:hover, .filter_options a:hover
+.main .sort_options a:hover, .filter_options a:hover, .lang_options a:hover
 {
     cursor: pointer;
     background-color: whitesmoke;
 }
-.main .sort_options #created_date, #completed
+.main .sort_options #created_date, #completed, #lang_tm
 {
     border-bottom-left-radius: var(--options_radius);
     border-bottom-right-radius: var(--options_radius);
 }
-.main .sort_options #by_id, #nones
+.main .sort_options #by_id, #nones, #lang_en
 {
     border-top-left-radius: var(--options_radius);
     border-top-right-radius: var(--options_radius);
 }
-.main #sort_i, #filter_i
+.main #sort_i, #filter_i, #lang_i
 {
     margin-left: 2vw;
     color: #333;
@@ -230,7 +239,7 @@ section
     border: 0.2vw solid #333;
     transition: var(--animations);
 }
-.main #sort_i:hover, #filter_i:hover
+.main #sort_i:hover, #filter_i:hover, #lang_i:hover
 {
     background-color: whitesmoke;
     cursor: pointer;
@@ -671,7 +680,7 @@ section
     {
         font-size: 4vw;
     }
-    .main #sort_i, #filter_i
+    .main #sort_i, #filter_i, #lang_i
     {
         font-size: 5.5vw;
     }
