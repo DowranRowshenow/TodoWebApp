@@ -1,21 +1,28 @@
+/* VARIABLES */
 :root
 {
-    --space: 5.5vw;
-    --text: rgb(70, 70, 70);
-    --blur: rgb(71, 159, 235);
-    --animations: 0.3s;
-    --animations: 0.1s;
+    /* COLORS */
+    --bg: white;
+    --main: transparent;
+    --nav: whitesmoke;
     --primary: rgb(50, 50, 50);
     --secondary: rgb(253, 40, 40);
-    --options_radius: 0.5vw;
+    --text: rgb(70, 70, 70);
+    --blur: rgb(71, 159, 235);
+    --green: rgba(0, 255, 106, 0.32);
+    /* OTHERS */
     --shadow: 0 0 0.1vw 0.1vw rgba(0, 0, 0, 0.2);
     --scaling: 1.05;
     --scaling_2: 1.01;
-    --green: rgba(0, 255, 106, 0.32);
+    --animations: 0.3s;
+    --animations: 0.1s;
+    --space: 5.5vw;
+    --options_radius: 0.5vw;
     --margin: 1vw;
     --padding_2: 2vw; 
     --padding: 0.2vw;
 }
+/* DEFAULTS */
 ::-webkit-scrollbar 
 {
     width: 0;
@@ -23,11 +30,13 @@
     background: transparent;
 }
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+input::-webkit-inner-spin-button 
+{
   -webkit-appearance: none;
   margin: 0;
 }
-input[type=number] {
+input[type=number] 
+{
   -moz-appearance: textfield;
 }
 ::selection
@@ -39,8 +48,10 @@ input[type=number] {
 {
     outline: none;
 }
+/* BODY */
 html, body
 {
+    background-color: var(--bg);
     height: 100%;
     width: 100%;
 }
@@ -61,7 +72,7 @@ section
 .nav
 {
     z-index: 3;
-    background-color: whitesmoke;
+    background-color: var(--nav);
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -124,7 +135,7 @@ section
     padding-right: 2vw;
     width: 100%;
     transition: var(--animations);
-    background-color: white;
+    background-color: var(--main);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -555,181 +566,4 @@ section
 .green
 {
     background-color: var(--green);
-}
-/* RESPONSIVE */
-@media screen and (max-width: 768px)
-{
-    html, body
-    {
-        height: 100%;
-        overflow-x: hidden;
-    }
-    section
-    {
-        display: flex;
-        flex-direction: column;
-    }
-    .nav
-    {
-        order: 2;
-        position: -webkit-sticky;
-        position: sticky;
-        bottom: 0;
-        justify-content: center;
-        flex-direction: row;
-        height: 5%;
-        width: 100%;
-        border-top: 0.1vw solid rgb(210, 210, 210);
-        border-top-left-radius: 1vw;
-        border-top-right-radius: 1vw;
-    }
-    .nav .menu
-    {
-        visibility: hidden;
-        position: absolute;
-    }
-    .nav a
-    {
-        justify-content: center;
-        font-size: 0vw;
-        width: 18%;
-    }
-    .nav a i
-    {
-        font-size: 5vw;
-    }
-    .main
-    {
-        margin: 0vw 5vw 0vw 5vw;
-        width: auto;
-        height: 95%;
-    }
-    .item
-    {
-        height: 10vw;
-    }
-    .item a
-    {
-        font-size: 5vw;
-    }
-    .item .checkbox
-    {
-        width: 5vw;
-        height: 5vw;
-    }
-    .item span
-    {
-        font-size: 5vw;
-    }
-    .item .options a
-    {
-        font-size: 3vw;
-    }
-    .main .add
-    {
-        top: 32vw;
-        height: 10vw;
-        margin-top: -5vw;
-    }
-    #add
-    {
-        padding: 0;
-        font-size: 4vw;
-    }
-    #add::placeholder
-    {
-        font-size: 4vw;
-    }
-    .main #add_form
-    {
-        height: 90%;
-    }
-    .main #add_btn
-    {
-        font-size: 4vw;
-        width: 6%;
-        height: 60%;
-    }
-    .main .header
-    {
-        top: 5vw;
-        margin-top: 5vw;
-        border-bottom: 0.2vw solid rgb(104, 103, 103);
-        align-items: center;
-        height: 10vw;
-    }
-    .main h1
-    {
-        font-size: 5vw;
-    }
-    .main h5
-    {
-        font-size: 3vw;
-    }
-    .main .sort_options, .filter_options
-    {
-        left: 50vw;
-        top: 17vw;
-    }
-    .main .filter_options
-    {
-        margin-top: -23.3vw;
-        left: 60vw;
-    }
-    .main .sort_options a, .filter_options a
-    {
-        font-size: 4vw;
-    }
-    .main #sort_i, #filter_i, #lang_i
-    {
-        font-size: 5.5vw;
-    }
-    .main #picker
-    {
-        width: 23vw;
-        height: 7vw;
-        font-size: 3vw;
-    }
-    .main .search_bar
-    {
-        top: 15vw;
-        position: absolute;
-        width: 100%;
-    }
-    .main .post_form
-    {
-        width: 100%;
-    }
-    .main input
-    {
-        width: 100%;
-        height: 10vw;
-        font-size: 5vw;
-        padding-left: 8vw;
-    }
-    .main #search_i
-    {
-        left: 5vw;
-        font-size: 4vw;
-        width: 4vw;
-    }
-    .paginator
-    {
-        bottom: 2vw;
-        width: 95%;
-        height: 7vw;
-        font-size: 4vw;
-    }
-    .paginator a
-    {
-        padding: 0 1vw 0 1vw;
-    }
-    .paginator .iterator h4
-    {
-        font-size: 4vw;
-    }
-    #container
-    {
-        height: 17vw;
-    }
 }

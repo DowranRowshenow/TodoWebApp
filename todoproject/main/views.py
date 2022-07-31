@@ -1,14 +1,13 @@
-from django.views.generic import View, TemplateView, ListView
+from django.views.generic import View, ListView
 from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import render, redirect
-from django.core.paginator import Paginator
+from django.shortcuts import redirect
 from django.utils import translation
 from main.models import Todo
-from todoproject import settings
 
-class homeView(ListView):
+
+class HomeView(ListView):
     model = Todo
     template_name = 'home.html'
     context_object_name = 'item_list'
@@ -16,7 +15,7 @@ class homeView(ListView):
 
     @method_decorator(login_required(login_url='/login/'))
     def dispatch(self, request, *args, **kwargs):        
-        return super(homeView, self).dispatch(request, *args, **kwargs)
+        return super(HomeView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         searchBy = self.request.GET.get("search_by", "")
@@ -53,11 +52,12 @@ class homeView(ListView):
     def post(self, request):
         content = request.POST['content']
         target_date = request.POST['target_date']
-        Todo.objects.create(content = content, owner = request.user, target_date = target_date)
+        if content and target_date:
+            Todo.objects.create(content = content, owner = request.user, target_date = target_date)
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-class favoritesView(ListView):
+class FavoritesView(ListView):
     model = Todo
     template_name = 'home.html'
     context_object_name = 'item_list'
@@ -65,7 +65,7 @@ class favoritesView(ListView):
 
     @method_decorator(login_required(login_url='/login/'))
     def dispatch(self, request, *args, **kwargs):        
-        return super(favoritesView, self).dispatch(request, *args, **kwargs)
+        return super(FavoritesView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         searchBy = self.request.GET.get("search_by", "")
@@ -98,11 +98,12 @@ class favoritesView(ListView):
     def post(self, request):
         content = request.POST['content']
         target_date = request.POST['target_date']
-        Todo.objects.create(content = content, owner = request.user, target_date = target_date)
+        if content and target_date:
+            Todo.objects.create(content = content, owner = request.user, target_date = target_date)
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-class deletedView(ListView):
+class DeletedView(ListView):
     model = Todo
     template_name = 'home.html'
     context_object_name = 'item_list'
@@ -110,7 +111,7 @@ class deletedView(ListView):
 
     @method_decorator(login_required(login_url='/login/'))
     def dispatch(self, request, *args, **kwargs):        
-        return super(deletedView, self).dispatch(request, *args, **kwargs)
+        return super(DeletedView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
         searchBy = self.request.GET.get("search_by", "")
@@ -148,11 +149,12 @@ class deletedView(ListView):
     def post(self, request):
         content = request.POST['content']
         target_date = request.POST['target_date']
-        Todo.objects.create(content = content, owner = request.user, target_date = target_date)
+        if content and target_date:
+            Todo.objects.create(content = content, owner = request.user, target_date = target_date)
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-class favoriteItemView(View):
+class FavoriteItemView(View):
 
     def get(self, request, item_id):
         item = Todo.objects.filter(id = item_id).first()
@@ -164,7 +166,7 @@ class favoriteItemView(View):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-class completeItemView(View):
+class CompleteItemView(View):
 
     def get(self, request, item_id):
         item = Todo.objects.filter(id = item_id).first()
@@ -173,7 +175,7 @@ class completeItemView(View):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-class recoverItemView(View):
+class RecoverItemView(View):
 
     def get(self, request, item_id):
         item = Todo.objects.filter(id = item_id).first()
@@ -182,7 +184,7 @@ class recoverItemView(View):
         return redirect(request.META.get('HTTP_REFERER'))
 
 
-class deleteItemView(View):
+class DeleteItemView(View):
 
     def get(self, request, item_id):
         item = Todo.objects.filter(id = item_id).first()

@@ -6,13 +6,13 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
-from accounts.models import User
-from accounts.forms import SingUpForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
+from accounts.models import User
+from accounts.forms import SingUpForm
 
 
-class baseView(View):
+class BaseView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
@@ -21,13 +21,13 @@ class baseView(View):
             return render(request, 'base.html')
 
 
-class loginView(LoginView):
+class CustomLoginView(LoginView):
     template_name = 'login.html'
     fields = '__all__'
     success_url = reverse_lazy('main:home/?page=1')
 
 
-class signupView(CreateView):
+class CustomSignupView(CreateView):
     form_class = SingUpForm
     template_name = 'signup.html'
     success_url = '/token'
@@ -46,7 +46,7 @@ def send_verification_mail(user):
     send_mail(subject, message, sender, receiver)
 
 
-class verifyView(View):
+class VerifyView(View):
 
     def get(self, request, token):
         try:
@@ -65,7 +65,7 @@ class verifyView(View):
         return redirect('/error')
 
 
-class logoutView(View):
+class LogoutView(View):
 
     def get(self, request):
         logout(request)

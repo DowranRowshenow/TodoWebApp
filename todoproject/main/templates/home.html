@@ -20,39 +20,39 @@
                 </div>
                 <a><i class="fa fa-user"></i>{{ request.user.email }}</a>
                 {% if current_page == "home" %}
-                <a id="a1" href="{% url 'home' %}" class="active">
+                <a id="a1" onclick="location.href='{% url 'home' %}';" class="active">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     {% trans "All Tasks" %}
                 </a>
                 {% else %}
-                <a id="a1" href="{% url 'home' %}">
+                <a id="a1" onclick="location.href='{% url 'home' %}';">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     {% trans "All Tasks" %}
                 </a>
                 {% endif %}
                 {% if current_page == "favorites" %}
-                <a id="a2" href="{% url 'favorites' %}" class="active">
+                <a id="a2" onclick="location.href='{% url 'favorites' %}';" class="active">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     {% trans "Favorites" %}
                 </a>
                 {% else %}
-                <a id="a2" href="{% url 'favorites' %}">
+                <a id="a2" onclick="location.href='{% url 'favorites' %}';">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     {% trans "Favorites" %}
                 </a>
                 {% endif %}
                 {% if current_page == "deleted" %}
-                <a id="a3" href="{% url 'deleted' %}" class="active">
+                <a id="a3" onclick="location.href='{% url 'deleted' %}';" class="active">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     {% trans "Delete" %}
                 </a>
                 {% else %}
-                <a id="a3" href="{% url 'deleted' %}">
+                <a id="a3" onclick="location.href='{% url 'deleted' %}';">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     {% trans "Deleted" %}
                 </a>
                 {% endif %}
-                <a id="a4" href="{% url 'logout' %}">
+                <a id="a4" onclick="location.href='{% url 'logout' %}';">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                     {% trans "Log Out" %}
                 </a>
@@ -175,23 +175,23 @@
                     <a class="created">{{ item.target_date|date:"d M" }}</a>
                     <div class="options" id="options_{{item.id}}">
                         {% if current_page == "deleted" %}
-                        <a class="favorite" href="{% url 'recover_item' item.id %}">{% trans "Recover Task" %}</a>
-                        <a class="delete" href="{% url 'delete_item' item.id %}">{% trans "Delete Permanently" %}</a>
+                        <a class="favorite" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Recover Task" %}</a>
+                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
                         {% else %}
                             {% if item.is_favorite %}
-                        <a class="favorite" href="{% url 'favorite_item' item.id %}">{% trans "Mark as Unfavorite" %}</a>
+                        <a class="favorite" onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Unfavorite" %}</a>
                             {% else %}
-                        <a class="favorite" href="{% url 'favorite_item' item.id %}">{% trans "Mark as Favorite" %}</a>
+                        <a class="favorite" onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Favorite" %}</a>
                             {% endif %}
                             {% if item.is_completed %}
-                        <a class="complete" href="{% url 'complete_item' item.id %}">{% trans "Mark as Incomplete" %}</a>
+                        <a class="complete" onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Incomplete" %}</a>
                             {% else %}
-                        <a class="complete" href="{% url 'complete_item' item.id %}">{% trans "Mark as Complete" %}</a>
+                        <a class="complete" onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Complete" %}</a>
                             {% endif %}
                             {% if item.is_deleted %}
-                        <a class="delete" href="{% url 'delete_item' item.id %}">{% trans "Delete Permanently" %}</a>
+                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
                             {% else %}
-                        <a class="delete" href="{% url 'delete_item' item.id %}">{% trans "Delete Task" %}</a>
+                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Task" %}</a>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -205,11 +205,11 @@
                         <h4>{% trans "First" %}</h4>
                     </div>
                     {% if page_obj.has_previous %}
-                    <a href="{{ query_string }}{{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                    <a onclick="location.href='{{ query_string }}{{ page_obj.previous_page_number }}'">{{ page_obj.previous_page_number }}</a>
                     {% endif %}
                     <a class="current">{{ page_obj.number }}</a>
                     {% if page_obj.has_next %}
-                    <a href="{{ query_string }}{{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                    <a onclick="location.href='{{ query_string }}{{ page_obj.next_page_number }}'">{{ page_obj.next_page_number }}</a>
                     {% endif %}
                     <div class="iterator" onclick="location.href='{{ query_string }}{{ page_obj.paginator.num_pages }}';">
                         <h4>{% trans "Last" %}</h4>
