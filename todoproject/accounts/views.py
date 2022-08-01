@@ -1,7 +1,7 @@
 from django.views.generic import View
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.conf import settings
@@ -14,10 +14,8 @@ from accounts.forms import SingUpForm
 class BaseView(View):
 
     def get(self, request):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(reverse('todos'))
-        else:
-            return render(request, 'base.html')
+        if request.user.is_authenticated: return HttpResponseRedirect(reverse('todos'))
+        else: return render(request, 'base.html')
 
 
 class CustomLoginView(LoginView):
@@ -32,15 +30,14 @@ class CustomSignupView(CreateView):
     success_url = reverse_lazy('token')
 
     def get_success_url(self):
-        host = self.request.build_absolute_uri(reverse('verify', args=(self.object.auth_token, )))
-        send_verification_mail(self.object, host)
-
+        link = self.request.build_absolute_uri(reverse('verify', args=(self.object.auth_token, )))
+        send_verification_mail(self.object, link)
         return super().get_success_url()
 
 
-def send_verification_mail(user, host):
+def send_verification_mail(user, link):
     subject = 'Your accounts need to be verified'
-    message = 'Hi click the link to verify your account ' + host
+    message = 'Hi click the link to verify your account ' + link
     sender = settings.EMAIL_HOST_USER
     receiver = [user.email]
     send_mail(subject, message, sender, receiver)
@@ -52,16 +49,11 @@ class VerifyView(View):
         try:
             user = User.objects.filter(auth_token = token).first()
             if user:
-                if user.is_verified:
-                    messages.success(request, "Your account is already verified.")
-                    return HttpResponseRedirect(reverse('login'))
-                else:
-                    user.is_active = True
-                    user.save()
-                    messages.success(request, "Your account has been verified.")
-                    return HttpResponseRedirect(reverse('login'))
-        except Exception as e:
-            print(e)
+                user.is_active = True
+                user.save()
+                messages.success(request, "Your account is verified.")
+                return HttpResponseRedirect(reverse('login'))
+        except Exception as e: print(e)
         return HttpResponseRedirect(reverse('error'))
 
 

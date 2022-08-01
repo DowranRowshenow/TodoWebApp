@@ -36,7 +36,7 @@
                     {% trans "Favorites" %}
                 </a>
                 {% else %}
-                <a id="a2" onclick="is_favorite.checked = 'true';post_form.submit();">
+                <a id="a2" onclick="page_by.value = 'favorites';post_form.submit();">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     {% trans "Favorites" %}
                 </a>
@@ -47,7 +47,7 @@
                     {% trans "Delete" %}
                 </a>
                 {% else %}
-                <a id="a3" onclick="is_deleted.checked = 'true';post_form.submit();">
+                <a id="a3" onclick="page_by.value = 'deleted';post_form.submit();">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     {% trans "Deleted" %}
                 </a>
@@ -75,13 +75,12 @@
                     <input id="picker" default="today" type="date">
                     <div class="search_bar">
                     	<form method='get' id='post_form' class="post_form">
+                            <input id="page_by" name="page_by" style="visibility:hidden; position:absolute;" value="{{ current_page }}">
                             <input id="search_value" name='search_by' onchange='post_form.submit();' placeholder="{% trans "$Search" %}" value="{{ search_by }}">
                             <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
                             <input id="sort_by" name="sort_by" style="visibility:hidden; position:absolute;" value="{{ sort_by }}">
                             <input id="filter_by" name="filter_by" style="visibility:hidden; position:absolute;" value="{{ filter_by }}">
                             <input id="lang_by" name="lang_by" style="visibility:hidden; position:absolute;" value="{{ lang_by }}">
-                            <input type="checkbox" id="is_favorite" name="is_favorite" style="visibility:hidden; position:absolute;" value="{{ is_favorite }}">
-                            <input type="checkbox" id="is_deleted" name="is_deleted" style="visibility:hidden; position:absolute;" value="{{ is_deleted }}">
                         </form>
                     </div>
                 </div>
