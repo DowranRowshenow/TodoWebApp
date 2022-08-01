@@ -11,6 +11,6 @@ Set up an Email for email operations.
 
 NOTE. Project uses `Whitenoise` to handle static files. And `gettext` for translations.
 
-Don't forget to take a look at the `TIME_ZONE`, `ALLOWED_HOST` and `LANGUAGE_CODE` settings.
+Don't forget to take a look at the `TIME_ZONE`, `ALLOWED_HOSTS` and `LANGUAGE_CODE` settings.
 
 ## ENJOY!
