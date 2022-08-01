@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+    <head>
+        <title>{% trans "$Home" %} - Todo Web App</title>
+        <meta charset="UTF-8">
+        <meta name="title" content="Todo Web App"/>
+        <meta name="description" content="Welcome Todo Web App"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'styles/home.css' %}"/>
+        <link rel="stylesheet" href="{% static 'styles/all.css' %}" crossorigin="anonymous">
+    </head>
+    <body>
+        <section>
+            <div class="nav" id="nav">
+                <div class="profile_bar">
+                    <a class="menu" id="menu" onclick="on_menu_click()">☰</a>
+                </div>
+                <a><i class="fa fa-user"></i>{{ request.user.email }}</a>
+                {% if current_page == "home" %}
+                <a id="a1" class="active">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    {% trans "All Tasks" %}
+                </a>
+                {% else %}
+                <a id="a1" onclick="location.href='{% url 'todos' %}';">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    {% trans "All Tasks" %}
+                </a>
+                {% endif %}
+                {% if current_page == "favorites" %}
+                <a id="a2" class="active">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    {% trans "Favorites" %}
+                </a>
+                {% else %}
+                <a id="a2" onclick="is_favorite.checked = 'true';post_form.submit();">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    {% trans "Favorites" %}
+                </a>
+                {% endif %}
+                {% if current_page == "deleted" %}
+                <a id="a3" class="active">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    {% trans "Delete" %}
+                </a>
+                {% else %}
+                <a id="a3" onclick="is_deleted.checked = 'true';post_form.submit();">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    {% trans "Deleted" %}
+                </a>
+                {% endif %}
+                <a id="a4" onclick="location.href='{% url 'logout' %}';">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    {% trans "Log Out" %}
+                </a>
+            </div>
+            <div class="main" id="main_obj">
+                <div class="header">
+                    <div class="text">
+                        {% if current_page == "home" %}
+                        <h1 id="counter">{% trans "All Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
+                        {% elif current_page == "favorites" %}
+                        <h1 id="counter">{% trans "Favorite Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
+                        {% elif current_page == "deleted" %}
+                        <h1 id="counter">{% trans "Deleted Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
+                        {% endif %}
+                        <h5 id="today">{% trans "Day Month Weekday" %}</h5>
+                    </div>
+                    <i id="lang_i" onclick="on_item_click(lang_options);" class="fa-solid fa-language"></i>
+                    <i id="sort_i" onclick="on_item_click(sort_options);" class="fa-solid fa-arrow-down-wide-short"></i>
+                    <i id="filter_i" onclick="on_item_click(filter_options);" class="fa-solid fa-filter"></i>
+                    <input id="picker" default="today" type="date">
+                    <div class="search_bar">
+                    	<form method='get' id='post_form' class="post_form">
+                            <input id="search_value" name='search_by' onchange='post_form.submit();' placeholder="{% trans "$Search" %}" value="{{ search_by }}">
+                            <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
+                            <input id="sort_by" name="sort_by" style="visibility:hidden; position:absolute;" value="{{ sort_by }}">
+                            <input id="filter_by" name="filter_by" style="visibility:hidden; position:absolute;" value="{{ filter_by }}">
+                            <input id="lang_by" name="lang_by" style="visibility:hidden; position:absolute;" value="{{ lang_by }}">
+                            <input type="checkbox" id="is_favorite" name="is_favorite" style="visibility:hidden; position:absolute;" value="{{ is_favorite }}">
+                            <input type="checkbox" id="is_deleted" name="is_deleted" style="visibility:hidden; position:absolute;" value="{{ is_deleted }}">
+                        </form>
+                    </div>
+                </div>
+                <div class="lang_options" id="lang_options">
+                    {% if lang_by == "en" %}
+                    <a id="lang_en" class="green" onclick="lang_by.value = 'en';post_form.submit();">English</a>
+                    {% else %}
+                    <a id="lang_en" onclick="lang_by.value = 'en';post_form.submit();">English</a>
+                    {% endif %}
+                    {% if lang_by == "ru" %}
+                    <a id="lang_ru" class="green" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
+                    {% else %}
+                    <a id="lang_ru" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
+                    {% endif %}
+                    {% if lang_by == "tr" %}
+                    <a id="lang_tr" class="green" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
+                    {% else %}
+                    <a id="lang_tr" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
+                    {% endif %}
+                    {% if lang_by == "tk" %}
+                    <a id="lang_tm" class="green" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
+                    {% else %}
+                    <a id="lang_tm" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
+                    {% endif %}
+                </div>
+                <div class="sort_options" id="sort_options">
+                    {% if sort_by == "id" %}
+                    <a id="by_id" class="green" onclick="sort_by.value = '-id';post_form.submit();">{% trans "Id" %} ⬇</a>
+                    {% elif sort_by == "-id" %}
+                    <a id="by_id" class="green" onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬆</a>
+                    {% else %}
+                    <a id="by_id" onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬇</a>
+                    {% endif %}
+                    {% if sort_by == "content" %}
+                    <a id="alphabetical" class="green" onclick="sort_by.value = '-content';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
+                    {% elif sort_by == "-content" %}
+                    <a id="alphabetical" class="green" onclick="sort_by.value = 'content';post_form.submit();">{% trans "Alphabetical" %} ⬆</a>
+                    {% else %}
+                    <a id="alphabetical" onclick="sort_by.value = 'content';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
+                    {% endif %}
+                    {% if sort_by == "target_date" %}
+                    <a id="created_date" class="green" onclick="sort_by.value = '-target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
+                    {% elif sort_by == "-target_date" %}
+                    <a id="created_date" class="green" onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬆</a>
+                    {% else %}
+                    <a id="created_date" onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
+                    {% endif %}
+                </div>
+                <div class="filter_options" id="filter_options">
+                    {% if filter_by == "none" %}
+                	<a id="nones" class="green" onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
+                    {% else %}
+                	<a id="nones" onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
+                    {% endif %}
+                    {% if filter_by == "favorites" %}
+                    <a id="favorites" class="green" onclick="filter_by.value = '-favorites';post_form.submit();">{% trans "Favorites" %}</a>
+                    {% elif filter_by == "-favorites" %}
+                    <a id="favorites" class="green" onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Unfavorites" %}</a>
+                    {% else %}
+                    <a id="favorites" onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Favorites" %}</a>
+                    {% endif %}
+                    {% if filter_by == "completed" %}
+                    <a id="completed" class="green" onclick="filter_by.value = '-completed';post_form.submit();">{% trans "Completed" %}</a>
+                    {% elif filter_by == "-completed" %}
+                    <a id="completed" class="green" onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Inompleted" %}</a>
+                    {% else %}
+                    <a id="completed" onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Completed" %}</a>
+                    {% endif %}
+                </div>
+                <div class="add">
+                    <form id='add_form' method='post' onsubmit="target_date.value = picker.value;">
+                    {% csrf_token %}
+                        <input id="add" name='content' placeholder="+ {% trans "Add tasks for today" %}">
+                        <input id="target_date" name='target_date' style="visibility:hidden; position:absolute;">
+                        <button id='add_btn' type='submit'>+</button>
+                    </form>
+                </div>
+                {% for item in item_list %}
+                <div class='item' id="item_{{item.id}}" onclick="on_item_click(options_{{item.id}})">     
+                    <!--<a>{{ item.pk }}.</a> -->
+                    <!--<a>{{ forloop.counter }}.</a> -->
+                    {% if item.is_completed %}
+                    <input type="checkbox" class="checkbox" onclick='return false' checked>
+                    {% else %}
+                    <input type="checkbox" class="checkbox" onclick='return false'>
+                    {% endif %}
+                    {% if item.is_favorite %}
+                    <span class="fa fa-star checked"></span>
+                    {% else %}
+                    <span class='fa fa-star'></span>
+                    {% endif %}
+                    <a>{{ item.content }}</a>
+                    <a class="created">{{ item.target_date|date:"d M" }}</a>
+                    <div class="options" id="options_{{item.id}}">
+                        {% if current_page == "deleted" %}
+                        <a class="favorite" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Recover Task" %}</a>
+                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
+                        {% else %}
+                            {% if item.is_favorite %}
+                        <a class="favorite" onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Unfavorite" %}</a>
+                            {% else %}
+                        <a class="favorite" onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Favorite" %}</a>
+                            {% endif %}
+                            {% if item.is_completed %}
+                        <a class="complete" onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Incomplete" %}</a>
+                            {% else %}
+                        <a class="complete" onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Complete" %}</a>
+                            {% endif %}
+                            {% if item.is_deleted %}
+                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
+                            {% else %}
+                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Task" %}</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <div id="container" class="container"></div>
+                {% if is_paginated %}
+                <div class="paginator">
+                    <div class="iterator" onclick="location.href='{{ query_string }}1';">
+                        <i class="fa-solid fa-angle-left"></i>
+                        <h4>{% trans "First" %}</h4>
+                    </div>
+                    {% if page_obj.has_previous %}
+                    <a onclick="location.href='{{ query_string }}{{ page_obj.previous_page_number }}'">{{ page_obj.previous_page_number }}</a>
+                    {% endif %}
+                    <a class="current">{{ page_obj.number }}</a>
+                    {% if page_obj.has_next %}
+                    <a onclick="location.href='{{ query_string }}{{ page_obj.next_page_number }}'">{{ page_obj.next_page_number }}</a>
+                    {% endif %}
+                    <div class="iterator" onclick="location.href='{{ query_string }}{{ page_obj.paginator.num_pages }}';">
+                        <h4>{% trans "Last" %}</h4>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </section>
+        <script type="text/javascript">
+            {% if page_obj.has_next %}
+            const next_page = "page={{ page_obj.next_page_number }}";
+            {% endif %}
+            {% if page_obj.has_previous %}
+            const previous_page = "page={{ page_obj.previous_page_number }}";
+            {% endif %}
+            const last_page = "page={{ page_obj.paginator.num_pages }}";
+        </script>
+        <script src="{% static 'scripts/jquery-2.1.0.min.js' %}"></script>
+        <script src="{% static 'scripts/home.js' %}"></script>
+    </body>
+</HTML>
