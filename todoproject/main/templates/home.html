@@ -20,34 +20,34 @@
                 </div>
                 <a><i class="fa fa-user"></i>{{ request.user.email }}</a>
                 {% if current_page == "home" %}
-                <a id="a1" onclick="location.href='{% url 'home' %}';" class="active">
+                <a id="a1" class="active">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     {% trans "All Tasks" %}
                 </a>
                 {% else %}
-                <a id="a1" onclick="location.href='{% url 'home' %}';">
+                <a id="a1" onclick="location.href='{% url 'todos' %}';">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     {% trans "All Tasks" %}
                 </a>
                 {% endif %}
                 {% if current_page == "favorites" %}
-                <a id="a2" onclick="location.href='{% url 'favorites' %}';" class="active">
+                <a id="a2" class="active">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     {% trans "Favorites" %}
                 </a>
                 {% else %}
-                <a id="a2" onclick="location.href='{% url 'favorites' %}';">
+                <a id="a2" onclick="is_favorite.checked = 'true';post_form.submit();">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     {% trans "Favorites" %}
                 </a>
                 {% endif %}
                 {% if current_page == "deleted" %}
-                <a id="a3" onclick="location.href='{% url 'deleted' %}';" class="active">
+                <a id="a3" class="active">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     {% trans "Delete" %}
                 </a>
                 {% else %}
-                <a id="a3" onclick="location.href='{% url 'deleted' %}';">
+                <a id="a3" onclick="is_deleted.checked = 'true';post_form.submit();">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     {% trans "Deleted" %}
                 </a>
@@ -80,6 +80,8 @@
                             <input id="sort_by" name="sort_by" style="visibility:hidden; position:absolute;" value="{{ sort_by }}">
                             <input id="filter_by" name="filter_by" style="visibility:hidden; position:absolute;" value="{{ filter_by }}">
                             <input id="lang_by" name="lang_by" style="visibility:hidden; position:absolute;" value="{{ lang_by }}">
+                            <input type="checkbox" id="is_favorite" name="is_favorite" style="visibility:hidden; position:absolute;" value="{{ is_favorite }}">
+                            <input type="checkbox" id="is_deleted" name="is_deleted" style="visibility:hidden; position:absolute;" value="{{ is_deleted }}">
                         </form>
                     </div>
                 </div>
@@ -90,19 +92,19 @@
                     <a id="lang_en" onclick="lang_by.value = 'en';post_form.submit();">English</a>
                     {% endif %}
                     {% if lang_by == "ru" %}
-                    <a id="lang_ru" class="green" onclick="lang_by.value = 'ru';post_form.submit();">Russian</a>
+                    <a id="lang_ru" class="green" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
                     {% else %}
-                    <a id="lang_ru" onclick="lang_by.value = 'ru';post_form.submit();">Russian</a>
+                    <a id="lang_ru" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
                     {% endif %}
                     {% if lang_by == "tr" %}
-                    <a id="lang_tr" class="green" onclick="lang_by.value = 'tr';post_form.submit();">Turkish</a>
+                    <a id="lang_tr" class="green" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
                     {% else %}
-                    <a id="lang_tr" onclick="lang_by.value = 'tr';post_form.submit();">Turkish</a>
+                    <a id="lang_tr" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
                     {% endif %}
                     {% if lang_by == "tk" %}
-                    <a id="lang_tm" class="green" onclick="lang_by.value = 'tk';post_form.submit();">Turkmen</a>
+                    <a id="lang_tm" class="green" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
                     {% else %}
-                    <a id="lang_tm" onclick="lang_by.value = 'tk';post_form.submit();">Turkmen</a>
+                    <a id="lang_tm" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
                     {% endif %}
                 </div>
                 <div class="sort_options" id="sort_options">

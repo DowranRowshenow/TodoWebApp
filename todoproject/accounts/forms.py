@@ -33,6 +33,7 @@ class SingUpForm(UserCreationForm):
     def save(self, commit=True): 
         user = super().save(commit=False)
         user.auth_token = str(uuid.uuid4())
+        user.is_active = False
 
         if commit:
             user.save()

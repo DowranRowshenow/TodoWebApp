@@ -20,7 +20,6 @@
                 </div>
                 <form method="post">
                     {% csrf_token %}
-                    <!-- {{ form.as_p }} -->
                     <h3>{% trans "Email address:" %}</h3>
                     <input  type="Email" name="username" id="email_input" placeholder="example@gmail.com">
                     <h3>{% trans "Password:" %}</h3>
@@ -28,14 +27,17 @@
                     <!-- <label><input type="checkbox" id="check_box"> Remember me</label> -->
                     <!-- <a class="forgot" href='/forgot_password/' onclick="this.href+=email_input.value">Forgot password?</a> -->
                     <a class="forgot" href='/reset_password'>{% trans "Forgot password?" %}</a> 
-                    <button type="submit" name="next" id="login_btn" value="{% url 'home' %}">{% trans "Log in" %}</button>
+                    <button type="submit" name="next" id="login_btn" value="{% url 'todos' %}">{% trans "Log in" %}</button>
                 </form>
                 <label class="label_2">{% trans "Do not have an account yet?" %} 
                     <a href="{% url 'signup' %}">{% trans "Sign up" %}</a>
                 </label>
+                {% if form.errors %}
+                <div class="alert">{{ form.non_field_errors }}</div>
+                {% endif %}
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert">{{ message }}</div>
+                <div class="alert">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
             </div>

@@ -32,9 +32,12 @@
                 <label class="label_2">{% trans "Do you already have an account?" %} 
                     <a href="{% url 'login' %}">{% trans "Log in" %}</a>
                 </label>
+                {% if form.errors %}
+                <div class="alert">{{ form.errors }}</div>
+                {% endif %}
                 {% if messages %}
                     {% for message in messages %}
-                        <div class="alert">{{ message }}</div>
+                <div class="alert">{{ message }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
