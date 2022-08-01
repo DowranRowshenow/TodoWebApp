@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{% static 'styles/home.css' %}"/>
         <link rel="stylesheet" href="{% static 'styles/all.css' %}" crossorigin="anonymous">
     </head>
+    {% with current_page=request.GET.page_by|default:'home' search_by=request.GET.search_by|default:'' sort_by=request.GET.sort_by|default:'id' filter_by=request.GET.filter_by|default:'none' lang_by=request.GET.lang_by|default:'en' %}
     <body>
         <section>
             <div class="nav" id="nav">
@@ -25,7 +26,7 @@
                     {% trans "All Tasks" %}
                 </a>
                 {% else %}
-                <a id="a1" onclick="location.href='{% url 'todos' %}';">
+                <a id="a1" onclick="page_by.value = 'home';post_form.submit();">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     {% trans "All Tasks" %}
                 </a>
@@ -158,6 +159,10 @@
                         <button id='add_btn' type='submit'>+</button>
                     </form>
                 </div>
+                <form id="delete_form" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="DELETE" style="visibility:hidden; position:absolute;">
+                </form>
                 {% for item in item_list %}
                 <div class='item' id="item_{{item.id}}" onclick="on_item_click(options_{{item.id}})">     
                     <!--<a>{{ item.pk }}.</a> -->
@@ -177,7 +182,7 @@
                     <div class="options" id="options_{{item.id}}">
                         {% if current_page == "deleted" %}
                         <a class="favorite" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Recover Task" %}</a>
-                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
+                        <a class="delete" onclick="delete_form.action = '{% url 'delete_item' item.id %}';delete_form.submit();">{% trans "Delete Permanently" %}</a>
                         {% else %}
                             {% if item.is_favorite %}
                         <a class="favorite" onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Unfavorite" %}</a>
@@ -223,4 +228,5 @@
         <script src="{% static 'scripts/jquery-2.1.0.min.js' %}"></script>
         <script src="{% static 'scripts/home.js' %}"></script>
     </body>
+    {% endwith %}
 </HTML>

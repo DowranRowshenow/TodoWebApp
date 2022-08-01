@@ -23,36 +23,23 @@ class TodoListView(ListView):
         searchBy = self.request.GET.get("search_by", "")
         sortBy = self.request.GET.get("sort_by", "id")
         filterBy = self.request.GET.get("filter_by", "none")
-        is_favorite, is_complete = None, None
+        is_favorite, is_complete, is_deleted = None, None, False
         if filterBy == 'favorites': is_favorite = True
         elif filterBy == '-favorites': is_favorite = False
         elif filterBy == 'completed': is_complete = True
         elif filterBy == '-completed': is_complete = False
-        if pageBy == 'favorites':
-            if is_complete: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = True, is_completed = is_complete, is_deleted = False).order_by(sortBy)
-            else: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = True, is_deleted = False).order_by(sortBy)
-            return queryset
-        elif pageBy == 'deleted':
-            if is_favorite: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = is_favorite, is_deleted = True).order_by(sortBy)
-            elif is_complete: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_completed = is_complete, is_deleted = True).order_by(sortBy)
-            else:  queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_deleted = True).order_by(sortBy)
-            return queryset
-        else:
-            if is_favorite:  queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = is_favorite, is_deleted = False).order_by(sortBy)
-            elif is_complete: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_completed = is_complete, is_deleted = False).order_by(sortBy)
-            else: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_deleted = False).order_by(sortBy)
-            return queryset
+        if pageBy == 'favorites': is_favorite = True
+        elif pageBy == 'deleted': is_deleted = True
+        if is_favorite: 
+            if is_complete: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = is_favorite, is_completed = is_complete, is_deleted = is_deleted).order_by(sortBy) 
+            else: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_favorite = is_favorite, is_deleted = is_deleted).order_by(sortBy)
+        elif is_complete: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_completed = is_complete, is_deleted = is_deleted).order_by(sortBy)
+        else: queryset = Todo.objects.filter(owner = self.request.user, content__contains = searchBy, is_deleted = is_deleted).order_by(sortBy)
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_page'] = self.request.GET.get("page_by", "home")
-        context['query_string'] = '?page_by=' + self.request.GET.get("page_by", "home") + '&search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&lang_by=' + str(self.request.GET.get("lang_by", "en")) + '&page='
-        context['search_by'] = self.request.GET.get("search_by", "")
-        context['sort_by'] = self.request.GET.get("sort_by", "id")
-        context['filter_by'] = self.request.GET.get("filter_by", "none")
-        context['lang_by'] = self.request.GET.get("lang_by", "en")
-        context['is_favorites'] = self.request.GET.get("is_favorites", False)
-        context['is_deleted'] = self.request.GET.get("is_deleted", False)
+        context['query_string'] = '?page_by=' + str(self.request.GET.get("page_by", "home")) + '&search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&lang_by=' + str(self.request.GET.get("lang_by", "en")) + '&page='
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user, is_deleted = False).count()
         return context
 
