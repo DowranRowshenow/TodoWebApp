@@ -220,15 +220,6 @@
                 {% endif %}
             </div>
         </section>
-        <script type="text/javascript">
-            {% if page_obj.has_next %}
-            const next_page = "page={{ page_obj.next_page_number }}";
-            {% endif %}
-            {% if page_obj.has_previous %}
-            const previous_page = "page={{ page_obj.previous_page_number }}";
-            {% endif %}
-            const last_page = "page={{ page_obj.paginator.num_pages }}";
-        </script>
         <script src="{% static 'scripts/jquery-2.1.0.min.js' %}"></script>
         <script src="{% static 'scripts/home.js' %}"></script>
     </body>
