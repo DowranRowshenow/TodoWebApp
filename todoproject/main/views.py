@@ -100,7 +100,8 @@ class DeleteItemView(View):
     def get(self, request, item_id):
         item = Todo.objects.filter(id = item_id).first()
         if item.owner == request.user:
-            item.is_deleted = True
-            item.save()
             if item.is_deleted: item.delete()
+            else: 
+                item.is_deleted = True
+                item.save()
         return HttpResponseRedirect(reverse('todos'))
