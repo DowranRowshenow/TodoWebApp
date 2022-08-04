@@ -103,7 +103,8 @@ class RecoverItemView(View):
 
     def get(self, request, item_id):
         item = Todo.objects.filter(id = item_id).first()
-        item.is_deleted = False
+        if item.is_deleted: item.is_deleted = False
+        else: item.is_deleted = True
         item.save()
         return redirect(request.META.get('HTTP_REFERER'))
 

@@ -195,11 +195,7 @@
                                         {% else %}
                                     <a onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Complete" %}</a>
                                         {% endif %}
-                                        {% if item.is_deleted %}
-                                    <a onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
-                                        {% else %}
-                                    <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Task" %}</a>
-                                        {% endif %}
+                                    <a class="delete" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Delete Task" %}</a>
                                     {% endif %}
                                 </div>
                             </div>

@@ -11,7 +11,7 @@ Set up an Email for email operations.
 
 Don't forget to take a look at the `TIME_ZONE`, `ALLOWED_HOSTS` and `LANGUAGE_CODE` settings.
 
-INSTALL VIRTUAL ENVIRONMENT:
+INSTALL AND RUN VIRTUAL ENVIRONMENT:
 
 `https://realpython.com/python-virtual-environments-a-primer/`
 
