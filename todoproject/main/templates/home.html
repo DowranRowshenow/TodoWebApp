@@ -15,196 +15,213 @@
     {% with current_page=request.GET.page_by|default:'home' search_by=request.GET.search_by|default:'' sort_by=request.GET.sort_by|default:'id' filter_by=request.GET.filter_by|default:'none' lang_by=request.GET.lang_by|default:'en' %}
     <body>
         <section>
-            <div class="nav" id="nav">
-                <div class="profile_bar">
-                    <a class="menu" id="menu" onclick="on_menu_click()">☰</a>
-                </div>
+            <div class="nav">
+                <a class="menu" onclick="on_menu_click()">☰</a>
                 <a><i class="fa fa-user"></i>{{ request.user.email }}</a>
                 {% if current_page == "home" %}
-                <a id="a1" class="active">
+                <a class="active">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     {% trans "All Tasks" %}
                 </a>
                 {% else %}
-                <a id="a1" onclick="page_by.value = 'home';post_form.submit();">
+                <a onclick="page_by.value = 'home';post_form.submit();">
                     <i class="fa fa-tasks" aria-hidden="true"></i>
                     {% trans "All Tasks" %}
                 </a>
                 {% endif %}
                 {% if current_page == "favorites" %}
-                <a id="a2" class="active">
+                <a class="active">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     {% trans "Favorites" %}
                 </a>
                 {% else %}
-                <a id="a2" onclick="page_by.value = 'favorites';post_form.submit();">
+                <a onclick="page_by.value = 'favorites';post_form.submit();">
                     <i class="fa fa-star" aria-hidden="true"></i>
                     {% trans "Favorites" %}
                 </a>
                 {% endif %}
                 {% if current_page == "deleted" %}
-                <a id="a3" class="active">
+                <a class="active">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     {% trans "Delete" %}
                 </a>
                 {% else %}
-                <a id="a3" onclick="page_by.value = 'deleted';post_form.submit();">
+                <a onclick="page_by.value = 'deleted';post_form.submit();">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                     {% trans "Deleted" %}
                 </a>
                 {% endif %}
-                <a id="a4" onclick="location.href='{% url 'logout' %}';">
+                <a onclick="location.href='{% url 'logout' %}';">
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                     {% trans "Log Out" %}
                 </a>
             </div>
-            <div class="main" id="main_obj">
+            <div class="main">
                 <div class="header">
                     <div class="text">
-                        {% if current_page == "home" %}
-                        <h1 id="counter">{% trans "All Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
-                        {% elif current_page == "favorites" %}
+                        {% if current_page == "favorites" %}
                         <h1 id="counter">{% trans "Favorite Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
                         {% elif current_page == "deleted" %}
                         <h1 id="counter">{% trans "Deleted Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
+                        {% else %}
+                        <h1 id="counter">{% trans "All Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
                         {% endif %}
                         <h5 id="today">{% trans "Day Month Weekday" %}</h5>
                     </div>
-                    <i id="lang_i" onclick="on_item_click(lang_options);" class="fa-solid fa-language"></i>
-                    <i id="sort_i" onclick="on_item_click(sort_options);" class="fa-solid fa-arrow-down-wide-short"></i>
-                    <i id="filter_i" onclick="on_item_click(filter_options);" class="fa-solid fa-filter"></i>
-                    <input id="picker" default="today" type="date">
                     <div class="search_bar">
+                        <div class="lang dropdown">
+                            <i class="fa-solid fa-language"></i>
+                            <div class="lang_options dropdown-content">
+                                {% if lang_by == "en" %}
+                                <a class="green" onclick="lang_by.value = 'en';post_form.submit();">English</a>
+                                {% else %}
+                                <a onclick="lang_by.value = 'en';post_form.submit();">English</a>
+                                {% endif %}
+                                {% if lang_by == "ru" %}
+                                <a class="green" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
+                                {% else %}
+                                <a onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
+                                {% endif %}
+                                {% if lang_by == "tr" %}
+                                <a class="green" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
+                                {% else %}
+                                <a onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
+                                {% endif %}
+                                {% if lang_by == "tk" %}
+                                <a class="green" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
+                                {% else %}
+                                <a onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="sort dropdown">
+                            <i class="fa-solid fa-arrow-down-wide-short"></i>
+                            <div class="sort_options dropdown-content" id="sort_options">
+                                {% if sort_by == "id" %}
+                                <a class="green" onclick="sort_by.value = '-id';post_form.submit();">{% trans "Id" %} ⬇</a>
+                                {% elif sort_by == "-id" %}
+                                <a class="green" onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬆</a>
+                                {% else %}
+                                <a onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬇</a>
+                                {% endif %}
+                                {% if sort_by == "title" %}
+                                <a class="green" onclick="sort_by.value = '-title';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
+                                {% elif sort_by == "-title" %}
+                                <a class="green" onclick="sort_by.value = 'title';post_form.submit();">{% trans "Alphabetical" %} ⬆</a>
+                                {% else %}
+                                <a onclick="sort_by.value = 'title';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
+                                {% endif %}
+                                {% if sort_by == "target_date" %}
+                                <a class="green" onclick="sort_by.value = '-target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
+                                {% elif sort_by == "-target_date" %}
+                                <a class="green" onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬆</a>
+                                {% else %}
+                                <a onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="filter dropdown">
+                            <i class="fa-solid fa-filter"></i>
+                            <div class="filter_options dropdown-content" id="filter_options">
+                                {% if filter_by == "none" %}
+                                <a class="green" onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
+                                {% else %}
+                                <a onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
+                                {% endif %}
+                                {% if filter_by == "favorites" %}
+                                <a class="green" onclick="filter_by.value = '-favorites';post_form.submit();">{% trans "Favorites" %}</a>
+                                {% elif filter_by == "-favorites" %}
+                                <a class="green" onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Unfavorites" %}</a>
+                                {% else %}
+                                <a onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Favorites" %}</a>
+                                {% endif %}
+                                {% if filter_by == "completed" %}
+                                <a class="green" onclick="filter_by.value = '-completed';post_form.submit();">{% trans "Completed" %}</a>
+                                {% elif filter_by == "-completed" %}
+                                <a class="green" onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Inompleted" %}</a>
+                                {% else %}
+                                <a onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Completed" %}</a>
+                                {% endif %}
+                            </div>
+                        </div>
                     	<form method='get' id='post_form' class="post_form">
                             <input id="page_by" name="page_by" style="visibility:hidden; position:absolute;" value="{{ current_page }}">
-                            <input id="search_value" name='search_by' onchange='post_form.submit();' placeholder="{% trans "$Search" %}" value="{{ search_by }}">
+                            <input id="search_by" name='search_by' onchange='post_form.submit();' placeholder="{% trans "$Search" %}" value="{{ search_by }}">
                             <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
                             <input id="sort_by" name="sort_by" style="visibility:hidden; position:absolute;" value="{{ sort_by }}">
                             <input id="filter_by" name="filter_by" style="visibility:hidden; position:absolute;" value="{{ filter_by }}">
                             <input id="lang_by" name="lang_by" style="visibility:hidden; position:absolute;" value="{{ lang_by }}">
                         </form>
+                        <form id="delete_form" method="post">{% csrf_token %}</form>
                     </div>
                 </div>
-                <div class="lang_options" id="lang_options">
-                    {% if lang_by == "en" %}
-                    <a id="lang_en" class="green" onclick="lang_by.value = 'en';post_form.submit();">English</a>
-                    {% else %}
-                    <a id="lang_en" onclick="lang_by.value = 'en';post_form.submit();">English</a>
-                    {% endif %}
-                    {% if lang_by == "ru" %}
-                    <a id="lang_ru" class="green" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
-                    {% else %}
-                    <a id="lang_ru" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
-                    {% endif %}
-                    {% if lang_by == "tr" %}
-                    <a id="lang_tr" class="green" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
-                    {% else %}
-                    <a id="lang_tr" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
-                    {% endif %}
-                    {% if lang_by == "tk" %}
-                    <a id="lang_tm" class="green" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
-                    {% else %}
-                    <a id="lang_tm" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
-                    {% endif %}
-                </div>
-                <div class="sort_options" id="sort_options">
-                    {% if sort_by == "id" %}
-                    <a id="by_id" class="green" onclick="sort_by.value = '-id';post_form.submit();">{% trans "Id" %} ⬇</a>
-                    {% elif sort_by == "-id" %}
-                    <a id="by_id" class="green" onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬆</a>
-                    {% else %}
-                    <a id="by_id" onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬇</a>
-                    {% endif %}
-                    {% if sort_by == "content" %}
-                    <a id="alphabetical" class="green" onclick="sort_by.value = '-content';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
-                    {% elif sort_by == "-content" %}
-                    <a id="alphabetical" class="green" onclick="sort_by.value = 'content';post_form.submit();">{% trans "Alphabetical" %} ⬆</a>
-                    {% else %}
-                    <a id="alphabetical" onclick="sort_by.value = 'content';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
-                    {% endif %}
-                    {% if sort_by == "target_date" %}
-                    <a id="created_date" class="green" onclick="sort_by.value = '-target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
-                    {% elif sort_by == "-target_date" %}
-                    <a id="created_date" class="green" onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬆</a>
-                    {% else %}
-                    <a id="created_date" onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
-                    {% endif %}
-                </div>
-                <div class="filter_options" id="filter_options">
-                    {% if filter_by == "none" %}
-                	<a id="nones" class="green" onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
-                    {% else %}
-                	<a id="nones" onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
-                    {% endif %}
-                    {% if filter_by == "favorites" %}
-                    <a id="favorites" class="green" onclick="filter_by.value = '-favorites';post_form.submit();">{% trans "Favorites" %}</a>
-                    {% elif filter_by == "-favorites" %}
-                    <a id="favorites" class="green" onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Unfavorites" %}</a>
-                    {% else %}
-                    <a id="favorites" onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Favorites" %}</a>
-                    {% endif %}
-                    {% if filter_by == "completed" %}
-                    <a id="completed" class="green" onclick="filter_by.value = '-completed';post_form.submit();">{% trans "Completed" %}</a>
-                    {% elif filter_by == "-completed" %}
-                    <a id="completed" class="green" onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Inompleted" %}</a>
-                    {% else %}
-                    <a id="completed" onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Completed" %}</a>
-                    {% endif %}
-                </div>
-                <div class="add">
-                    <form id='add_form' method='post' onsubmit="target_date.value = picker.value;">
-                    {% csrf_token %}
-                        <input id="add" name='content' placeholder="+ {% trans "Add tasks for today" %}">
-                        <input id="target_date" name='target_date' style="visibility:hidden; position:absolute;">
-                        <button id='add_btn' type='submit'>+</button>
-                    </form>
-                </div>
-                <form id="delete_form" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="DELETE" style="visibility:hidden; position:absolute;">
-                </form>
-                {% for item in item_list %}
-                <div class='item' id="item_{{item.id}}" onclick="on_item_click(options_{{item.id}})">     
-                    <!--<a>{{ item.pk }}.</a> -->
-                    <!--<a>{{ forloop.counter }}.</a> -->
-                    {% if item.is_completed %}
-                    <input type="checkbox" class="checkbox" onclick='return false' checked>
-                    {% else %}
-                    <input type="checkbox" class="checkbox" onclick='return false'>
-                    {% endif %}
-                    {% if item.is_favorite %}
-                    <span class="fa fa-star checked"></span>
-                    {% else %}
-                    <span class='fa fa-star'></span>
-                    {% endif %}
-                    <a>{{ item.content }}</a>
-                    <a class="created">{{ item.target_date|date:"d M" }}</a>
-                    <div class="options" id="options_{{item.id}}">
-                        {% if current_page == "deleted" %}
-                        <a class="favorite" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Recover Task" %}</a>
-                        <a class="delete" onclick="delete_form.action = '{% url 'delete_item' item.id %}';delete_form.submit();">{% trans "Delete Permanently" %}</a>
-                        {% else %}
-                            {% if item.is_favorite %}
-                        <a class="favorite" onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Unfavorite" %}</a>
-                            {% else %}
-                        <a class="favorite" onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Favorite" %}</a>
-                            {% endif %}
+                <div class="content">
+                    <div class="add" onclick="on_add_click();">
+                        <button id='add_btn' onclick="on_add_click();">+</button>
+                        <a>{% trans "Add tasks for today" %}</a>
+                    </div>
+                    {% for item in item_list %}
+                    <div class='item' onclick="on_item_click(expand_{{ item.pk }})">
+                        <div class='item_head'>
+                            <!--<a>{{ item.pk }}.</a> -->
+                            <!--<a>{{ forloop.counter }}.</a> -->
                             {% if item.is_completed %}
-                        <a class="complete" onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Incomplete" %}</a>
+                            <input type="checkbox" class="checkbox" onclick='return false' checked>
                             {% else %}
-                        <a class="complete" onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Complete" %}</a>
+                            <input type="checkbox" class="checkbox" onclick='return false'>
                             {% endif %}
-                            {% if item.is_deleted %}
-                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
+                            {% if item.is_favorite %}
+                            <span class="fa fa-star checked"></span>
                             {% else %}
-                        <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Task" %}</a>
+                            <span class='fa fa-star'></span>
                             {% endif %}
-                        {% endif %}
+                            <a id="title_{{ item.pk }}">{{ item.title }}</a>
+                            <a class="created">{{ item.target_date_time|date:"d M" }}</a>
+                            <div class="item-options dropdown">
+                                <i class="fa fa-edit"></i>
+                                <div class="options dropdown-content">
+                                    {% if current_page == "deleted" %}
+                                    <a class="recover" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Recover Task" %}</a>
+                                    <a class="delete" onclick="delete_form.action = '{% url 'delete_item' item.pk %}'; delete_form.submit();">{% trans "Delete Permanently" %}</a>
+                                    {% else %}
+                                    <a onclick="on_edit_click({{ item.pk }}, '{{item.target_date_time|date:'Y-m-d'}}T{{item.target_date_time|time:'H:i'}}', '{% url 'edit_item' item.pk %}');">{% trans "Edit Task" %}</a>
+                                        {% if item.is_favorite %}
+                                    <a onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Unfavorite" %}</a>
+                                        {% else %}
+                                    <a onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Favorite" %}</a>
+                                        {% endif %}
+                                        {% if item.is_completed %}
+                                    <a onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Incomplete" %}</a>
+                                        {% else %}
+                                    <a onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Complete" %}</a>
+                                        {% endif %}
+                                        {% if item.is_deleted %}
+                                    <a onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Permanently" %}</a>
+                                        {% else %}
+                                    <a class="delete" onclick="location.href='{% url 'delete_item' item.id %}';">{% trans "Delete Task" %}</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="expand_{{ item.pk }}" class="item_expand">
+                            <div class="description">
+                                <label for="expand_{{ item.pk }}">{% trans 'DESCRIPTION:' %}</label>
+                                <textarea id="content_{{ item.pk }}" disabled>{{ item.content }}</textarea>
+                            </div>
+                            <div>
+                                <label for="expand_{{ item.pk }}">{% trans 'TARGET DATE TIME:' %}</label>
+                                <a>{{ item.target_date_time }}</a>
+                            </div>
+                            <div>
+                                <label for="expand_{{ item.pk }}">{% trans 'CREAET DATE TIME:' %}</label>
+                                <a>{{ item.created_date_time }}</a>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
+                    <div class="spacer"><pre></pre></div>
                 </div>
-                {% endfor %}
-                <div id="container" class="container"></div>
-                {% if is_paginated %}
                 <div class="paginator">
                     <div class="iterator" onclick="location.href='{{ query_string }}1';">
                         <i class="fa-solid fa-angle-left"></i>
@@ -222,10 +239,60 @@
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
                 </div>
-                {% endif %}
             </div>
         </section>
-        <script src="{% static 'scripts/jquery-2.1.0.min.js' %}"></script>
+        <section id="add_section" class='add_section'>
+            <div id="add_box" class="add_box">
+                <div class="add_header">
+                    <label for="add-box">{% trans 'New Task' %}</label>
+                    <button class="close_btn" onclick="on_close_click();"><i class="fa fa-close"></i></button>
+                </div>
+                <form id='add_form' action="{% url 'create_item' %}" class="add_form" method='post'>
+                    {% csrf_token %}
+                    <div class="field">
+                        <label for="add">{% trans 'Title:' %}</label>
+                        <input name='title' maxlength='50'>
+                    </div>
+                    <div class="field">
+                        <label for="add">{% trans 'Description:' %}</label>
+                        <textarea name='content' maxlength='255' rows='10' style="resize:none;"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="add">{% trans 'Target date time:' %}</label>
+                        <input id="target_date_time" name='target_date_time' type="datetime-local">
+                    </div>
+                    <div class="field submit">
+                        <input type="submit" value="{% trans 'Create Task' %}">
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section id="edit_section" class='add_section'>
+            <div id="add_box" class="add_box">
+                <div class="add_header">
+                    <label for="add-box">{% trans 'Edit Task' %}</label>
+                    <button class="close_btn" onclick="on_close_click();"><i class="fa fa-close"></i></button>
+                </div>
+                <form id='edit_form' action="" class="add_form" method='post'>
+                    {% csrf_token %}
+                    <div class="field">
+                        <label for="add">{% trans 'Title:' %}</label>
+                        <input id="edit_title" name='title' maxlength='50'>
+                    </div>
+                    <div class="field">
+                        <label for="add">{% trans 'Description:' %}</label>
+                        <textarea id="edit_content" name='content' maxlength='255' rows='10' style="resize:none;"></textarea>
+                    </div>
+                    <div class="field">
+                        <label for="add">{% trans 'Target date time:' %}</label>
+                        <input id="edit_target_date_time" name='target_date_time' type="datetime-local">
+                    </div>
+                    <div class="field submit">
+                        <input type="submit" value="{% trans 'Save Task' %}">
+                    </div>
+                </form>
+            </div>
+        </section>
         <script src="{% static 'scripts/home.js' %}"></script>
     </body>
     {% endwith %}
