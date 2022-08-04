@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-27 18:17+0500\n"
+"POT-Creation-Date: 2022-08-05 00:40+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,108 +21,150 @@ msgstr ""
 msgid "$Home"
 msgstr "Ev"
 
-#: .\templates\home.html:25 .\templates\home.html:30 .\templates\home.html:64
+#: .\templates\home.html:24 .\templates\home.html:29 .\templates\home.html:67
 msgid "All Tasks"
 msgstr "Tüm Görevler"
 
-#: .\templates\home.html:36 .\templates\home.html:41 .\templates\home.html:115
-#: .\templates\home.html:119
+#: .\templates\home.html:35 .\templates\home.html:40 .\templates\home.html:132
+#: .\templates\home.html:136
 msgid "Favorites"
 msgstr "Favoriler"
 
-#: .\templates\home.html:47
+#: .\templates\home.html:46
 msgid "Delete"
 msgstr "Sil"
 
-#: .\templates\home.html:52
+#: .\templates\home.html:51
 msgid "Deleted"
 msgstr "Çöp"
 
-#: .\templates\home.html:57
+#: .\templates\home.html:56
 msgid "Log Out"
 msgstr "Çikiş"
 
-#: .\templates\home.html:66
+#: .\templates\home.html:63
 msgid "Favorite Tasks"
 msgstr "Favori Görevler"
 
-#: .\templates\home.html:68
+#: .\templates\home.html:65
 msgid "Deleted Tasks"
 msgstr "Silinen Görevler"
 
-#: .\templates\home.html:70
+#: .\templates\home.html:69
 msgid "Day Month Weekday"
 msgstr "Gün Ay Işgünü"
 
-#: .\templates\home.html:78
-msgid "$Search"
-msgstr "Ara"
-
-#: .\templates\home.html:87 .\templates\home.html:89 .\templates\home.html:91
+#: .\templates\home.html:101 .\templates\home.html:103
+#: .\templates\home.html:105
 msgid "Id"
 msgstr "Id"
 
-#: .\templates\home.html:94 .\templates\home.html:96 .\templates\home.html:98
+#: .\templates\home.html:108 .\templates\home.html:110
+#: .\templates\home.html:112
 msgid "Alphabetical"
 msgstr "Alfabetik"
 
-#: .\templates\home.html:101 .\templates\home.html:103
-#: .\templates\home.html:105
+#: .\templates\home.html:115 .\templates\home.html:117
+#: .\templates\home.html:119
 msgid "Target Date"
 msgstr "Hedef Zamani"
 
-#: .\templates\home.html:110 .\templates\home.html:112
+#: .\templates\home.html:127 .\templates\home.html:129
 msgid "$None"
 msgstr "Hiçbiri"
 
-#: .\templates\home.html:117
+#: .\templates\home.html:134
 msgid "Unfavorites"
 msgstr "Favori olmayanlar"
 
-#: .\templates\home.html:122 .\templates\home.html:126
+#: .\templates\home.html:139 .\templates\home.html:143
 msgid "Completed"
 msgstr "Tamamlananlar"
 
-#: .\templates\home.html:124
+#: .\templates\home.html:141
 msgid "Inompleted"
 msgstr "Tamamlanmamış"
 
-#: .\templates\home.html:132
+#: .\templates\home.html:149
+msgid "$Search"
+msgstr "Ara"
+
+#: .\templates\home.html:161
 msgid "Add tasks for today"
 msgstr "Bügün için görev ekle"
 
-#: .\templates\home.html:155
+#: .\templates\home.html:184
 msgid "Recover Task"
 msgstr "Görevi Kurtar"
 
-#: .\templates\home.html:156 .\templates\home.html:169
+#: .\templates\home.html:185
 msgid "Delete Permanently"
 msgstr "Tamamen Sil"
 
-#: .\templates\home.html:159
+#: .\templates\home.html:187 .\templates\home.html:269
+msgid "Edit Task"
+msgstr "Görevi düzenle"
+
+#: .\templates\home.html:189
 msgid "Mark as Unfavorite"
 msgstr "Favori olmayan olarak işaretle"
 
-#: .\templates\home.html:161
+#: .\templates\home.html:191
 msgid "Mark as Favorite"
 msgstr "Favori Olarak İşaretle"
 
-#: .\templates\home.html:164
+#: .\templates\home.html:194
 msgid "Mark as Incomplete"
 msgstr "Tamamlanmamış olarak işaretle"
 
-#: .\templates\home.html:166
+#: .\templates\home.html:196
 msgid "Mark as Complete"
 msgstr "Tamamlanmış olarak işaretle"
 
-#: .\templates\home.html:171
+#: .\templates\home.html:198
 msgid "Delete Task"
 msgstr "Görevi Sil"
 
-#: .\templates\home.html:182
+#: .\templates\home.html:205
+msgid "DESCRIPTION:"
+msgstr "AÇIKLAMA:"
+
+#: .\templates\home.html:209
+msgid "TARGET DATE TIME:"
+msgstr "HEDEF TARİH SAAT:"
+
+#: .\templates\home.html:213
+msgid "CREATED DATE TIME:"
+msgstr "OLUŞTURMA TARİH SAAT:"
+
+#: .\templates\home.html:224
 msgid "First"
 msgstr "Ilk"
 
-#: .\templates\home.html:192
+#: .\templates\home.html:234
 msgid "Last"
 msgstr "Son"
+
+#: .\templates\home.html:243
+msgid "New Task"
+msgstr "Yeni Görev"
+
+#: .\templates\home.html:249 .\templates\home.html:275
+msgid "Title:"
+msgstr "Başlık:"
+
+#: .\templates\home.html:253 .\templates\home.html:279
+msgid "Description:"
+msgstr "Açıklama:"
+
+#: .\templates\home.html:257 .\templates\home.html:283
+msgid "Target date time:"
+msgstr "Hedef zamanı"
+
+#: .\templates\home.html:261
+msgid "Create Task"
+msgstr "Görev Oluştur"
+
+#: .\templates\home.html:287
+msgid "Save Task"
+msgstr "Görevi Kaydet"
