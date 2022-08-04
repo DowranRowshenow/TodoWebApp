@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-05 00:51+0500\n"
+"POT-Creation-Date: 2022-08-05 01:18+0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,9 +155,17 @@ msgstr "Новое задание"
 msgid "Title:"
 msgstr "Заголовок:"
 
+#: .\templates\home.html:250
+msgid "Required"
+msgstr "Необходимый"
+
 #: .\templates\home.html:253 .\templates\home.html:279
 msgid "Description:"
 msgstr "Описание:"
+
+#: .\templates\home.html:254
+msgid "Optional"
+msgstr "По желанию"
 
 #: .\templates\home.html:257 .\templates\home.html:283
 msgid "Target date time:"

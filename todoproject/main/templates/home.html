@@ -247,11 +247,11 @@
                     {% csrf_token %}
                     <div class="field">
                         <label for="add">{% trans 'Title:' %}</label>
-                        <input name='title' maxlength='50'>
+                        <input name='title' maxlength='50' placeholder="{% trans 'Required' %}">
                     </div>
                     <div class="field">
                         <label for="add">{% trans 'Description:' %}</label>
-                        <textarea name='content' maxlength='255' rows='10' style="resize:none;"></textarea>
+                        <textarea name='content' maxlength='255' rows='10' style="resize:none;" placeholder="{% trans 'Optional' %}"></textarea>
                     </div>
                     <div class="field">
                         <label for="add">{% trans 'Target date time:' %}</label>
