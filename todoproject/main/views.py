@@ -1,4 +1,3 @@
-from turtle import title
 from django.views.generic import View, ListView, CreateView, UpdateView, DeleteView
 from django.utils.translation import gettext as _
 from django.contrib.auth.decorators import login_required
