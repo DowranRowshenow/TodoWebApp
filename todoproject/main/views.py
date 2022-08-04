@@ -49,12 +49,6 @@ class TodoListView(ListView):
         translation.activate(lang)
         return super().get(request, *args, **kwargs)
 
-    def post(self, request):
-        content = request.POST['content']
-        target_date = request.POST['target_date']
-        if content and target_date: Todo.objects.create(content = content, owner = request.user, target_date = target_date)
-        return redirect(request.META.get('HTTP_REFERER'))
-
 
 class CreateItemView(CreateView):
     model = Todo
