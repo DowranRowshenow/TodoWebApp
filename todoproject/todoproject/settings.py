@@ -115,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Ashgabat'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -137,8 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Gmail_send/settings.py
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'zeroteamsdr@gmail.com'
-EMAIL_HOST_PASSWORD = 'dsmkzijvikrgnyfw' #past the key or password app here
+EMAIL_HOST_USER = 'youremail@gmail.com'
+EMAIL_HOST_PASSWORD = 'yourpassword' #past the key or password app here
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
