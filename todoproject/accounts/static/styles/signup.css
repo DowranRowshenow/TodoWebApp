@@ -153,3 +153,79 @@ form
     border-top-left-radius: 0;
     font-weight: bold;
 }
+#arrow
+{
+    font-size: 2.5vh;
+}
+@media screen and (max-width: 768px)
+{
+    body
+    {
+        font-size: 1.2vh;
+    }
+    .box
+    {
+        border-top-left-radius: 5vh;
+        border-bottom-right-radius: 5vh;
+        padding: 5vh;
+        width: 25vh;
+        height: 25vh;
+    }
+    .box .column_1
+    {
+        margin-top: -1vh;
+    }
+    .box .column_1 h2
+    {
+        font-size: 3vh;
+    }
+    #back_btn
+    {
+        font-size: 3vh;
+    }
+    .box h3
+    {
+        margin-top: 1vh;
+        margin-bottom: 0.3vh;
+    }
+    .box input
+    {
+        border: 0.1vh solid rgb(132, 132, 132);
+        font-size: 1.5vh;
+        padding-top: 0.5vh;
+        padding-bottom: 0.5vh;
+        border-radius: 0.5vh;
+    }
+    .box input::placeholder
+    {
+        font-size: 1vh;
+    }
+    .box label
+    {
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+    }
+    #signup_btn
+    {
+        padding-top: 0.7vh;
+        padding-bottom: 0.7vh;
+        font-size: 1.5vh;
+        border-radius: 0.5vh;
+    }
+    .box .label_2 a:hover
+    {
+        font-size: 1.5vh;
+    }
+    .alert
+    {
+        padding: 1vh;
+        width: 33vh;
+        font-size: 1vh;
+        margin-top: 5vh;
+        border-radius: 3vh;
+    }
+    #arrow
+    {
+        font-size: 2.5vh;
+    }
+}

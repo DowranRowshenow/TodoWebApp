@@ -1,0 +1,449 @@
+/* VARIABLES */
+:root
+{
+    /* COLORS */
+    --bg: rgb(108, 93, 93);
+    --main: transparent;
+    --nav: rgb(51, 46, 55);
+    --header: rgb(51, 46, 55);
+    --primary: rgb(50, 50, 50);
+    --secondary: rgb(253, 40, 40);
+    --text: rgb(226, 226, 226);
+    --nav_a: rgb(184, 184, 184);
+    --nav_icon: rgb(205, 203, 203);
+    --nav_active: rgba(132, 132, 132, 0.21);
+    --nav_active_color: black;
+    --dropdown_bg: #f9f9f9;
+    --dropdown_hover: #ddd;
+    --dropdown_a: var(--text);
+    --dropdown_a_2: black;
+    --hover: rgb(230,230,230);
+    --hover_2: #555;
+    --button: var(--text);
+    --star: rgb(255, 196, 0);
+    --border_color: rgba(170, 170, 170, 0.382);
+    --whiter: #ddd;
+    --blue: rgb(71, 159, 235);
+    --green: rgba(0, 255, 106, 0.32);
+    --red: rgb(253, 40, 40);
+    /* SCALES */
+    --nav_width: 70px;
+    --nav_width_min: 70px;
+    --nav_width_max: 350px;
+    --nav_pad: 20px;
+    --head_pad: 20px;
+    --head_pad_2: 17px;
+    --dropdown_width: 160px;
+    --search_width: 300px;
+    --item_height: 40px;
+    --border: 1px;
+    --radius: 3px;
+    /* FONTS */
+    --nav_font: 30px;
+    --nav_font_2: 35px;
+    --nav_font_a: 0;
+    --nav_font_a_min: 0px;
+    --nav_font_a_max: 15px;
+    --button_font: 25px;
+    --dropdown_font: 15px;
+    /* OTHERS */
+    --scaling: 1.05;
+    --scaling_2: 1.01;
+    --animations: 0.3s;
+    --animations_2: 0.1s;
+    --dropdown_shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    --dropdown_padding: 12px 16px;
+}
+/* DEFAULTS */
+::-webkit-scrollbar 
+{
+    width: 0;
+    height: 0;
+    background: transparent;
+}
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button 
+{
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] 
+{
+    -moz-appearance: textfield;
+}
+::selection
+{
+	background-color: transparent;
+    color: rgba(0, 0, 0, 0.5);
+}
+*:focus 
+{
+    outline: none;
+}
+/* BODY */
+html, body
+{
+    background-color: var(--bg);
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+section
+{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+.nav
+{
+    top: 0; /* required */
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: var(--nav_width);
+    transition: var(--animations);
+    background-color: var(--nav);
+    border-right: var(--border) solid var(--border_color);
+}
+.nav .menu
+{
+    display: flex;
+    justify-content: center;
+    font-size: var(--nav_font);
+    padding: 0;
+    margin: 15px;
+    margin-bottom: 25px;
+    width: 40px;
+    border-bottom: none;
+}
+.nav a
+{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--nav_a);
+    font-size: var(--nav_font_a);
+    text-decoration: none;
+    padding-left: var(--nav_pad);
+    padding-top: var(--nav_pad);
+    padding-bottom: var(--nav_pad);
+    transition: var(--animations);
+    border-bottom: var(--border) solid var(--border_color);
+}
+.nav a:hover
+{
+    background-color: var(--nav_active);
+}
+.nav a i
+{
+    color: var(--nav_icon);
+    font-size: var(--nav_font);
+    margin-right: var(--nav_pad);
+}
+.active
+{
+    background-color: var(--nav_active);
+    color: var(--nav_active_color);
+}
+.nav .spacer:hover
+{
+    cursor: auto;
+    background-color: transparent;
+}
+/* MAIN */
+.main
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+.header
+{
+    display: flex;
+    justify-content: space-between;
+    padding: var(--head_pad);
+    padding-bottom: var(--head_pad_2);
+    background-color: var(--header);
+    border-bottom: var(--border) solid var(--border_color);
+}
+.green
+{
+    background-color: var(--green);
+}
+.text h1, .text h5
+{
+    color: var(--text);
+    padding: 0;
+    margin: 0;
+}
+.lang, .sort, .filter
+{
+    background-color: white;
+    width: 35px;
+    padding: 5px;
+    text-align: center;
+    font-size: var(--button_font);
+    color: var(--button);
+    border-radius: var(--radius);
+    border: var(--border) solid black;
+}
+.lang:hover .dropdown-content , .sort:hover .dropdown-content , .filter:hover .dropdown-content 
+{
+    margin-top: 7px;
+}
+.dropdown 
+{
+    cursor: pointer;
+    float: left;
+    overflow: hidden;
+}
+.dropdown-content 
+{
+    margin-left: -5px;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    background-color: var(--dropdown_bg);
+    min-width: var(--dropdown_width);
+    box-shadow: var(--dropdown_shadow);
+    z-index: 2;
+    border-radius: var(--radius);
+}
+.dropdown-content a 
+{
+    float: none;
+    cursor: pointer;
+    color: var(--dropdown_a);
+    padding: var(--dropdown_padding);
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: var(--dropdown_font);
+    border: var(--border) solid var(--border_color);
+}
+.dropdown-content a:hover 
+{
+    background-color: var(--dropdown_hover);
+}
+.dropdown:hover .dropdown-content
+{
+    display: block;
+}
+.search_bar
+{
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+.search_bar .dropdown, .search_bar input
+{
+    margin-left: 20px;
+}
+.search_bar #search_i
+{
+    color: var(--text);
+    position: absolute;
+    font-size: 20px;
+    right: 10px;
+    top: 13px;
+}
+.search_bar input
+{
+    font-size: 20px;
+    height: 34px;
+    width: var(--search_width);
+}
+.search_bar input::placeholder
+{
+    font-size: 20px;
+}
+.search_bar #picker
+{
+    height: 37px;
+    width: auto;
+}
+.content
+{
+    display: flex;
+    height: 100%;
+    flex-direction: column;   
+    margin: 20px;
+    overflow-y: auto;
+}
+.add
+{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    top: 0px; /* required */
+    position: -webkit-sticky;
+    position: sticky;
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    font-size: 20px;
+    padding: 5px;
+    color: var(--blue);
+    height: var(--item_height);
+    background-color: white;
+    transition: var(--animations_2);
+}
+.add:hover
+{
+    background-color: aliceblue;
+}
+#add_btn
+{
+    cursor: pointer;
+    align-self: center;
+    font-size: 30px;
+    margin-right: 20px;
+    border: 2px solid whitesmoke;
+    border-radius: 10px;
+    background-color: aliceblue;
+    color: white;
+    width: 35px;
+    height: 35px;
+    background-color: var(--blue);
+    text-align: center;
+    padding: 0;
+}
+.item
+{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+    height: var(--item_height);
+    border-bottom: 2px solid var(--text);
+    color: var(--text);
+    transition: var(--animations_2);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.item:hover
+{
+    cursor: pointer;
+    background-color: var(--hover);
+}
+.item .checkbox
+{
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    margin: 0 0 0 10px;
+    padding: 0;
+    transition: var(--animations);
+}
+.item .checkbox:hover, .item span:hover
+{
+    transform: scale(1.2);
+}
+.item span
+{
+    cursor: pointer;
+    font-size: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+    transition: var(--animations);
+}
+.item a
+{
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 22px;
+}
+.item .created
+{
+    position: absolute;
+    right: 10px;
+}
+.fa 
+{
+    color: rgb(210, 210, 210);
+}
+.checked 
+{
+    color: var(--star);
+}
+.item-options .delete
+{
+    color: red;
+    font-size: 20px;
+    padding: 10px;
+}
+.item-options i
+{
+    font-size: 23px;
+    color: var(--text);
+}
+.paginator
+{
+    display: flex;
+    margin: -15px 20px 10px 20px;
+    border-bottom: 2px solid var(--text);
+    height: 50px;
+    color: var(--text);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background-color: aliceblue;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    transition: var(--animations_2);
+}
+.paginator .iterator
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--animations_2);
+    margin-right: 10px;
+    margin-right: 10px;
+}
+.paginator .iterator:hover
+{
+    cursor: pointer;
+    transform: scale(var(--scaling));
+}
+.paginator .iterator h4
+{
+    text-align: center;
+    font-size: 20px;
+}
+.paginator a
+{
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    width: 30px;
+    transition: var(--animations_2);
+}
+.paginator a:hover
+{
+    transform: scale(var(--scaling));
+}
+.current
+{
+    border-radius: 5px;
+    color: white;
+    background-color: var(--blue);
+}
+.paginator *
+{
+    margin: 0 0 0 20px;
+}
+.disabled:hover
+{
+    background-color: transparent;
+    cursor: auto;
+}

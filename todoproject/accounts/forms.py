@@ -1,4 +1,3 @@
-from tkinter.tix import Form
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from accounts.models import User
 import uuid

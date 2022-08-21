@@ -70,3 +70,35 @@ section
     transform: scale(1.03);
     background-color: rgb(20, 114, 201);
 }
+@media screen and (max-width: 1280px)
+{
+    body
+    {
+        font-size: 1.2vh;
+    }
+    .box
+    {
+        border-top-left-radius: 5vh;
+        border-bottom-right-radius: 5vh;
+        padding: 5vh;
+        width: 25vh;
+        height: 8vh;
+    }
+    .box h1
+    {
+        margin-bottom: 1vh;
+        font-size: 2vh;
+    }
+    .box h2
+    {
+        margin-bottom: 1vh;
+        font-size: 1.5vh;
+    }
+    #login_btn
+    {
+        padding-top: 0.7vh;
+        padding-bottom: 0.7vh;
+        font-size: 1.5vh;
+        border-radius: 0.5vh;
+    }
+}

@@ -56,6 +56,39 @@
                     {% trans "Log Out" %}
                 </a>
             </div>
+            <div class="nav_2">
+                <a class="menu">☰</a>
+                {% if current_page == "home" %}
+                <a class="active">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                </a>
+                {% else %}
+                <a onclick="page_by.value = 'home';post_form.submit();">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                </a>
+                {% endif %}
+                {% if current_page == "favorites" %}
+                <a class="active">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+                {% else %}
+                <a onclick="page_by.value = 'favorites';post_form.submit();">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+                {% endif %}
+                {% if current_page == "deleted" %}
+                <a class="active">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+                {% else %}
+                <a onclick="page_by.value = 'deleted';post_form.submit();">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+                {% endif %}
+                <a onclick="location.href='{% url 'logout' %}';">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                </a>
+            </div>
             <div class="main">
                 <div class="header">
                     <div class="text">
@@ -162,6 +195,7 @@
                     </div>
                     {% for item in item_list %}
                     <div class='item' onclick="on_item_click(expand_{{ item.pk }})">
+                        <a id="title_{{ item.pk }}" class="title2">{{ item.title }}</a>
                         <div class='item_head'>
                             <!--<a>{{ item.pk }}.</a> -->
                             <!--<a>{{ forloop.counter }}.</a> -->
@@ -175,7 +209,7 @@
                             {% else %}
                             <span class='fa fa-star'></span>
                             {% endif %}
-                            <a id="title_{{ item.pk }}">{{ item.title }}</a>
+                            <a id="title_{{ item.pk }}" class="title">{{ item.title }}</a>
                             <a class="created">{{ item.target_date_time|date:"d M" }}</a>
                             <div class="item-options dropdown">
                                 <i class="fa fa-edit"></i>
@@ -202,16 +236,16 @@
                         </div>
                         <div id="expand_{{ item.pk }}" class="item_expand">
                             <div class="description">
-                                <label for="expand_{{ item.pk }}">{% trans 'DESCRIPTION:' %}</label>
-                                <textarea id="content_{{ item.pk }}" disabled>{{ item.content }}</textarea>
+                                <label class="label" for="expand_{{ item.pk }}">{% trans 'DESCRIPTION:' %}</label>
+                                <textarea class="area" id="content_{{ item.pk }}" disabled>{{ item.content }}</textarea>
                             </div>
                             <div>
-                                <label for="expand_{{ item.pk }}">{% trans 'TARGET DATE TIME:' %}</label>
-                                <a>{{ item.target_date_time }}</a>
+                                <label class="label" for="expand_{{ item.pk }}">{% trans 'TARGET DATE TIME:' %}</label>
+                                <a class="date">{{ item.target_date_time }}</a>
                             </div>
                             <div>
-                                <label for="expand_{{ item.pk }}">{% trans 'CREATED DATE TIME:' %}</label>
-                                <a>{{ item.created_date_time }}</a>
+                                <label class="label" for="expand_{{ item.pk }}">{% trans 'CREATED DATE TIME:' %}</label>
+                                <a class="date">{{ item.created_date_time }}</a>
                             </div>
                         </div>
                     </div>
@@ -234,6 +268,38 @@
                         <h4>{% trans "Last" %}</h4>
                         <i class="fa-solid fa-angle-right"></i>
                     </div>
+                </div>
+                <div class="nav_3">
+                    {% if current_page == "home" %}
+                    <a class="active">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                    </a>
+                    {% else %}
+                    <a onclick="page_by.value = 'home';post_form.submit();">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                    </a>
+                    {% endif %}
+                    {% if current_page == "favorites" %}
+                    <a class="active">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </a>
+                    {% else %}
+                    <a onclick="page_by.value = 'favorites';post_form.submit();">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </a>
+                    {% endif %}
+                    {% if current_page == "deleted" %}
+                    <a class="active">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    {% else %}
+                    <a onclick="page_by.value = 'deleted';post_form.submit();">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                    {% endif %}
+                    <a onclick="location.href='{% url 'logout' %}';">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </a>
                 </div>
             </div>
         </section>

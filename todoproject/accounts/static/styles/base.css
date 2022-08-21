@@ -128,3 +128,51 @@ body
     width: 50%;
     height: 100%;
 }
+@media screen and (max-width: 768px)
+{
+    .left
+    {
+        width: 100%;
+    }
+    .right
+    {
+        width: 0;
+    }
+    .left div h1
+    {
+        font-size: 6vh;
+        margin-bottom: 2vh;
+    }
+    .left div h5
+    {
+        font-size: 2vh;
+    }
+    .left .first
+    {
+        width: 0%;
+    }
+    .left .second
+    {
+        width: 100%;
+    }
+    #login_btn
+    {
+        padding-left: 1.8vh;
+        padding-right: 1.8vh;
+        padding-top: 0.5vh;
+        padding-bottom: 0.5vh;
+        font-size: 1.5vh;
+        border: 0.2vh solid white;
+        border-radius: 2vh;
+    }
+    #signup_btn
+    {
+        padding-left: 1.8vh;
+        padding-right: 1.8vh;
+        padding-top: 0.5vh;
+        padding-bottom: 0.5vh;
+        font-size: 1.5vh;
+        border: 0.2vh solid white;
+        border-radius: 2vh;
+    }
+}

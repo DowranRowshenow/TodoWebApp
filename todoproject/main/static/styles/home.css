@@ -36,6 +36,7 @@
     --head_pad: 20px;
     --head_pad_2: 17px;
     --dropdown_width: 160px;
+    --search_height: 34px;
     --search_width: 300px;
     --item_height: 40px;
     --border: 1px;
@@ -46,6 +47,8 @@
     --nav_font_a: 0;
     --nav_font_a_min: 0px;
     --nav_font_a_max: 15px;
+    --head_font: 25px;
+    --head_font_2: 15px;
     --button_font: 25px;
     --dropdown_font: 15px;
     --expand_font: 20px;
@@ -87,6 +90,7 @@ input[type=number]
 /* BODY */
 html, body
 {
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
     background-color: var(--bg);
     height: 100%;
     width: 100%;
@@ -99,7 +103,7 @@ section
     height: 100%;
     width: 100%;
 }
-.nav
+.nav, .nav_2, .nav_3
 {
     top: 0; /* required */
     position: -webkit-sticky;
@@ -114,7 +118,18 @@ section
     border-right: var(--border) solid rgb(210, 210, 210);
     box-shadow: var(--expand_shadow);
 }
-.nav .menu
+.nav_2, .nav_3
+{
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+}
+.nav_3
+{
+    height: 0;
+    flex-direction: row;
+}
+.nav .menu, .nav_2 .menu
 {
     display: flex;
     justify-content: center;
@@ -125,7 +140,7 @@ section
     width: 40px;
     border-bottom: none;
 }
-.nav a
+.nav a, .nav_2 a, .nav_3 a
 {
     display: flex;
     align-items: center;
@@ -139,11 +154,11 @@ section
     transition: var(--animations);
     border-bottom: var(--border) solid var(--border_color);
 }
-.nav a:hover
+.nav a:hover, .nav_2 a:hover, .nav_3 a:hover
 {
     background-color: var(--nav_active);
 }
-.nav a i
+.nav a i, .nav_2 a i, .nav_3 a i
 {
     color: var(--nav_icon);
     font-size: var(--nav_font);
@@ -177,6 +192,7 @@ section
     background-color: var(--header);
     border-bottom: var(--border) solid var(--border_color);
     box-shadow: var(--expand_shadow);
+    transition: var(--animations);
 }
 .green
 {
@@ -187,11 +203,15 @@ section
     color: var(--text);
     padding: 0;
     margin: 0;
+    font-size: var(--head_font);
+}
+.text h5
+{
+    font-size: var(--head_font_2);
 }
 .lang, .sort, .filter
 {
     background-color: white;
-    width: 35px;
     padding: 5px;
     text-align: center;
     font-size: var(--button_font);
@@ -243,6 +263,7 @@ section
 }
 .search_bar
 {
+    transition: var(--animations);
     display: flex;
     position: relative;
     align-items: center;
@@ -262,7 +283,7 @@ section
 .search_bar input
 {
     font-size: 20px;
-    height: 34px;
+    height: var(--search_height);
     width: var(--search_width);
 }
 .search_bar input::placeholder
@@ -339,6 +360,14 @@ section
     cursor: pointer;
     background-color: var(--hover);
 }
+.title2
+{
+    visibility: hidden;
+    opacity: 0;
+    transition: var(--animations);
+    margin-left: 5px;
+    height: 0;
+}
 .item_expand
 {
     display: flex;
@@ -403,13 +432,15 @@ section
     margin-right: 15px;
     transition: var(--animations_2);
 }
-.item_head a
+.item_head .title
 {
     text-align: center;
     text-decoration: none;
     padding: 10px;
     padding-right: 15px;
     font-size: 22px;
+    word-wrap: break-word;
+    text-align: left;
 }
 .item_head .created
 {
@@ -426,14 +457,18 @@ section
 }
 .item-options .delete
 {
+    padding: var(--dropdown_padding);
     color: red;
     font-size: 20px;
-    padding: 10px;
 }
 .item-options i
 {
     font-size: 23px;
     color: var(--text);
+}
+.item-options i:hover
+{
+    color: var(--blue);
 }
 .options a
 {
@@ -594,4 +629,329 @@ section
 .submit:hover
 {
     transform: scale(var(--scaling_2));
+}
+@media screen and (max-width: 1280px)
+{
+    :root
+    {
+        /* SCALES */
+        --nav_width: 50px;
+        --nav_width_min: 50px;
+        --nav_width_max: 300px;
+        --nav_pad: 20px; 
+        --head_pad: 15px;
+        --head_pad_2: 17px;
+        --search_height: 25px;
+        --search_width: 200px;
+        --item_height: 30px;
+        /* FONTS */
+        --nav_font: 17px;
+        --nav_font_a_max: 12px;
+        --head_font: 20px;
+        --head_font_2: 10px;
+        --button_font: 15px;
+    }
+    .nav .menu
+    {
+        margin: 15px 0 25px 5px;
+        height: 30px;
+    }
+    .search_bar #search_i
+    {
+        color: var(--text);
+        position: absolute;
+        font-size: 16px;
+        right: 7px;
+        top: 8px;
+    }
+    .search_bar input
+    {
+        font-size: 13px;
+    }
+    .search_bar input::placeholder
+    {
+        font-size: 13px;
+    }
+    .item_head .checkbox
+    {
+        height: 20px;
+        width: 20px;
+    }
+    .item_head span
+    {
+        font-size: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .item_head .title, .item_head .created
+    {
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 900px)
+{
+    .nav
+    {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+    }
+    .nav_3
+    {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+    .nav_2
+    {
+        opacity: 1;
+        visibility: visible;
+        width: var(--nav_width_min);
+    }
+    .nav_2 .menu
+    {
+        margin-bottom: 30px;
+        width: 20px;
+        visibility: hidden;
+        opacity: 0;
+    }
+    .add_box
+    {
+        width: 500px;
+    }
+    .item_head .title, .item_head .created
+    {
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 700px)
+{
+    .nav
+    {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+    }
+    .nav_2
+    {
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
+    }
+    .nav_3
+    {
+        opacity: 1;
+        visibility: visible;
+        height: 50px;
+        width: auto;
+        justify-content: space-between;
+        box-shadow: var(--expand_shadow);
+        border-top: var(--border);
+    }
+    .nav_3 a
+    {
+        justify-content: center;
+        width: 100%;
+    }
+    .header
+    {
+        flex-direction: column;
+    }
+    .text
+    {
+        margin-bottom: 10px;
+    }
+    .post_form
+    {
+        margin-left: auto;
+    }
+    .post_form input
+    {
+        margin-left: 0;
+    }
+    .search_bar .dropdown, .search_bar input
+    {
+        margin: 0;
+        margin-right: 5px;
+    }
+    .dropdown-content
+    {
+        margin-top: 20px !important;
+    }
+    .add
+    {
+        font-size: 15px;
+    }
+    #add_btn
+    {
+        font-size: 20px;
+        width: 30px;
+        height: 30px;
+    }
+    .item_head .title, .item_head .created
+    {
+        font-size: 17px;
+    }
+    .label, .date, .area
+    {
+        font-size: 12px !important;
+    }
+    .add_box
+    {
+        width: 300px;
+    }
+    .paginator a
+    {
+        font-size: 15px;
+        width: 20px;
+    }
+    .paginator .iterator h4
+    {
+        font-size: 15px;
+    }
+    .add_header
+    {
+        font-size: 20px;
+    }
+    .close_btn
+    {
+        width: 25px;
+        height: 20px;
+        font-size: 10px;
+    }
+    .field
+    {
+        font-size: 15px;
+    }
+    .add_form input
+    {
+        font-size: 13px;
+    }
+    .add_form textarea
+    {
+        font-size: 13px;
+    }
+    .submit input
+    {
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 450px)
+{
+    .add_box
+    {
+        width: 250px;
+    }
+    .content
+    {
+        margin: 10px 10px 0 10px;
+    }
+    .title2
+    {
+        visibility: visible;
+        opacity: 1;
+        margin: 5px 10px 5px 10px;
+        height: auto;
+    }
+    .title
+    {
+        visibility: hidden;
+        opacity: 0;
+        width: 0;
+    }
+    .item_head .title2, .item_head .created
+    {
+        font-size: 15px;
+    }
+    .item_expand
+    {
+        margin: 5px !important;
+    }
+    .paginator
+    {
+        margin: 0 10px 10px 10px;
+    }
+    .options a, .delete
+    {
+        font-size: 15px !important;
+    }
+}
+@media screen and (max-width: 350px)
+{
+    #search_by
+    {
+        width: 150px;
+    }
+    .add_box
+    {
+        width: 200px;
+    }
+    .item_head .title2, .item_head .created
+    {
+        font-size: 12px;
+    }
+    .label, .date, .area
+    {
+        font-size: 10px !important;
+    }
+    .paginator
+    {
+        justify-content: space-around;
+    }
+    .iterator
+    {
+        margin: 0;
+    }
+    .paginator a
+    {
+        font-size: 12px;
+        width: 20px;
+        margin: 0;
+    }
+    .paginator .iterator h4
+    {
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 300px)
+{
+    #search_by
+    {
+        width: 130px;
+    }
+    .add_box
+    {
+        width: 180px;
+    }
+}
+@media screen and (max-width: 280px)
+{
+    .dropdown-content
+    {
+        min-width: 100px;
+    }
+    .options a, .delete
+    {
+        font-size: 12px !important;
+    }
+    #search_by
+    {
+        width: 100px;
+    }
+    .add_box
+    {
+        width: 150px;
+    }
+}
+@media screen and (max-width: 280px)
+{
+    #search_by
+    {
+        width: 80px;
+    }
+    .add_box
+    {
+        width: 130px;
+    }
 }
