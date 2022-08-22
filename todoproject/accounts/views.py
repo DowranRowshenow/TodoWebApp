@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse_lazy, reverse
 from accounts.models import User
-from accounts.forms import SingUpForm
+from accounts.forms import SingUpForm, LogInForm
 
 
 class BaseView(View):
@@ -19,10 +19,10 @@ class BaseView(View):
 
 
 class CustomLoginView(LoginView):
+    form_class = LogInForm
     template_name = 'login.html'
-    fields = '__all__'
     success_url = reverse('todos')
-
+    
 
 class CustomSignupView(CreateView):
     form_class = SingUpForm

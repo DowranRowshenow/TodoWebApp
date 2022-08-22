@@ -261,6 +261,10 @@ section
 {
     display: block;
 }
+.dropdown:hover i
+{
+    color: var(--blue);
+}
 .search_bar
 {
     transition: var(--animations);
@@ -465,10 +469,6 @@ section
 {
     font-size: 23px;
     color: var(--text);
-}
-.item-options i:hover
-{
-    color: var(--blue);
 }
 .options a
 {
@@ -797,10 +797,6 @@ section
     {
         font-size: 12px !important;
     }
-    .add_box
-    {
-        width: 300px;
-    }
     .paginator a
     {
         font-size: 15px;
@@ -809,6 +805,10 @@ section
     .paginator .iterator h4
     {
         font-size: 15px;
+    }
+    .add_box
+    {
+        width: 300px;
     }
     .add_header
     {
@@ -876,6 +876,10 @@ section
     {
         font-size: 15px !important;
     }
+    .add_box
+    {
+        padding: 20px;   
+    }
 }
 @media screen and (max-width: 350px)
 {
@@ -913,6 +917,10 @@ section
     {
         font-size: 12px;
     }
+    .add_box
+    {
+        padding: 15px;   
+    }
 }
 @media screen and (max-width: 300px)
 {
@@ -923,6 +931,10 @@ section
     .add_box
     {
         width: 180px;
+    }
+    .add_box
+    {
+        padding: 10px;   
     }
 }
 @media screen and (max-width: 280px)
@@ -941,7 +953,7 @@ section
     }
     .add_box
     {
-        width: 150px;
+        width: 200px;
     }
 }
 @media screen and (max-width: 280px)
@@ -952,6 +964,6 @@ section
     }
     .add_box
     {
-        width: 130px;
+        width: 150px;
     }
 }

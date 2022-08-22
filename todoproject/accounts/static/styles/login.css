@@ -168,6 +168,8 @@ form
 }
 .alert
 {
+    display: flex;
+    flex-direction: column;
     align-self: center;
     background-color: wheat;
     color: red;

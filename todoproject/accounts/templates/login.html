@@ -37,7 +37,15 @@
                     <a href="{% url 'signup' %}">{% trans "Sign up" %}</a>
                 </label>
                 {% if form.errors %}
-                <div class="alert">{{ form.non_field_errors }}</div>
+                <div class="alert">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                        <a>{{ field.label_tag }} {{ error }}</a>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
                 {% endif %}
                 {% if messages %}
                     {% for message in messages %}
