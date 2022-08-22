@@ -144,12 +144,12 @@
                                 {% else %}
                                 <a onclick="sort_by.value = 'title';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
                                 {% endif %}
-                                {% if sort_by == "target_date" %}
-                                <a class="green" onclick="sort_by.value = '-target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
-                                {% elif sort_by == "-target_date" %}
-                                <a class="green" onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬆</a>
+                                {% if sort_by == "target_date_time" %}
+                                <a class="green" onclick="sort_by.value = '-target_date_time';post_form.submit();">{% trans "Target Date" %} ⬇</a>
+                                {% elif sort_by == "-target_date_time" %}
+                                <a class="green" onclick="sort_by.value = 'target_date_time';post_form.submit();">{% trans "Target Date" %} ⬆</a>
                                 {% else %}
-                                <a onclick="sort_by.value = 'target_date';post_form.submit();">{% trans "Target Date" %} ⬇</a>
+                                <a onclick="sort_by.value = 'target_date_time';post_form.submit();">{% trans "Target Date" %} ⬇</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -200,14 +200,14 @@
                             <!--<a>{{ item.pk }}.</a> -->
                             <!--<a>{{ forloop.counter }}.</a> -->
                             {% if item.is_completed %}
-                            <input type="checkbox" class="checkbox" onclick='return false' checked>
+                            <div onclick="location.href='{% url 'complete_item' item.id %}';"><input type="checkbox" class="checkbox" onclick='return false' checked></div>
                             {% else %}
-                            <input type="checkbox" class="checkbox" onclick='return false'>
+                            <div onclick="location.href='{% url 'complete_item' item.id %}';"><input type="checkbox" class="checkbox" onclick='return false'></div>
                             {% endif %}
                             {% if item.is_favorite %}
-                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked" onclick="location.href='{% url 'favorite_item' item.id %}';"></span>
                             {% else %}
-                            <span class='fa fa-star'></span>
+                            <span class='fa fa-star' onclick="location.href='{% url 'favorite_item' item.id %}';"></span>
                             {% endif %}
                             <a id="title_{{ item.pk }}" class="title">{{ item.title }}</a>
                             <a class="created">{{ item.target_date_time|date:"d M" }}</a>

@@ -58,7 +58,7 @@ class CreateItemView(CreateView):
         self.object = form.save()
         return redirect(self.request.META.get('HTTP_REFERER'))
 
-    def form_invalid(self):
+    def form_invalid(self, form):
         return redirect(self.request.META.get('HTTP_REFERER'))
 
 
@@ -70,7 +70,7 @@ class EditItemView(UpdateView):
         self.object = form.save()
         return redirect(self.request.META.get('HTTP_REFERER'))
 
-    def form_invalid(self):
+    def form_invalid(self, form):
         return redirect(self.request.META.get('HTTP_REFERER'))
 
 
