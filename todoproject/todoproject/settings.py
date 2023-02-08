@@ -28,9 +28,10 @@ DEBUG = True
 #DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = [
-    '192.168.1.105',
-    '127.0.0.1',
-    'todowebappdr.herokuapp.com',
+    #'192.168.1.105',
+    #'127.0.0.1',
+    #'todowebappdr.herokuapp.com',
+    *
 ]
 
 
