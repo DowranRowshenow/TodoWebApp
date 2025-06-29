@@ -42,6 +42,8 @@ Open `commandline` where `manage.py` is located in the project folder and enter 
     py manage.py makemigrations main
     py manage.py makemigrations
     py manage.py migrate
+    py manage.py compilemessages
+    py manage.py collectstatics
     py manage.py runserver
 
 OPTIONAL:

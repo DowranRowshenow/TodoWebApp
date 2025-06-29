@@ -6,10 +6,10 @@ from django.shortcuts import redirect
 from accounts import views
 
 def redirect_to_todos(request):
-    return redirect('todos')
+    return redirect('base')
 
 urlpatterns = [
-    path('', redirect_to_todos, name='base'),
+    path('', redirect_to_todos, name='main'),
 
     #path('', views.BaseView.as_view(), name="base"),
     path('admin/', admin.site.urls),

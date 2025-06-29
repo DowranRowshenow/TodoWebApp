@@ -50,10 +50,10 @@
                                 <i class="fa fa-globe" aria-hidden="true"></i> {% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE|upper }}
                             </button>
                             <div id="language-menu" style="display: none; position: absolute; top: 100%; right: 0; background: #354155; border: 1px solid var(--border-color); border-radius: var(--radius-md); box-shadow: var(--shadow-md); z-index: 1000; min-width: 120px;">
-                                <a href="{% url 'language_switch' 'en' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">English</a>
-                                <a href="{% url 'language_switch' 'ru' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">Русский</a>
-                                <a href="{% url 'language_switch' 'tk' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">Türkmençe</a>
-                                <a href="{% url 'language_switch' 'tr' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat;">Türkçe</a>
+                                <a href="/en/todos" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">English</a>
+                                <a href="/ru/todos" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">Русский</a>
+                                <a href="/tk/todos" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">Türkmençe</a>
+                                <a href="/tr/todos" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat;">Türkçe</a>
                             </div>
                         </div>
                         <button class="login-button" style="padding: 0.5rem 1rem; font-size: 1rem; background: none; color: var(--primary-color); border: 1px solid var(--primary-color);" onclick="location.href='{% url 'logout' %}'">

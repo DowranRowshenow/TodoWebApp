@@ -8,6 +8,10 @@
     color: #e6dde4;
 }
 
+html {
+    -webkit-tap-highlight-color: transparent !important;
+}
+
 /* For Firefox, you'll also need the -moz- prefix */
 ::-moz-selection {
     background-color: #39333d;
