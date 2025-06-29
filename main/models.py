@@ -9,5 +9,5 @@ class Todo(models.Model):
 	is_favorite = models.BooleanField(default=False)
 	is_completed = models.BooleanField(default=False)
 	is_deleted = models.BooleanField(default=False)
-	created_date_time = models.DateTimeField(default = timezone.now())
-	target_date_time = models.DateTimeField(default = timezone.now())
+	created_date_time = models.DateTimeField(default = timezone.now)
+	target_date_time = models.DateTimeField(default = timezone.now)

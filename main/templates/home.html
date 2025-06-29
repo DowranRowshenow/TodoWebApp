@@ -1,361 +1,302 @@
 <!DOCTYPE html>
 {% load static %}
 {% load i18n %}
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
     <head>
-        <title>{% trans "$Home" %} - Todo Web App</title>
+        <title>{% trans "Home" %} - Todo Web App</title>
         <meta charset="UTF-8">
         <meta name="title" content="Todo Web App"/>
         <meta name="description" content="Welcome Todo Web App"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
-        <link rel="stylesheet" href="{% static 'styles/home.css' %}"/>
+        <link rel="stylesheet" href="{% static 'styles/login.css' %}"/>
         <link rel="stylesheet" href="{% static 'styles/all.css' %}" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'styles/theme.css' %}"/>
+        <style>
+            /* Force contrast fixes for task items */
+            .login-card .item_expand strong {
+                color: #374151 !important;
+            }
+            .login-card .item_expand span {
+                color: #1f2937 !important;
+            }
+            .login-card span[style*="font-weight: 600"] {
+                color: #1f2937 !important;
+            }
+            .login-card span[style*="color: var(--text-secondary)"] {
+                color: #6b7280 !important;
+            }
+            .login-card span[style*="color: var(--text-primary)"] {
+                color: #1f2937 !important;
+            }
+        </style>
     </head>
-    {% with current_page=request.GET.page_by|default:'home' search_by=request.GET.search_by|default:'' sort_by=request.GET.sort_by|default:'id' filter_by=request.GET.filter_by|default:'none' lang_by=request.GET.lang_by|default:'en' %}
-    <body>
-        <section>
-            <div class="nav">
-                <a class="menu" onclick="on_menu_click()">☰</a>
-                <a><i class="fa fa-user"></i>{{ request.user.email }}</a>
-                {% if current_page == "home" %}
-                <a class="active">
-                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                    {% trans "All Tasks" %}
-                </a>
-                {% else %}
-                <a onclick="page_by.value = 'home';post_form.submit();">
-                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                    {% trans "All Tasks" %}
-                </a>
-                {% endif %}
-                {% if current_page == "favorites" %}
-                <a class="active">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    {% trans "Favorites" %}
-                </a>
-                {% else %}
-                <a onclick="page_by.value = 'favorites';post_form.submit();">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    {% trans "Favorites" %}
-                </a>
-                {% endif %}
-                {% if current_page == "deleted" %}
-                <a class="active">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    {% trans "Delete" %}
-                </a>
-                {% else %}
-                <a onclick="page_by.value = 'deleted';post_form.submit();">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                    {% trans "Deleted" %}
-                </a>
-                {% endif %}
-                <a onclick="location.href='{% url 'logout' %}';">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    {% trans "Log Out" %}
-                </a>
-            </div>
-            <div class="nav_2">
-                <a class="menu">☰</a>
-                {% if current_page == "home" %}
-                <a class="active">
-                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                </a>
-                {% else %}
-                <a onclick="page_by.value = 'home';post_form.submit();">
-                    <i class="fa fa-tasks" aria-hidden="true"></i>
-                </a>
-                {% endif %}
-                {% if current_page == "favorites" %}
-                <a class="active">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </a>
-                {% else %}
-                <a onclick="page_by.value = 'favorites';post_form.submit();">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </a>
-                {% endif %}
-                {% if current_page == "deleted" %}
-                <a class="active">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                {% else %}
-                <a onclick="page_by.value = 'deleted';post_form.submit();">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-                {% endif %}
-                <a onclick="location.href='{% url 'logout' %}';">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="main">
-                <div class="header">
-                    <div class="text">
-                        {% if current_page == "favorites" %}
-                        <h1 id="counter">{% trans "Favorite Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
-                        {% elif current_page == "deleted" %}
-                        <h1 id="counter">{% trans "Deleted Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
-                        {% else %}
-                        <h1 id="counter">{% trans "All Tasks" %} - {{ all_items_length }}/{{ item_list|length }}</h1>
-                        {% endif %}
-                        <h5 id="today">{% trans "Day Month Weekday" %}</h5>
+    {% with current_page=request.GET.page_by|default:'home' search_by=request.GET.search_by|default:'' sort_by=request.GET.sort_by|default:'id' filter_by=request.GET.filter_by|default:'none' %}
+    <body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+        <main class="login-container" style="max-width: 900px;">
+            <div class="login-card border-circle" style="padding: 0; overflow: visible;">
+                <header class="login-header board-container" style="margin-bottom: 0; padding: 2rem 2rem 1rem 2rem; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <h1 class="login-title" style="font-size: 2rem; margin-bottom: 0;">{% trans "Todo List" %}</h1>
                     </div>
-                    <div class="search_bar">
-                        <div class="lang dropdown">
-                            <i class="fa-solid fa-language"></i>
-                            <div class="lang_options dropdown-content">
-                                {% if lang_by == "en" %}
-                                <a class="green" onclick="lang_by.value = 'en';post_form.submit();">English</a>
-                                {% else %}
-                                <a onclick="lang_by.value = 'en';post_form.submit();">English</a>
-                                {% endif %}
-                                {% if lang_by == "ru" %}
-                                <a class="green" onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
-                                {% else %}
-                                <a onclick="lang_by.value = 'ru';post_form.submit();">Русский</a>
-                                {% endif %}
-                                {% if lang_by == "tr" %}
-                                <a class="green" onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
-                                {% else %}
-                                <a onclick="lang_by.value = 'tr';post_form.submit();">Türkçe</a>
-                                {% endif %}
-                                {% if lang_by == "tk" %}
-                                <a class="green" onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
-                                {% else %}
-                                <a onclick="lang_by.value = 'tk';post_form.submit();">Türkmençe</a>
-                                {% endif %}
+                    <nav style="background-color: transparent !important; display: flex; gap: 1rem; align-items: center;">
+                        <!-- Theme Toggle -->
+                        <button id="theme-toggle" class="login-button" style="padding: 0.5rem 1rem; font-size: 1rem; background: none; color: #6b7280; border: 1px solid var(--border-color);" onclick="toggleTheme()" title="{% trans 'Toggle dark/light mode' %}">
+                            <i class="fa fa-moon" id="theme-icon" aria-hidden="true"></i>
+                        </button>
+                        <!-- Language Switcher -->
+                        <div class="language-switcher" style="position: relative;">
+                            <button class="login-button" style="padding: 0.5rem 1rem; font-size: 1rem; background: none; color: #6b7280; border: 1px solid var(--border-color);" onclick="toggleLanguageMenu()">
+                                <i class="fa fa-globe" aria-hidden="true"></i> {% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE|upper }}
+                            </button>
+                            <div id="language-menu" style="display: none; position: absolute; top: 100%; right: 0; background: #354155; border: 1px solid var(--border-color); border-radius: var(--radius-md); box-shadow: var(--shadow-md); z-index: 1000; min-width: 120px;">
+                                <a href="{% url 'language_switch' 'en' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">English</a>
+                                <a href="{% url 'language_switch' 'ru' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">Русский</a>
+                                <a href="{% url 'language_switch' 'tk' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat; border-bottom: 1px solid var(--border-color);">Türkmençe</a>
+                                <a href="{% url 'language_switch' 'tr' %}" style="display: block; padding: 0.5rem 1rem; text-decoration: none; color: wheat;">Türkçe</a>
                             </div>
                         </div>
-                        <div class="sort dropdown">
-                            <i class="fa-solid fa-arrow-down-wide-short"></i>
-                            <div class="sort_options dropdown-content" id="sort_options">
-                                {% if sort_by == "id" %}
-                                <a class="green" onclick="sort_by.value = '-id';post_form.submit();">{% trans "Id" %} ⬇</a>
-                                {% elif sort_by == "-id" %}
-                                <a class="green" onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬆</a>
+                        <button class="login-button" style="padding: 0.5rem 1rem; font-size: 1rem; background: none; color: var(--primary-color); border: 1px solid var(--primary-color);" onclick="location.href='{% url 'logout' %}'">
+                            <i class="fa fa-sign-out button-icon" aria-hidden="true"></i> {% trans "Log Out" %}
+                        </button>
+                    </nav>
+                </header>
+                <div class="board-container" style="padding: 2rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+                        <div>
+                            <h2 style="margin: 0; font-size: 1.5rem; color: var(--primary-color);">
+                                {% if current_page == "favorites" %}
+                                    <i class="fa fa-star" style="color: gold;"></i> {% trans "Favorite Tasks" %}
+                                {% elif current_page == "deleted" %}
+                                    <i class="fa fa-trash" style="color: #ef4444;"></i> {% trans "Deleted Tasks" %}
                                 {% else %}
-                                <a onclick="sort_by.value = 'id';post_form.submit();">{% trans "Id" %} ⬇</a>
+                                    <i class="fa fa-tasks"></i> {% trans "All Tasks" %}
                                 {% endif %}
-                                {% if sort_by == "title" %}
-                                <a class="green" onclick="sort_by.value = '-title';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
-                                {% elif sort_by == "-title" %}
-                                <a class="green" onclick="sort_by.value = 'title';post_form.submit();">{% trans "Alphabetical" %} ⬆</a>
-                                {% else %}
-                                <a onclick="sort_by.value = 'title';post_form.submit();">{% trans "Alphabetical" %} ⬇</a>
-                                {% endif %}
-                                {% if sort_by == "target_date_time" %}
-                                <a class="green" onclick="sort_by.value = '-target_date_time';post_form.submit();">{% trans "Target Date" %} ⬇</a>
-                                {% elif sort_by == "-target_date_time" %}
-                                <a class="green" onclick="sort_by.value = 'target_date_time';post_form.submit();">{% trans "Target Date" %} ⬆</a>
-                                {% else %}
-                                <a onclick="sort_by.value = 'target_date_time';post_form.submit();">{% trans "Target Date" %} ⬇</a>
-                                {% endif %}
-                            </div>
+                                <span style="font-size: 1rem; color: #6b7280;">({{ all_items_length }}/{{ item_list|length }})</span>
+                            </h2>
+                            <div style="color: #6b7280; font-size: 0.95rem;">{% now "l, d F Y" %}</div>
                         </div>
-                        <div class="filter dropdown">
-                            <i class="fa-solid fa-filter"></i>
-                            <div class="filter_options dropdown-content" id="filter_options">
-                                {% if filter_by == "none" %}
-                                <a class="green" onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
-                                {% else %}
-                                <a onclick="filter_by.value = 'none';post_form.submit();">{% trans "$None" %}</a>
-                                {% endif %}
-                                {% if filter_by == "favorites" %}
-                                <a class="green" onclick="filter_by.value = '-favorites';post_form.submit();">{% trans "Favorites" %}</a>
-                                {% elif filter_by == "-favorites" %}
-                                <a class="green" onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Unfavorites" %}</a>
-                                {% else %}
-                                <a onclick="filter_by.value = 'favorites';post_form.submit();">{% trans "Favorites" %}</a>
-                                {% endif %}
-                                {% if filter_by == "completed" %}
-                                <a class="green" onclick="filter_by.value = '-completed';post_form.submit();">{% trans "Completed" %}</a>
-                                {% elif filter_by == "-completed" %}
-                                <a class="green" onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Inompleted" %}</a>
-                                {% else %}
-                                <a onclick="filter_by.value = 'completed';post_form.submit();">{% trans "Completed" %}</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    	<form method='get' id='post_form' class="post_form">
-                            <input id="page_by" name="page_by" style="visibility:hidden; position:absolute;" value="{{ current_page }}">
-                            <input id="search_by" name='search_by' onchange='post_form.submit();' placeholder="{% trans "$Search" %}" value="{{ search_by }}">
-                            <i id="search_i" class="fa fa-search" aria-hidden="true"></i>
-                            <input id="sort_by" name="sort_by" style="visibility:hidden; position:absolute;" value="{{ sort_by }}">
-                            <input id="filter_by" name="filter_by" style="visibility:hidden; position:absolute;" value="{{ filter_by }}">
-                            <input id="lang_by" name="lang_by" style="visibility:hidden; position:absolute;" value="{{ lang_by }}">
+                        <form method='get' id='post_form' class="post_form" style="display: flex; gap: 0.5rem; align-items: center;">
+                            <input id="page_by" name="page_by" type="hidden" value="{{ current_page }}">
+                            <input id="search_by" name='search_by' placeholder="{% trans 'Search tasks...' %}" value="{{ search_by }}" class="form-input" style="min-width: 180px;">
+                            <button type="submit" class="login-button" style="padding: 0.5rem 1rem; font-size: 1rem; background: var(--primary-color); color: white; border: none;">
+                                <i class="fa fa-search"></i>
+                            </button>
                         </form>
-                        <form id="delete_form" method="post">{% csrf_token %}</form>
+                            </div>
+
+                    <!-- Filter and Sort Controls -->
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; align-items: center;">
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <label style="color: #374151; font-size: var(--font-size-sm);">{% trans "Sort by:" %}</label>
+                            <select name="sort_by" onchange="updateSort(this.value)" class="form-input" style="padding: 0.3rem 0.5rem; font-size: var(--font-size-sm);">
+                                <option value="created_date_time" {% if sort_by == 'created_date_time' %}selected{% endif %}>{% trans "Date Created" %}</option>
+                                <option value="target_date_time" {% if sort_by == 'target_date_time' %}selected{% endif %}>{% trans "Target Date" %}</option>
+                                <option value="title" {% if sort_by == 'title' %}selected{% endif %}>{% trans "Title" %}</option>
+                                <option value="is_completed" {% if sort_by == 'is_completed' %}selected{% endif %}>{% trans "Status" %}</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <label style="color: #374151; font-size: var(--font-size-sm);">{% trans "Filter:" %}</label>
+                            <select name="filter_by" onchange="updateFilter(this.value)" class="form-input" style="padding: 0.3rem 0.5rem; font-size: var(--font-size-sm);">
+                                <option value="all" {% if filter_by == 'all' %}selected{% endif %}>{% trans "All Tasks" %}</option>
+                                <option value="completed" {% if filter_by == 'completed' %}selected{% endif %}>{% trans "Completed" %}</option>
+                                <option value="pending" {% if filter_by == 'pending' %}selected{% endif %}>{% trans "Pending" %}</option>
+                                <option value="favorite" {% if filter_by == 'favorite' %}selected{% endif %}>{% trans "Favorites" %}</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                        <button class="login-button {% if current_page == 'home' %}active{% endif %}" style="padding: 0.5rem 1.2rem; font-size: 1rem;" onclick="page_by.value = 'home';post_form.submit();">
+                            <i class="fa fa-tasks"></i> {% trans "All Tasks" %}
+                        </button>
+                        <button class="login-button {% if current_page == 'favorites' %}active{% endif %}" style="padding: 0.5rem 1.2rem; font-size: 1rem; background: linear-gradient(135deg, #fbbf24, #f59e42); color: #fff; border: none;" onclick="page_by.value = 'favorites';post_form.submit();">
+                            <i class="fa fa-star"></i> {% trans "Favorites" %}
+                        </button>
+                        <button class="login-button {% if current_page == 'deleted' %}active{% endif %}" style="padding: 0.5rem 1.2rem; font-size: 1rem; background: linear-gradient(135deg, #ef4444, #f87171); color: #fff; border: none;" onclick="page_by.value = 'deleted';post_form.submit();">
+                            <i class="fa fa-trash"></i> {% trans "Deleted" %}
+                        </button>
                 </div>
-                <div class="content">
-                    <div class="add" onclick="on_add_click();">
-                        <button id='add_btn' onclick="on_add_click();">+</button>
-                        <a>{% trans "Add tasks for today" %}</a>
+                    <div style="margin-bottom: 2rem;">
+                        <button id='add_btn' class="login-button" style="padding: 0.7rem 1.5rem; font-size: 1.1rem; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none; margin-bottom: 1rem;" onclick="on_add_click();">
+                            <i class="fa fa-plus"></i> {% trans "Add tasks for today" %}
+                        </button>
                     </div>
+                    <div style="display: flex; flex-direction: column; gap: 1.2rem;">
                     {% for item in item_list %}
-                    <div class='item' onclick="on_item_click(expand_{{ item.pk }})">
-                        <a id="title_{{ item.pk }}" class="title2">{{ item.title }}</a>
-                        <div class='item_head'>
-                            <!--<a>{{ item.pk }}.</a> -->
-                            <!--<a>{{ forloop.counter }}.</a> -->
+                        <div class='login-card' style="box-shadow: var(--shadow-md); padding: 1.2rem 1.5rem; margin: 0; border-radius: var(--radius-lg); background: #fff; display: flex; flex-direction: column; gap: 0.5rem; transition: var(--transition-normal);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='var(--shadow-lg)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-md)'">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 0.7rem;">
+                                    <span class="button-icon" style="font-size: 1.2rem; color: {% if item.is_favorite %}#fbbf24{% else %}#d1d5db{% endif %}; cursor: pointer; transition: var(--transition-normal);" onclick="location.href='{% url 'favorite_item' item.id %}';" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                                        <i class="fa fa-star"></i>
+                                    </span>
+                                    <span style="font-weight: 600; font-size: 1.1rem; color: #1f2937;">{{ item.title }}</span>
                             {% if item.is_completed %}
-                            <div onclick="location.href='{% url 'complete_item' item.id %}';"><input type="checkbox" class="checkbox" onclick='return false' checked></div>
-                            {% else %}
-                            <div onclick="location.href='{% url 'complete_item' item.id %}';"><input type="checkbox" class="checkbox" onclick='return false'></div>
+                                        <span class="button-icon" style="color: #10b981; margin-left: 0.5rem;"><i class="fa fa-check-circle"></i></span>
                             {% endif %}
-                            {% if item.is_favorite %}
-                            <span class="fa fa-star checked" onclick="location.href='{% url 'favorite_item' item.id %}';"></span>
-                            {% else %}
-                            <span class='fa fa-star' onclick="location.href='{% url 'favorite_item' item.id %}';"></span>
-                            {% endif %}
-                            <a id="title_{{ item.pk }}" class="title">{{ item.title }}</a>
-                            <a class="created">{{ item.target_date_time|date:"d M" }}</a>
-                            <div class="item-options dropdown">
-                                <i class="fa fa-edit"></i>
-                                <div class="options dropdown-content">
-                                    {% if current_page == "deleted" %}
-                                    <a class="recover" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Recover Task" %}</a>
-                                    <a class="delete" onclick="delete_form.action = '{% url 'delete_item' item.pk %}'; delete_form.submit();">{% trans "Delete Permanently" %}</a>
-                                    {% else %}
-                                    <a onclick="on_edit_click({{ item.pk }}, '{{item.target_date_time|date:'Y-m-d'}}T{{item.target_date_time|time:'H:i'}}', '{% url 'edit_item' item.pk %}');">{% trans "Edit Task" %}</a>
-                                        {% if item.is_favorite %}
-                                    <a onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Unfavorite" %}</a>
-                                        {% else %}
-                                    <a onclick="location.href='{% url 'favorite_item' item.id %}';">{% trans "Mark as Favorite" %}</a>
-                                        {% endif %}
-                                        {% if item.is_completed %}
-                                    <a onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Incomplete" %}</a>
-                                        {% else %}
-                                    <a onclick="location.href='{% url 'complete_item' item.id %}';">{% trans "Mark as Complete" %}</a>
-                                        {% endif %}
-                                    <a class="delete" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans "Delete Task" %}</a>
-                                    {% endif %}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 0.95rem; color: #6b7280;">{{ item.target_date_time|date:"d M" }}</span>
+                                    <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem; background: #f3f4f6; color: var(--primary-color); border: none;" onclick="on_item_click(expand_{{ item.pk }})">
+                                        <i class="fa fa-chevron-down"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <div id="expand_{{ item.pk }}" class="item_expand">
-                            <div class="description">
-                                <label class="label" for="expand_{{ item.pk }}">{% trans 'DESCRIPTION:' %}</label>
-                                <textarea class="area" id="content_{{ item.pk }}" disabled>{{ item.content }}</textarea>
-                            </div>
-                            <div>
-                                <label class="label" for="expand_{{ item.pk }}">{% trans 'TARGET DATE TIME:' %}</label>
-                                <a class="date">{{ item.target_date_time }}</a>
-                            </div>
-                            <div>
-                                <label class="label" for="expand_{{ item.pk }}">{% trans 'CREATED DATE TIME:' %}</label>
-                                <a class="date">{{ item.created_date_time }}</a>
+                            <div id="expand_{{ item.pk }}" class="item_expand" style="display: none; margin-top: 0.7rem; animation: slideInRight 0.3s ease-out;">
+                                <div style="margin-bottom: 0.5rem;"><strong style="color: #374151;">{% trans 'Description:' %}</strong> <span style="color: #1f2937;">{{ item.content }}</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong style="color: #374151;">{% trans 'Target Date:' %}</strong> <span style="color: #1f2937;">{{ item.target_date_time }}</span></div>
+                                <div style="margin-bottom: 0.5rem;"><strong style="color: #374151;">{% trans 'Created:' %}</strong> <span style="color: #1f2937;">{{ item.created_date_time }}</span></div>
+                                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+                                    <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; border: none;" onclick="on_edit_click({{ item.pk }}, '{{item.target_date_time|date:'Y-m-d'}}T{{item.target_date_time|time:'H:i'}}', '{% url 'edit_item' item.pk %}');">{% trans 'Edit' %}</button>
+                                    {% if current_page == "deleted" %}
+                                        <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem; background: linear-gradient(135deg, #10b981, #06b6d4); color: #fff; border: none;" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans 'Recover' %}</button>
+                                        <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem; background: linear-gradient(135deg, #ef4444, #f87171); color: #fff; border: none;" onclick="delete_form.action = '{% url 'delete_item' item.pk %}'; delete_form.submit();">{% trans 'Delete Permanently' %}</button>
+                                    {% else %}
+                                        <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem; background: linear-gradient(135deg, #ef4444, #f87171); color: #fff; border: none;" onclick="location.href='{% url 'recover_item' item.id %}';">{% trans 'Delete' %}</button>
+                                    {% endif %}
                             </div>
                         </div>
                     </div>
                     {% endfor %}
-                    <div class="spacer"><pre></pre></div>
-                </div>
-                <div class="paginator">
-                    <div class="iterator" onclick="location.href='{{ query_string }}1';">
-                        <i class="fa-solid fa-angle-left"></i>
-                        <h4>{% trans "First" %}</h4>
                     </div>
+                    <div class="paginator" style="margin-top: 2rem; display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem;" onclick="location.href='{{ query_string }}1';">
+                            <i class="fa fa-angle-double-left"></i> {% trans "First" %}
+                        </button>
                     {% if page_obj.has_previous %}
-                    <a onclick="location.href='{{ query_string }}{{ page_obj.previous_page_number }}'">{{ page_obj.previous_page_number }}</a>
+                        <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem;" onclick="location.href='{{ query_string }}{{ page_obj.previous_page_number }}'">{{ page_obj.previous_page_number }}</button>
                     {% endif %}
-                    <a class="current">{{ page_obj.number }}</a>
+                        <span class="login-button active" style="padding: 0.3rem 0.7rem; font-size: 0.95rem; background: var(--primary-color); color: #fff;">{{ page_obj.number }}</span>
                     {% if page_obj.has_next %}
-                    <a onclick="location.href='{{ query_string }}{{ page_obj.next_page_number }}'">{{ page_obj.next_page_number }}</a>
+                        <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem;" onclick="location.href='{{ query_string }}{{ page_obj.next_page_number }}'">{{ page_obj.next_page_number }}</button>
                     {% endif %}
-                    <div class="iterator" onclick="location.href='{{ query_string }}{{ page_obj.paginator.num_pages }}';">
-                        <h4>{% trans "Last" %}</h4>
-                        <i class="fa-solid fa-angle-right"></i>
+                        <button class="login-button" style="padding: 0.3rem 0.7rem; font-size: 0.95rem;" onclick="location.href='{{ query_string }}{{ page_obj.paginator.num_pages }}';">
+                            {% trans "Last" %} <i class="fa fa-angle-double-right"></i>
+                        </button>
                     </div>
-                </div>
-                <div class="nav_3">
-                    {% if current_page == "home" %}
-                    <a class="active">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                    </a>
-                    {% else %}
-                    <a onclick="page_by.value = 'home';post_form.submit();">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                    </a>
-                    {% endif %}
-                    {% if current_page == "favorites" %}
-                    <a class="active">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </a>
-                    {% else %}
-                    <a onclick="page_by.value = 'favorites';post_form.submit();">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </a>
-                    {% endif %}
-                    {% if current_page == "deleted" %}
-                    <a class="active">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                    {% else %}
-                    <a onclick="page_by.value = 'deleted';post_form.submit();">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                    {% endif %}
-                    <a onclick="location.href='{% url 'logout' %}';">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    </a>
                 </div>
             </div>
-        </section>
-        <section id="add_section" class='add_section'>
-            <div id="add_box" class="add_box">
-                <div class="add_header">
-                    <label for="add-box">{% trans 'New Task' %}</label>
-                    <button class="close_btn" onclick="on_close_click();"><i class="fa fa-close"></i></button>
-                </div>
-                <form id='add_form' action="{% url 'create_item' %}" class="add_form" method='post'>
-                    {% csrf_token %}
-                    <div class="field">
-                        <label for="add">{% trans 'Title:' %}</label>
-                        <input name='title' maxlength='50' placeholder="{% trans 'Required' %}">
+            <!-- Add/Edit Modals -->
+            <section id="add_section" class='add_section' style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+                <div id="add_box" class="login-card" style="max-width: 400px; margin: 2rem auto; position: relative; top: 50%; transform: translateY(-50%); animation: fadeInUp 0.3s ease-out;">
+                    <div class="login-header" style="margin-bottom: 1.5rem;">
+                        <label for="add-box" class="login-title">{% trans 'New Task' %}</label>
+                        <button class="close_btn" onclick="on_close_click();" style="background: none; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;"><i class="fa fa-close"></i></button>
                     </div>
-                    <div class="field">
+                    <form id='add_form' action="{% url 'create_item' %}" class="login-form" method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="add">{% trans 'Title:' %}</label>
+                            <input name='title' maxlength='50' placeholder="{% trans 'Required' %}" class="form-input">
+                        </div>
+                        <div class="form-group">
                         <label for="add">{% trans 'Description:' %}</label>
-                        <textarea name='content' maxlength='255' rows='10' style="resize:none;" placeholder="{% trans 'Optional' %}"></textarea>
+                            <textarea name='content' maxlength='255' rows='5' style="resize:none;" placeholder="{% trans 'Optional' %}" class="form-input"></textarea>
                     </div>
-                    <div class="field">
+                        <div class="form-group">
                         <label for="add">{% trans 'Target date time:' %}</label>
-                        <input id="target_date_time" name='target_date_time' type="datetime-local">
+                            <input id="target_date_time" name='target_date_time' type="datetime-local" class="form-input">
                     </div>
-                    <div class="field submit">
-                        <input type="submit" value="{% trans 'Create Task' %}">
-                    </div>
+                        <button type="submit" class="login-button" style="margin-top: 1rem;">
+                            <span class="button-text">{% trans 'Create Task' %}</span>
+                            <i class="fa fa-plus button-icon" aria-hidden="true"></i>
+                        </button>
                 </form>
             </div>
         </section>
-        <section id="edit_section" class='add_section'>
-            <div id="add_box" class="add_box">
-                <div class="add_header">
-                    <label for="add-box">{% trans 'Edit Task' %}</label>
-                    <button class="close_btn" onclick="on_close_click();"><i class="fa fa-close"></i></button>
-                </div>
-                <form id='edit_form' action="" class="add_form" method='post'>
-                    {% csrf_token %}
-                    <div class="field">
-                        <label for="add">{% trans 'Title:' %}</label>
-                        <input id="edit_title" name='title' maxlength='50'>
+            <section id="edit_section" class='add_section' style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+                <div id="edit_box" class="login-card" style="max-width: 400px; margin: 2rem auto; position: relative; top: 50%; transform: translateY(-50%); animation: fadeInUp 0.3s ease-out;">
+                    <div class="login-header" style="margin-bottom: 1.5rem;">
+                        <label for="edit-box" class="login-title">{% trans 'Edit Task' %}</label>
+                        <button class="close_btn" onclick="on_close_click();" style="background: none; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;"><i class="fa fa-close"></i></button>
                     </div>
-                    <div class="field">
-                        <label for="add">{% trans 'Description:' %}</label>
-                        <textarea id="edit_content" name='content' maxlength='255' rows='10' style="resize:none;"></textarea>
+                    <form id='edit_form' action="" class="login-form" method='post'>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="edit">{% trans 'Title:' %}</label>
+                            <input id="edit_title" name='title' maxlength='50' class="form-input">
                     </div>
-                    <div class="field">
-                        <label for="add">{% trans 'Target date time:' %}</label>
-                        <input id="edit_target_date_time" name='target_date_time' type="datetime-local">
+                        <div class="form-group">
+                            <label for="edit">{% trans 'Description:' %}</label>
+                            <textarea id="edit_content" name='content' maxlength='255' rows='5' style="resize:none;" class="form-input"></textarea>
                     </div>
-                    <div class="field submit">
-                        <input type="submit" value="{% trans 'Save Task' %}">
+                        <div class="form-group">
+                            <label for="edit">{% trans 'Target date time:' %}</label>
+                            <input id="edit_target_date_time" name='target_date_time' type="datetime-local" class="form-input">
                     </div>
+                        <button type="submit" class="login-button" style="margin-top: 1rem;">
+                            <span class="button-text">{% trans 'Save Task' %}</span>
+                            <i class="fa fa-save button-icon" aria-hidden="true"></i>
+                        </button>
                 </form>
             </div>
         </section>
+        </main>
+        <form id="delete_form" method="post">{% csrf_token %}</form>
         <script src="{% static 'scripts/home.js' %}"></script>
+        <script>
+            // Language menu toggle
+            function toggleLanguageMenu() {
+                const menu = document.getElementById('language-menu');
+                menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+            }
+
+            // Close language menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.language-switcher')) {
+                    document.getElementById('language-menu').style.display = 'none';
+                }
+            });
+
+            // Update sort and filter
+            function updateSort(value) {
+                const url = new URL(window.location);
+                url.searchParams.set('sort_by', value);
+                window.location.href = url.toString();
+            }
+
+            function updateFilter(value) {
+                const url = new URL(window.location);
+                url.searchParams.set('filter_by', value);
+                window.location.href = url.toString();
+            }
+
+            // Expand/collapse item details
+            function on_item_click(id) {
+                var el = document.getElementById(id.id);
+                if (el.style.display === 'none' || el.style.display === '') {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            }
+
+            // Show add/edit modals
+            function on_add_click() {
+                document.getElementById('add_section').style.display = 'block';
+            }
+
+            function on_close_click() {
+                document.getElementById('add_section').style.display = 'none';
+                document.getElementById('edit_section').style.display = 'none';
+            }
+
+            function on_edit_click(pk, datetime, url) {
+                document.getElementById('edit_section').style.display = 'block';
+                document.getElementById('edit_form').action = url;
+                document.getElementById('edit_target_date_time').value = datetime;
+                document.getElementById('edit_title').value = document.getElementById('title_' + pk).innerText;
+                document.getElementById('edit_content').value = document.getElementById('content_' + pk).value || '';
+            }
+
+            // Close modals when clicking outside
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('add_section')) {
+                    on_close_click();
+                }
+            });
+        </script>
     </body>
     {% endwith %}
-</HTML>
+</html>

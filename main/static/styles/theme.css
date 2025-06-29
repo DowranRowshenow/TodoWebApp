@@ -1,0 +1,382 @@
+/* Theme Variables */
+:root {
+    /* Light Theme Colors */
+    --bg-light: #cbd6dd;
+    --card-light: #ffffff;
+    --text-primary-light: #1f2937;
+    --text-secondary-light: #6b7280;
+    --border-light: #e5e7eb;
+    --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --hover-light: #f3f4f6;
+    --input-bg-light: #ffffff;
+    --modal-bg-light: rgba(0, 0, 0, 0.5);
+    --button-bg-light: #6366f1;
+    --button-text-light: #ffffff;
+
+    /* Dark Theme Colors */
+    --bg-dark: #3b3f4e;
+    --card-dark: #374151;
+    --text-primary-dark: #f9fafb;
+    --text-secondary-dark: #d1d5db;
+    --border-dark: #4b5563;
+    --shadow-dark: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --hover-dark: #4b5563;
+    --input-bg-dark: #374151;
+    --modal-bg-dark: rgba(0, 0, 0, 0.7);
+    --button-bg-dark: #6366f1;
+    --button-text-dark: #ffffff;
+
+    /* Default to light theme */
+    --bg: var(--bg-light);
+    --card: var(--card-light);
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --border: var(--border-light);
+    --shadow: var(--shadow-light);
+    --hover: var(--hover-light);
+    --input-bg: var(--input-bg-light);
+    --modal-bg: var(--modal-bg-light);
+    --button-bg: var(--button-bg-light);
+    --button-text: var(--button-text-light);
+}
+
+/* Dark Theme */
+body.dark-theme {
+    --bg: var(--bg-dark);
+    --card: var(--card-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --border: var(--border-dark);
+    --shadow: var(--shadow-dark);
+    --hover: var(--hover-dark);
+    --input-bg: var(--input-bg-dark);
+    --modal-bg: var(--modal-bg-dark);
+    --button-bg: var(--button-bg-dark);
+    --button-text: var(--button-text-dark);
+}
+
+/* Apply theme colors */
+body {
+
+    background: var(--bg) !important;
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Cards and containers */
+.login-card,
+.login-container {
+    background: var(--card) !important;
+    color: var(--text-primary);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+}
+
+.board-container {
+    background-color: #f0eaf1 !important;
+}
+
+body.dark-theme .board-container {
+    background-color: #1f2937 !important;
+}
+
+/* Text colors */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+div {
+    color: var(--text-primary);
+}
+
+/* Form inputs */
+.form-input,
+input,
+textarea,
+select {
+    background: var(--input-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+}
+
+.form-input::placeholder,
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary) !important;
+}
+
+/* Buttons */
+.login-button {
+    background: var(--card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+}
+
+.login-button:hover {
+    background: var(--hover) !important;
+}
+
+/* Fix transparent buttons with white text */
+.login-button[style*="background: none"] {
+    background: var(--card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+}
+
+.login-button[style*="background: none"]:hover {
+    background: var(--hover) !important;
+}
+
+/* Theme toggle button specific styles */
+#theme-toggle {
+    background: transparent !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    background: var(--hover) !important;
+    transform: scale(1.1);
+}
+
+/* Modals */
+.add_section,
+.edit_section {
+    background: var(--modal-bg) !important;
+}
+
+/* Task items */
+.item,
+.item_expand {
+    background: var(--card) !important;
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+/* Navigation */
+nav,
+.language-switcher button {
+    background: var(--card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+}
+
+/* Language menu */
+#language-menu {
+    background: var(--card) !important;
+    border-color: var(--border) !important;
+}
+
+#language-menu a {
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+}
+
+#language-menu a:hover {
+    background: var(--hover) !important;
+}
+
+/* Pagination */
+.paginator button,
+.paginator span {
+    background: var(--card) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border) !important;
+}
+
+.paginator button:hover {
+    background: var(--hover) !important;
+}
+
+/* Smooth transitions for all elements */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark theme specific overrides */
+body.dark-theme .login-button[style*="background: linear-gradient"] {
+    opacity: 0.9;
+}
+
+/* Ensure proper contrast for completed tasks */
+.fa-check-circle {
+    color: #10b981 !important;
+}
+
+/* Star colors */
+.fa-star {
+    color: #fbbf24 !important;
+}
+
+/* Error and success messages */
+.error-message,
+.message.error {
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
+    border-color: #fecaca !important;
+}
+
+.success-message,
+.message.success {
+    background: #d1fae5 !important;
+    color: #059669 !important;
+    border-color: #a7f3d0 !important;
+}
+
+body.dark-theme .error-message,
+body.dark-theme .message.error {
+    background: #7f1d1d !important;
+    color: #fca5a5 !important;
+    border-color: #991b1b !important;
+}
+
+body.dark-theme .success-message,
+body.dark-theme .message.success {
+    background: #064e3b !important;
+    color: #6ee7b7 !important;
+    border-color: #065f46 !important;
+}
+
+/* Ensure proper contrast for all text elements */
+body.dark-theme {
+    color: #f9fafb !important;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6,
+body.dark-theme p,
+body.dark-theme span,
+body.dark-theme div,
+body.dark-theme label {
+    color: #f9fafb !important;
+}
+
+body.dark-theme .text-secondary,
+body.dark-theme [style*="color: #6b7280"],
+body.dark-theme [style*="color: var(--text-secondary)"] {
+    color: #d1d5db !important;
+}
+
+/* Fix specific button styles */
+body.dark-theme .login-button[style*="color: #6b7280"] {
+    color: #d1d5db !important;
+}
+
+body.dark-theme .login-button[style*="color: var(--text-secondary)"] {
+    color: #d1d5db !important;
+}
+
+/* Ensure form inputs have proper contrast */
+body.dark-theme .form-input,
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+    color: #f9fafb !important;
+    background: #374151 !important;
+}
+
+body.dark-theme .form-input::placeholder,
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+    color: #9ca3af !important;
+}
+
+/* Task item specific styling for dark mode */
+body.dark-theme .item_expand strong,
+body.dark-theme .item_expand span,
+body.dark-theme .item_expand div {
+    color: #f9fafb !important;
+}
+
+/* Fix task item text colors */
+body.dark-theme .item_expand [style*="color: #374151"],
+body.dark-theme .item_expand [style*="color: #1f2937"] {
+    color: #f9fafb !important;
+}
+
+/* Fix task title and content text */
+body.dark-theme .item span[style*="color: #1f2937"],
+body.dark-theme .item span[style*="font-weight: 600"] {
+    color: #f9fafb !important;
+}
+
+/* Fix date text in task items */
+body.dark-theme .item span[style*="color: #6b7280"] {
+    color: #d1d5db !important;
+}
+
+/* Fix task item background */
+body.dark-theme .item {
+    background: #374151 !important;
+    color: #f9fafb !important;
+}
+
+/* Fix task item hover effects */
+body.dark-theme .item:hover {
+    background: #4b5563 !important;
+}
+
+/* Fix task item expand section */
+body.dark-theme .item_expand {
+    background: #374151 !important;
+    color: #f9fafb !important;
+}
+
+/* Fix all text within task cards */
+body.dark-theme .login-card[style*="background: #fff"] {
+    background: #374151 !important;
+}
+
+body.dark-theme .login-card[style*="background: #fff"] * {
+    color: #f9fafb !important;
+}
+
+/* Fix specific text elements that might be overridden */
+body.dark-theme span[style*="color: #1f2937"] {
+    color: #f9fafb !important;
+}
+
+body.dark-theme span[style*="color: #374151"] {
+    color: #f9fafb !important;
+}
+
+/* Additional fixes for task item text */
+body.dark-theme strong[style*="color: #374151"] {
+    color: #f9fafb !important;
+}
+
+body.dark-theme strong[style*="color: #1f2937"] {
+    color: #f9fafb !important;
+}
+
+/* Fix task card backgrounds specifically */
+body.dark-theme .login-card {
+    background: #374151 !important;
+}
+
+/* Fix all text within task cards more specifically */
+body.dark-theme .login-card span,
+body.dark-theme .login-card strong,
+body.dark-theme .login-card div {
+    color: #f9fafb !important;
+}
+
+/* Fix task item specific styling */
+body.dark-theme .login-card[style*="background: #fff"] {
+    background: #374151 !important;
+}
+
+body.dark-theme .login-card[style*="background: #fff"] span,
+body.dark-theme .login-card[style*="background: #fff"] strong,
+body.dark-theme .login-card[style*="background: #fff"] div {
+    color: #f9fafb !important;
+}

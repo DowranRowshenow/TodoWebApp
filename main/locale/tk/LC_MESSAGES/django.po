@@ -1,178 +1,161 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Turkmen translations for Todo Web App.
+# Copyright (C) 2024 Todo Web App
+# This file is distributed under the same license as the Todo Web App package.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Todo Web App 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-05 01:19+0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: 2024-01-01 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Turkmen\n"
+"Language: tk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\templates\home.html:6
-msgid "$Home"
-msgstr "Öý"
+#: templates/home.html:6
+msgid "Home"
+msgstr "Baş sahypa"
 
-#: .\templates\home.html:24 .\templates\home.html:29 .\templates\home.html:67
-msgid "All Tasks"
-msgstr "Ähli Meseleler"
+#: templates/home.html:35
+msgid "Todo List"
+msgstr "Işler sanawy"
 
-#: .\templates\home.html:35 .\templates\home.html:40 .\templates\home.html:132
-#: .\templates\home.html:136
-msgid "Favorites"
-msgstr "Halanlarym"
-
-#: .\templates\home.html:46
-msgid "Delete"
-msgstr "Poz"
-
-#: .\templates\home.html:51
-msgid "Deleted"
-msgstr "Pozulanlar"
-
-#: .\templates\home.html:56
+#: templates/home.html:44
 msgid "Log Out"
-msgstr "Çyk"
+msgstr "Çykmak"
 
-#: .\templates\home.html:63
+#: templates/home.html:55
 msgid "Favorite Tasks"
-msgstr "Halan Meselelerim"
+msgstr "Halanan işler"
 
-#: .\templates\home.html:65
+#: templates/home.html:57
 msgid "Deleted Tasks"
-msgstr ""
+msgstr "Öçürilen işler"
 
-#: .\templates\home.html:69
+#: templates/home.html:59
+msgid "All Tasks"
+msgstr "Ähli işler"
+
+#: templates/home.html:62
 msgid "Day Month Weekday"
-msgstr "Gün aýy dynç güni"
+msgstr "Gün Aý Haftanyň güni"
 
-#: .\templates\home.html:101 .\templates\home.html:103
-#: .\templates\home.html:105
-msgid "Id"
-msgstr "Id"
+#: templates/home.html:66
+msgid "Search tasks..."
+msgstr "Işleri gözlemek..."
 
-#: .\templates\home.html:108 .\templates\home.html:110
-#: .\templates\home.html:112
-msgid "Alphabetical"
-msgstr "Elipbiý boýunça"
+#: templates/home.html:75
+msgid "Sort by:"
+msgstr "Tertiplemek:"
 
-#: .\templates\home.html:115 .\templates\home.html:117
-#: .\templates\home.html:119
+#: templates/home.html:77
+msgid "Date Created"
+msgstr "Döredilen sene"
+
+#: templates/home.html:78
 msgid "Target Date"
-msgstr "Maksat Senesi"
+msgstr "Niýetlenen sene"
 
-#: .\templates\home.html:127 .\templates\home.html:129
-msgid "$None"
-msgstr "Hiçbiri"
+#: templates/home.html:79
+msgid "Title"
+msgstr "Ady"
 
-#: .\templates\home.html:134
-msgid "Unfavorites"
-msgstr "Halamaýanlar"
+#: templates/home.html:80
+msgid "Status"
+msgstr "Ýagdaýy"
 
-#: .\templates\home.html:139 .\templates\home.html:143
+#: templates/home.html:84
+msgid "Filter:"
+msgstr "Süzgüç:"
+
+#: templates/home.html:87
 msgid "Completed"
-msgstr "Tamamlandy"
+msgstr "Tamamlanan"
 
-#: .\templates\home.html:141
-msgid "Inompleted"
-msgstr "Tamamlanmadyk"
+#: templates/home.html:88
+msgid "Pending"
+msgstr "Garaşýan"
 
-#: .\templates\home.html:149
-msgid "$Search"
-msgstr "Gözle"
+#: templates/home.html:89
+msgid "Favorites"
+msgstr "Halanan"
 
-#: .\templates\home.html:161
+#: templates/home.html:99
+msgid "Deleted"
+msgstr "Öçürilen"
+
+#: templates/home.html:106
 msgid "Add tasks for today"
-msgstr "Şu gün üçin meseleler goşuň"
+msgstr "Şu gün üçin işler goşmak"
 
-#: .\templates\home.html:184
-msgid "Recover Task"
-msgstr "Maksat dikeltmek"
+#: templates/home.html:125
+msgid "Description:"
+msgstr "Düşündiriş:"
 
-#: .\templates\home.html:185
+#: templates/home.html:126
+msgid "Target Date:"
+msgstr "Niýetlenen sene:"
+
+#: templates/home.html:127
+msgid "Created:"
+msgstr "Döredilen:"
+
+#: templates/home.html:130
+msgid "Edit"
+msgstr "Redaktirlemek"
+
+#: templates/home.html:132
+msgid "Recover"
+msgstr "Ýenilemek"
+
+#: templates/home.html:133
 msgid "Delete Permanently"
-msgstr "Hemişelik poz"
+msgstr "Möwsüm öçürmek"
 
-#: .\templates\home.html:187 .\templates\home.html:269
-msgid "Edit Task"
-msgstr "Maksady üýtget"
+#: templates/home.html:135
+msgid "Delete"
+msgstr "Öçürmek"
 
-#: .\templates\home.html:189
-msgid "Mark as Unfavorite"
-msgstr "Halanmadyk diýip belläň"
-
-#: .\templates\home.html:191
-msgid "Mark as Favorite"
-msgstr "Halaýan hökmünde belläň"
-
-#: .\templates\home.html:194
-msgid "Mark as Incomplete"
-msgstr "Tamamlanmadyk däl diýip belläň"
-
-#: .\templates\home.html:196
-msgid "Mark as Complete"
-msgstr "Tamamlanan diýip belläň"
-
-#: .\templates\home.html:198
-msgid "Delete Task"
-msgstr "Meseläni poz"
-
-#: .\templates\home.html:205
-msgid "DESCRIPTION:"
-msgstr "DÜŞÜNDIRIŞ:"
-
-#: .\templates\home.html:209
-msgid "TARGET DATE TIME:"
-msgstr "MAKSAT SENESI:"
-
-#: .\templates\home.html:213
-msgid "CREATED DATE TIME:"
-msgstr "DÖREDILEN SENESI:"
-
-#: .\templates\home.html:224
+#: templates/home.html:143
 msgid "First"
-msgstr "Başky"
+msgstr "Ilkinji"
 
-#: .\templates\home.html:234
+#: templates/home.html:150
 msgid "Last"
 msgstr "Soňky"
 
-#: .\templates\home.html:243
+#: templates/home.html:160
 msgid "New Task"
-msgstr "Täze Maksat"
+msgstr "Täze iş"
 
-#: .\templates\home.html:249 .\templates\home.html:275
+#: templates/home.html:167
 msgid "Title:"
 msgstr "Ady:"
 
-#: .\templates\home.html:250
+#: templates/home.html:169
 msgid "Required"
-msgstr "Hökmany"
+msgstr "Gerekli"
 
-#: .\templates\home.html:253 .\templates\home.html:279
-msgid "Description:"
-msgstr "Düşündiriş"
-
-#: .\templates\home.html:254
+#: templates/home.html:174
 msgid "Optional"
-msgstr "Meýletin"
+msgstr "Ihtýar"
 
-#: .\templates\home.html:257 .\templates\home.html:283
+#: templates/home.html:177
 msgid "Target date time:"
-msgstr "Maksat Senesi"
+msgstr "Niýetlenen sene we wagt:"
 
-#: .\templates\home.html:261
+#: templates/home.html:181
 msgid "Create Task"
-msgstr "Maksat Döret"
+msgstr "Iş döretmek"
 
-#: .\templates\home.html:287
+#: templates/home.html:190
+msgid "Edit Task"
+msgstr "Işi redaktirlemek"
+
+#: templates/home.html:211
 msgid "Save Task"
-msgstr "Maksady ýatda sakla"
+msgstr "Işi ýatda saklamak"

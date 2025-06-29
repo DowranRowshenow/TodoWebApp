@@ -5,7 +5,20 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.utils import translation
+from django.conf import settings
+from django.http import HttpResponse
 from main.models import Todo
+
+
+class LanguageSwitchView(View):
+    def get(self, request, language_code):
+        if language_code in [lang[0] for lang in settings.LANGUAGES]:
+            translation.activate(language_code)
+            response = HttpResponse(status=302)
+            response['Location'] = request.META.get('HTTP_REFERER', '/')
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, language_code)
+            return response
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 class TodoListView(ListView):
@@ -39,14 +52,9 @@ class TodoListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['query_string'] = '?page_by=' + str(self.request.GET.get("page_by", "home")) + '&search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&lang_by=' + str(self.request.GET.get("lang_by", "en")) + '&page='
+        context['query_string'] = '?page_by=' + str(self.request.GET.get("page_by", "home")) + '&search_by=' + str(self.request.GET.get("search_by", "")) + '&sort_by=' + str(self.request.GET.get("sort_by", "id")) + '&filter_by=' + str(self.request.GET.get("filter_by", "none")) + '&page='
         context['all_items_length'] = Todo.objects.filter(owner = self.request.user).count()
         return context
-
-    def get(self, request, *args, **kwargs):
-        lang = self.request.GET.get("lang_by", "en")
-        translation.activate(lang)
-        return super().get(request, *args, **kwargs)
 
 
 class CreateItemView(CreateView):

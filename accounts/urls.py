@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 from django.contrib.auth import views as auth_views
 from . import views
+from .views import ResendVerificationEmailView
 
 urlpatterns = [
     path('', views.BaseView.as_view(), name="base"),
@@ -37,4 +38,5 @@ urlpatterns = [
         name='password_reset_complete'
     ),
     path('logout/', views.LogoutView.as_view(), name="logout"),
+    path('resend-verification/', ResendVerificationEmailView.as_view(), name='resend_verification'),
 ]

@@ -17,18 +17,20 @@ INSTALL AND RUN VIRTUAL ENVIRONMENT:
 
 INSTALL REQUIREMENTS:
 
-`./todoproject.requirements.txt`
+`py -m pip install -r requirements.txt`
 
 Requirements used for this project
 
 
-    asgiref==3.5.2
-    Django==4.0.6
-    gunicorn==20.1.0
-    python-gettext==4.0
-    sqlparse==0.4.2
-    tzdata==2022.1
-    whitenoise==6.2.0
+    asgiref==3.8.1
+    Django==5.2.3
+    gunicorn==23.0.0
+    packaging==25.0
+    python-gettext==5.0
+    sqlparse==0.5.3
+    typing_extensions==4.14.0
+    tzdata==2025.2
+    whitenoise==6.9.0
 
 NOTE. Project uses `Whitenoise` to handle static files. And `gettext` for translations.
 
@@ -36,6 +38,8 @@ FINAL STEPS:
 
 Open `commandline` where `manage.py` is located in the project folder and enter the following commands:
 
+    py manage.py makemigrations accounts
+    py manage.py makemigrations main
     py manage.py makemigrations
     py manage.py migrate
     py manage.py runserver

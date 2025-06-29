@@ -1,9 +1,10 @@
 # Virtual environments
 .venv/
 .venv2/
-venv/
-env/
-.env/
+.tools/
+
+# 3rd Party files
+*.mo
 
 # Python cache files
 __pycache__/
@@ -64,7 +65,7 @@ db.sqlite3-journal
 media/
 
 # Static files (collected)
-#staticfiles/
+staticfiles/
 #static/
 
 # IDE-specific files
