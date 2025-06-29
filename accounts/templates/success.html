@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+{% load i18n %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="title" content="Welcome Todo Web App"/>
+        <meta name="description" content="Welcome Todo Web App"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Todo Web App</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
+        <link rel="stylesheet" href="{% static 'styles/token.css' %}"/>
+    </head>
+    <body>
+        <section>
+            <div class="box">
+                <h1>{% trans "Your account is verified" %}</h1>
+                <h2>{% trans "Please login" %}</h2>
+                <button id="login_btn" onclick="location.href='{% url 'login' %}'">{% trans "Login" %}</button>
+            </div>
+        </section>
+    </body>
+</html>

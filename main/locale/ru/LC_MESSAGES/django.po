@@ -1,0 +1,180 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-05 01:18+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%"
+"100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\templates\home.html:6
+msgid "$Home"
+msgstr "Дом"
+
+#: .\templates\home.html:24 .\templates\home.html:29 .\templates\home.html:67
+msgid "All Tasks"
+msgstr "Все задачи"
+
+#: .\templates\home.html:35 .\templates\home.html:40 .\templates\home.html:132
+#: .\templates\home.html:136
+msgid "Favorites"
+msgstr "Избранное"
+
+#: .\templates\home.html:46
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\templates\home.html:51
+msgid "Deleted"
+msgstr "Удалено"
+
+#: .\templates\home.html:56
+msgid "Log Out"
+msgstr "Выйти"
+
+#: .\templates\home.html:63
+msgid "Favorite Tasks"
+msgstr "Избранные задачи"
+
+#: .\templates\home.html:65
+msgid "Deleted Tasks"
+msgstr "Удаленные задачи"
+
+#: .\templates\home.html:69
+msgid "Day Month Weekday"
+msgstr "День Месяц Рабочий день"
+
+#: .\templates\home.html:101 .\templates\home.html:103
+#: .\templates\home.html:105
+msgid "Id"
+msgstr "Ид"
+
+#: .\templates\home.html:108 .\templates\home.html:110
+#: .\templates\home.html:112
+msgid "Alphabetical"
+msgstr "Алфавитный"
+
+#: .\templates\home.html:115 .\templates\home.html:117
+#: .\templates\home.html:119
+msgid "Target Date"
+msgstr "Установленный срок"
+
+#: .\templates\home.html:127 .\templates\home.html:129
+msgid "$None"
+msgstr "Ничто"
+
+#: .\templates\home.html:134
+msgid "Unfavorites"
+msgstr "Неизбранное"
+
+#: .\templates\home.html:139 .\templates\home.html:143
+msgid "Completed"
+msgstr "Завершенный"
+
+#: .\templates\home.html:141
+msgid "Inompleted"
+msgstr "Незавершенный"
+
+#: .\templates\home.html:149
+msgid "$Search"
+msgstr "Поиск"
+
+#: .\templates\home.html:161
+msgid "Add tasks for today"
+msgstr "Добавьте задачи на сегодня"
+
+#: .\templates\home.html:184
+msgid "Recover Task"
+msgstr "Восстановить задачу"
+
+#: .\templates\home.html:185
+msgid "Delete Permanently"
+msgstr "Удалить навсегда"
+
+#: .\templates\home.html:187 .\templates\home.html:269
+msgid "Edit Task"
+msgstr "Изменить задачу"
+
+#: .\templates\home.html:189
+msgid "Mark as Unfavorite"
+msgstr "Отметить как неизбранное"
+
+#: .\templates\home.html:191
+msgid "Mark as Favorite"
+msgstr "Отметить как избранное"
+
+#: .\templates\home.html:194
+msgid "Mark as Incomplete"
+msgstr "Отметить как незавершенное"
+
+#: .\templates\home.html:196
+msgid "Mark as Complete"
+msgstr "Отметить как выполненное"
+
+#: .\templates\home.html:198
+msgid "Delete Task"
+msgstr "Удалить задачу"
+
+#: .\templates\home.html:205
+msgid "DESCRIPTION:"
+msgstr "ОПИСАНИЕ:"
+
+#: .\templates\home.html:209
+msgid "TARGET DATE TIME:"
+msgstr "ЦЕЛЕВАЯ ДАТА ВРЕМЯ:"
+
+#: .\templates\home.html:213
+msgid "CREATED DATE TIME:"
+msgstr "ДАТА ВРЕМЯ СОЗДАНИЯ:"
+
+#: .\templates\home.html:224
+msgid "First"
+msgstr "Первый"
+
+#: .\templates\home.html:234
+msgid "Last"
+msgstr "Последний"
+
+#: .\templates\home.html:243
+msgid "New Task"
+msgstr "Новое задание"
+
+#: .\templates\home.html:249 .\templates\home.html:275
+msgid "Title:"
+msgstr "Заголовок:"
+
+#: .\templates\home.html:250
+msgid "Required"
+msgstr "Необходимый"
+
+#: .\templates\home.html:253 .\templates\home.html:279
+msgid "Description:"
+msgstr "Описание:"
+
+#: .\templates\home.html:254
+msgid "Optional"
+msgstr "По желанию"
+
+#: .\templates\home.html:257 .\templates\home.html:283
+msgid "Target date time:"
+msgstr "Целевая дата и время:"
+
+#: .\templates\home.html:261
+msgid "Create Task"
+msgstr "Создать задачу"
+
+#: .\templates\home.html:287
+msgid "Save Task"
+msgstr "Сохранить задачу"

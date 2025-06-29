@@ -1,0 +1,178 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-05 01:19+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\home.html:6
+msgid "$Home"
+msgstr "Öý"
+
+#: .\templates\home.html:24 .\templates\home.html:29 .\templates\home.html:67
+msgid "All Tasks"
+msgstr "Ähli Meseleler"
+
+#: .\templates\home.html:35 .\templates\home.html:40 .\templates\home.html:132
+#: .\templates\home.html:136
+msgid "Favorites"
+msgstr "Halanlarym"
+
+#: .\templates\home.html:46
+msgid "Delete"
+msgstr "Poz"
+
+#: .\templates\home.html:51
+msgid "Deleted"
+msgstr "Pozulanlar"
+
+#: .\templates\home.html:56
+msgid "Log Out"
+msgstr "Çyk"
+
+#: .\templates\home.html:63
+msgid "Favorite Tasks"
+msgstr "Halan Meselelerim"
+
+#: .\templates\home.html:65
+msgid "Deleted Tasks"
+msgstr ""
+
+#: .\templates\home.html:69
+msgid "Day Month Weekday"
+msgstr "Gün aýy dynç güni"
+
+#: .\templates\home.html:101 .\templates\home.html:103
+#: .\templates\home.html:105
+msgid "Id"
+msgstr "Id"
+
+#: .\templates\home.html:108 .\templates\home.html:110
+#: .\templates\home.html:112
+msgid "Alphabetical"
+msgstr "Elipbiý boýunça"
+
+#: .\templates\home.html:115 .\templates\home.html:117
+#: .\templates\home.html:119
+msgid "Target Date"
+msgstr "Maksat Senesi"
+
+#: .\templates\home.html:127 .\templates\home.html:129
+msgid "$None"
+msgstr "Hiçbiri"
+
+#: .\templates\home.html:134
+msgid "Unfavorites"
+msgstr "Halamaýanlar"
+
+#: .\templates\home.html:139 .\templates\home.html:143
+msgid "Completed"
+msgstr "Tamamlandy"
+
+#: .\templates\home.html:141
+msgid "Inompleted"
+msgstr "Tamamlanmadyk"
+
+#: .\templates\home.html:149
+msgid "$Search"
+msgstr "Gözle"
+
+#: .\templates\home.html:161
+msgid "Add tasks for today"
+msgstr "Şu gün üçin meseleler goşuň"
+
+#: .\templates\home.html:184
+msgid "Recover Task"
+msgstr "Maksat dikeltmek"
+
+#: .\templates\home.html:185
+msgid "Delete Permanently"
+msgstr "Hemişelik poz"
+
+#: .\templates\home.html:187 .\templates\home.html:269
+msgid "Edit Task"
+msgstr "Maksady üýtget"
+
+#: .\templates\home.html:189
+msgid "Mark as Unfavorite"
+msgstr "Halanmadyk diýip belläň"
+
+#: .\templates\home.html:191
+msgid "Mark as Favorite"
+msgstr "Halaýan hökmünde belläň"
+
+#: .\templates\home.html:194
+msgid "Mark as Incomplete"
+msgstr "Tamamlanmadyk däl diýip belläň"
+
+#: .\templates\home.html:196
+msgid "Mark as Complete"
+msgstr "Tamamlanan diýip belläň"
+
+#: .\templates\home.html:198
+msgid "Delete Task"
+msgstr "Meseläni poz"
+
+#: .\templates\home.html:205
+msgid "DESCRIPTION:"
+msgstr "DÜŞÜNDIRIŞ:"
+
+#: .\templates\home.html:209
+msgid "TARGET DATE TIME:"
+msgstr "MAKSAT SENESI:"
+
+#: .\templates\home.html:213
+msgid "CREATED DATE TIME:"
+msgstr "DÖREDILEN SENESI:"
+
+#: .\templates\home.html:224
+msgid "First"
+msgstr "Başky"
+
+#: .\templates\home.html:234
+msgid "Last"
+msgstr "Soňky"
+
+#: .\templates\home.html:243
+msgid "New Task"
+msgstr "Täze Maksat"
+
+#: .\templates\home.html:249 .\templates\home.html:275
+msgid "Title:"
+msgstr "Ady:"
+
+#: .\templates\home.html:250
+msgid "Required"
+msgstr "Hökmany"
+
+#: .\templates\home.html:253 .\templates\home.html:279
+msgid "Description:"
+msgstr "Düşündiriş"
+
+#: .\templates\home.html:254
+msgid "Optional"
+msgstr "Meýletin"
+
+#: .\templates\home.html:257 .\templates\home.html:283
+msgid "Target date time:"
+msgstr "Maksat Senesi"
+
+#: .\templates\home.html:261
+msgid "Create Task"
+msgstr "Maksat Döret"
+
+#: .\templates\home.html:287
+msgid "Save Task"
+msgstr "Maksady ýatda sakla"

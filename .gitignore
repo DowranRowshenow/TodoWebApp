@@ -64,8 +64,8 @@ db.sqlite3-journal
 media/
 
 # Static files (collected)
-staticfiles/
-static/
+#staticfiles/
+#static/
 
 # IDE-specific files
 .idea/
