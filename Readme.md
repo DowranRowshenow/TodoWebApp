@@ -89,11 +89,11 @@ Create a `superuser`. Enter the following commands:
 
 ### Clone Repository
     
-    git clone 'repo_url'
+    git clone 'https://github.com/DowranRowshenow/TodoWebApp.git'
 
 ### Go to project dir
     
-    cd repo_project_name
+    cd TodoWebApp
 
 ### Install Required Python version if needed
     
