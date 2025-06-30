@@ -8,8 +8,12 @@ from django.utils import translation
 from django.conf import settings
 from django.http import HttpResponse
 from main.models import Todo
+from django.shortcuts import redirect
 
+def redirect_to_base(request, exception):
+    return redirect('/')
 
+    
 class LanguageSwitchView(View):
     def get(self, request, language_code):
         if language_code in [lang[0] for lang in settings.LANGUAGES]:

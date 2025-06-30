@@ -4,6 +4,9 @@ from django.conf.urls.i18n import i18n_patterns
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from accounts import views
+from django.conf.urls import handler404
+
+handler404 = 'main.views.redirect_to_base'
 
 def redirect_to_todos(request):
     return redirect('base')
