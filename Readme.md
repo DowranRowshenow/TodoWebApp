@@ -31,7 +31,7 @@ Don't forget to take a look at the `TIME_ZONE`, `ALLOWED_HOSTS` and `LANGUAGE_CO
 ### SETUP EMAIL
 
 Enable and set up 2-step verification on your gmail account and Add App Password 
-`https://support.google.com/mail/answer/185833?hl=en`
+- https://support.google.com/mail/answer/185833?hl=en`
 
 Or use another service
 
@@ -41,15 +41,15 @@ Or use another service
 
 Install `Python` and setup if you haven't
 
-`https://www.python.org/downloads`
+- https://www.python.org/downloads`
 
 Install `Git` and Setup if you haven't
 
-`https://git-scm.com/downloads/win`
+- https://git-scm.com/downloads/win
 
 Install `PostgreSQL` and Setup if you haven't
 
-`https://www.postgresql.org/download/windows/`
+- https://www.postgresql.org/download/windows/`
 
 Write initial User and Password in setup process
 
@@ -74,7 +74,7 @@ Install requirements:
 
 Install gettext for `Windows` if you haven't
 
-`https://gnuwin32.sourceforge.net/packages/gettext.htm`
+- https://gnuwin32.sourceforge.net/packages/gettext.htm
 
 Requirements used for this project
 
@@ -143,11 +143,11 @@ Install Virtual Environment if you haven't
 
 Create Virtual Environment
     
-    python3 -m venv .venv
+    python3 -m venv venv
 
 Activate Virtual Environment
     
-    source .venv/bin/activate
+    source venv/bin/activate
 
 Configure mirror repository for pip if needed
     
@@ -163,21 +163,15 @@ Write into `pip.conf`
 
 Install Requirements.txt
     
-    python3 -m pip install -r requirements.txt
+    pip install -r requirements.txt
 
 Install Gettext if you haven't
     
     sudo apt install gettext
 
-Install gunicorn if you haven't
-    
-    sudo apt install gunicorn
-
 ### SETUP DATABASE
 
 Install `PostgresSQL`:
-
-
 
 Setup `PostgreSQL` and configure `.env` with credentials:
 
@@ -202,7 +196,7 @@ And Finally Run the server
     
     python3 manage.py runserver
 
-Or for Production
+Or with Gunicorn
 
     gunicorn todoproject.wsgi:application --bind 0.0.0.0:8000
 
